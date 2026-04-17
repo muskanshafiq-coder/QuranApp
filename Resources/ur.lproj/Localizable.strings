@@ -1,0 +1,79 @@
+/*
+  Localizable.strings
+  new project
+
+  Created by Muhammad Ahsan on 17/03/2026.
+  
+*/
+"more_features_title" = "شروع کریں";
+"notification_title" = "نوٹیفیکیشن";
+"verse_of_the_day_permission" = "روزانہ کا آیت وصول کرنے کے لیے آپ کو نوٹیفیکیشن کی اجازت دینی ہوگی";
+"app_name_quran" = "قرآن";
+"app_name_pro" = "پرو";
+"app_description" = "دنیا کی خوبصورت ترین آوازوں سے قرآن سنیں۔ بہترین مطالعے کے تجربے کے ساتھ۔";
+"sign_in_apple" = "ایپل کے ساتھ سائن ان کریں";
+"other_sign_in_options" = "دیگر سائن ان کے اختیارات";
+"skip_button" = "چھوڑیں";
+"allow_button" = "اجازت دیں";
+"more_features" = "مزید خصوصیات";
+"more_features_description" = "قرآن پرو سب سے مکمل پلیٹ فارم فراہم کرتا ہے جو قرآن سننے اور پڑھنے کے لیے تیار کیا گیا ہے، جس میں کئی خصوصیات شامل ہیں۔";
+"feature_apple_watch_title" = "ایپل واچ";
+"feature_apple_watch_desc" = "ایپل واچ کے ذریعہ قرآن سننے کا بہترین تجربہ حاصل کریں بغیر iPhone کی ضرورت کے (*ڈیٹا پلان درکار ہے)۔";
+"feature_ads_free_title" = "بغیر اشتہارات";
+"feature_ads_free_desc" = "اشتہارات پریمی صارفین کے تجربے میں رکاوٹ نہیں ڈالتے۔";
+"feature_audio_sync_title" = "آڈیو ہم آہنگی";
+"feature_audio_sync_desc" = "قرآنی آیات آڈیو کے ساتھ جادوی انداز میں ہم آہنگ ہیں۔ صرف بعض قاریوں کے لیے دستیاب ہے۔";
+"feature_carplay_title" = "کار پلے";
+"feature_carplay_desc" = "اپنے پسندیدہ قاریوں اور پلے لسٹ تک براہ راست گاڑی کے ڈیش بورڈ سے رسائی کے لیے تیار رہیں۔";
+"start_button" = "ایپ شروع کریں";
+"app_description" = "آپ کی ایپ کا بیان یہاں آئے گا";
+"terms_prefix" = "سائن ان کر کے آپ ہماری";
+"terms_of_service" = "خدمات کی شرائط";
+"terms_and" = " اور ";
+"privacy_policy" = "رازداری کی پالیسی";
+
+/* Settings */
+"settings_title" = "ترتیبات";
+"settings_sign_in" = "سائن ان";
+"settings_sign_in_subtitle" = "بُک مارکس، پلے لسٹیں اور پسندیدہ محفوظ کرنے کی سہولت دیتا ہے";
+"settings_premium" = "پریمیم";
+"settings_premium_subtitle" = "فعال نہیں — زندگی بھر";
+"settings_update" = "اپ ڈیٹ";
+"settings_update_subtitle" = "اپنی ایپ ہمیشہ تازہ رکھیں";
+"settings_membership_benefits" = "رکنیت کے فوائد";
+"settings_section_appearance" = "ظاہری شکل";
+"settings_appearance" = "ظاہری شکل";
+"settings_color" = "رنگ";
+"settings_app_icon" = "ایپ آئیکن";
+"settings_notifications" = "اطلاعات";
+"settings_section_advanced" = "اعلیٰ";
+"settings_audio_quality" = "آڈیو کوالٹی";
+"settings_font" = "فونٹ";
+"settings_translation_manager" = "ترجمہ منیجر";
+"settings_download_manager" = "ڈاؤن لوڈ منیجر";
+"settings_language" = "زبان";
+"settings_clear_cache" = "کیش صاف کریں";
+"settings_pair_tv_app" = "TV ایپ جوڑیں";
+"settings_section_support" = "معاونت";
+"settings_support" = "معاونت";
+"settings_rate_us" = "ہمیں درجہ دیں";
+"settings_social_media" = "سوشل میڈیا";
+"settings_our_apps" = "ہماری ایپس";
+"settings_credits" = "شراکت کار";
+"share_title" = "شیئر کریں";
+"upgrade_title" = "اپگریڈ کریں";
+"notifications_title" = "اطلاعات";
+"settings_title" = "سیٹنگز";
+"language_title" = "زبان";
+"lang_en" = "انگریزی";
+"lang_ar" = "عربی";
+"lang_fr" = "فرانسیسی";
+"lang_de" = "جرمن";
+"lang_it" = "اطالوی";
+"lang_es" = "ہسپانوی";
+"lang_nl" = "ڈچ";
+"lang_id" = "انڈونیشی";
+"lang_ms" = "ملائی";
+"lang_tr" = "ترکی";
+"lang_ur" = "اردو";
+"lang_ru" = "روسی";

@@ -1,0 +1,79 @@
+/*
+  Localizable.strings
+  new project
+
+  Created by Muhammad Ahsan on 17/03/2026.
+  
+*/
+"more_features_title" = "Başla";
+"notification_title" = "Bildirim";
+"verse_of_the_day_permission" = "Günün ayetini almak için bildirimlere izin vermeniz gerekmektedir";
+"app_name_quran" = "Kur'an";
+"app_name_pro" = "Pro";
+"app_description" = "Dünyanın en güzel seslerinden Kur'an'ı dinleyin. En iyi okuma deneyimi ile birlikte.";
+"sign_in_apple" = "Apple ile Giriş Yap";
+"other_sign_in_options" = "Diğer Giriş Seçenekleri";
+"skip_button" = "Atla";
+"allow_button" = "İzin Ver";
+"more_features" = "Daha Fazla Özellik";
+"more_features_description" = "Quran Pro, Kur'an'ı dinlemek ve okumak için şimdiye kadar yaratılmış en kapsamlı platformu, birçok özellikle sunuyor";
+"feature_apple_watch_title" = "Apple Watch";
+"feature_apple_watch_desc" = "iPhone’a ihtiyaç duymadan Kur'an dinlemek için Apple Watch’un sunduğu en iyi deneyimin tadını çıkarın (*veri planı gerekir).";
+"feature_ads_free_title" = "Reklamsız";
+"feature_ads_free_desc" = "Reklamlar premium kullanıcıların deneyimini kesintiye uğratmaz.";
+"feature_audio_sync_title" = "Ses Senkronizasyonu";
+"feature_audio_sync_desc" = "Kur'an ayetleri, sesle büyülü bir şekilde senkronize edilir. Sadece bazı okuyucular için geçerlidir.";
+"feature_carplay_title" = "CarPlay";
+"feature_carplay_desc" = "Tüm favori okuyucularınıza ve çalma listenize doğrudan arabanızın kontrol panelinden erişmeye hazır olun.";
+"start_button" = "Uygulamayı Başlat";
+"app_description" = "Uygulamanızın açıklaması buraya gelecek";
+"terms_prefix" = "Giriş yaparak kabul etmiş olursunuz";
+"terms_of_service" = "Hizmet Şartları";
+"terms_and" = " ve ";
+"privacy_policy" = "Gizlilik Politikası";
+
+/* Settings */
+"settings_title" = "Ayarlar";
+"settings_sign_in" = "Giriş yap";
+"settings_sign_in_subtitle" = "Yer imleri, çalma listeleri ve favorileri saklamanıza olanak tanır";
+"settings_premium" = "Premium";
+"settings_premium_subtitle" = "Aktif değil — Ömür boyu";
+"settings_update" = "Güncelle";
+"settings_update_subtitle" = "Uygulamanızı her zaman güncel tutun";
+"settings_membership_benefits" = "Üyelik avantajları";
+"settings_section_appearance" = "Görünüm";
+"settings_appearance" = "Görünüm";
+"settings_color" = "Renk";
+"settings_app_icon" = "Uygulama simgesi";
+"settings_notifications" = "Bildirimler";
+"settings_section_advanced" = "Gelişmiş";
+"settings_audio_quality" = "Ses kalitesi";
+"settings_font" = "Yazı tipi";
+"settings_translation_manager" = "Çeviri yöneticisi";
+"settings_download_manager" = "İndirme yöneticisi";
+"settings_language" = "Dil";
+"settings_clear_cache" = "Önbelleği temizle";
+"settings_pair_tv_app" = "TV uygulamasını eşle";
+"settings_section_support" = "Destek";
+"settings_support" = "Destek";
+"settings_rate_us" = "Bizi değerlendirin";
+"settings_social_media" = "Sosyal medya";
+"settings_our_apps" = "Uygulamalarımız";
+"settings_credits" = "Teşekkürler";
+"share_title" = "Paylaş";
+"upgrade_title" = "Yükselt";
+"notifications_title" = "Bildirimler";
+"settings_title" = "Ayarlar";
+"language_title" = "Dil";
+"lang_en" = "İngilizce";
+"lang_ar" = "Arapça";
+"lang_fr" = "Fransızca";
+"lang_de" = "Almanca";
+"lang_it" = "İtalyanca";
+"lang_es" = "İspanyolca";
+"lang_nl" = "Hollandaca";
+"lang_id" = "Endonezce";
+"lang_ms" = "Malayca";
+"lang_tr" = "Türkçe";
+"lang_ur" = "Urduca";
+"lang_ru" = "Rusça";

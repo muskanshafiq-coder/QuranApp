@@ -1,0 +1,80 @@
+/* 
+  Localizable.strings
+  new project
+
+  Created by Muhammad Ahsan on 17/03/2026.
+  
+*/
+"more_features_title" = "ابدأ";
+"notification_title" = "إشعار";
+"verse_of_the_day_permission" = "لتلقي آية اليوم، ستحتاج إلى السماح بالإشعارات";
+"app_name_quran" = "القرآن";
+"app_name_pro" = "برو";
+"app_description" = "استمع إلى القرآن من أجمل الأصوات في العالم. مع أفضل تجربة قراءة.";
+"sign_in_apple" = "تسجيل الدخول باستخدام أبل";
+"other_sign_in_options" = "خيارات تسجيل الدخول الأخرى";
+"skip_button" = "تخطي";
+"allow_button" = "السماح";
+"more_features" = "المزيد من الميزات";
+"more_features_description" = "يقدم قرآن برو أكثر منصة كاملة للاستماع وقراءة القرآن مع مجموعة كبيرة من الميزات";
+"feature_apple_watch_title" = "أبل واتش";
+"feature_apple_watch_desc" = "استمتع بأفضل تجربة للاستماع إلى القرآن باستخدام أبل واتش دون الحاجة إلى الآيفون (*تحتاج إلى خطة بيانات).";
+"feature_ads_free_title" = "بدون إعلانات";
+"feature_ads_free_desc" = "الإعلانات لا تقاطع المستمعين المميزين.";
+"feature_audio_sync_title" = "تزامن الصوت";
+"feature_audio_sync_desc" = "آيات القرآن متزامنة مع الصوت بطريقة سحرية. متاحة لبعض القراء فقط.";
+"feature_carplay_title" = "كار بلاي";
+"feature_carplay_desc" = "استعد للوصول إلى جميع القراء المفضلين لديك وقائمة التشغيل مباشرة من لوحة سيارتك.";
+"more_features_title" = "ابدأ";
+"app_description" = "هنا تذهب وصف التطبيق الخاص بك";
+"start_button" = "ابدأ التطبيق";
+"terms_prefix" = "بتسجيل الدخول أنت توافق على";
+"terms_of_service" = "شروط الخدمة";
+"terms_and" = " و ";
+"privacy_policy" = "سياسة الخصوصية";
+
+/* Settings */
+"settings_title" = "الإعدادات";
+"settings_sign_in" = "تسجيل الدخول";
+"settings_sign_in_subtitle" = "يتيح لك حفظ المرجعيات وقوائم التشغيل والمفضلة";
+"settings_premium" = "بريميوم";
+"settings_premium_subtitle" = "غير مفعّل — مدى الحياة";
+"settings_update" = "تحديث";
+"settings_update_subtitle" = "حافظ على تحديث تطبيقك دائماً";
+"settings_membership_benefits" = "مزايا العضوية";
+"settings_section_appearance" = "المظهر";
+"settings_appearance" = "المظهر";
+"settings_color" = "اللون";
+"settings_app_icon" = "أيقونة التطبيق";
+"settings_notifications" = "الإشعارات";
+"settings_section_advanced" = "متقدم";
+"settings_audio_quality" = "جودة الصوت";
+"settings_font" = "الخط";
+"settings_translation_manager" = "إدارة الترجمات";
+"settings_download_manager" = "إدارة التنزيلات";
+"settings_language" = "اللغة";
+"settings_clear_cache" = "مسح الذاكرة المؤقتة";
+"settings_pair_tv_app" = "ربط تطبيق التلفزيون";
+"settings_section_support" = "الدعم";
+"settings_support" = "الدعم";
+"settings_rate_us" = "قيّمنا";
+"settings_social_media" = "وسائل التواصل";
+"settings_our_apps" = "تطبيقاتنا";
+"settings_credits" = "الاعتمادات";
+"share_title" = "مشاركة";
+"upgrade_title" = "ترقية";
+"notifications_title" = "الإشعارات";
+"settings_title" = "الإعدادات";
+"language_title" = "اللغة";
+"lang_en" = "الإنجليزية";
+"lang_ar" = "العربية";
+"lang_fr" = "الفرنسية";
+"lang_de" = "الألمانية";
+"lang_it" = "الإيطالية";
+"lang_es" = "الإسبانية";
+"lang_nl" = "الهولندية";
+"lang_id" = "الإندونيسية";
+"lang_ms" = "الماليزية";
+"lang_tr" = "التركية";
+"lang_ur" = "الأردية";
+"lang_ru" = "الروسية";

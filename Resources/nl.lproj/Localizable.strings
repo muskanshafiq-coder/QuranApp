@@ -1,0 +1,79 @@
+/*
+  Localizable.strings
+  new project
+
+  Created by Muhammad Ahsan on 17/03/2026.
+  
+*/
+"more_features_title" = "Start";
+"notification_title" = "Melding";
+"verse_of_the_day_permission" = "Om het vers van de dag te ontvangen, moet u meldingen toestaan";
+"app_name_quran" = "Koran";
+"app_name_pro" = "Pro";
+"app_description" = "Luister naar de Koran met de mooiste stemmen ter wereld. Samen met de beste leeservaring.";
+"sign_in_apple" = "Aanmelden met Apple";
+"other_sign_in_options" = "Andere aanmeldopties";
+"skip_button" = "Overslaan";
+"allow_button" = "Toestaan";
+"more_features" = "Meer functies";
+"more_features_description" = "Quran Pro biedt het meest complete platform ooit gemaakt om de Koran te luisteren en te lezen met een groot aantal functies";
+"feature_apple_watch_title" = "Apple Watch";
+"feature_apple_watch_desc" = "Geniet van de beste ervaring die de Apple Watch biedt om de Koran te luisteren zonder iPhone (*dataplan vereist).";
+"feature_ads_free_title" = "Advertentievrij";
+"feature_ads_free_desc" = "Reclames onderbreken premium luisteraars niet.";
+"feature_audio_sync_title" = "Audio-synchronisatie";
+"feature_audio_sync_desc" = "De Koranverzen zijn op magische wijze gesynchroniseerd met de audio. Alleen beschikbaar voor sommige reciters.";
+"feature_carplay_title" = "CarPlay";
+"feature_carplay_desc" = "Toegang tot al je favoriete reciters en je afspeellijst direct vanaf het dashboard van je auto.";
+"start_button" = "Start App";
+"app_description" = "Uw app-beschrijving gaat hier";
+"terms_prefix" = "Door in te loggen accepteert u onze";
+"terms_of_service" = "Gebruiksvoorwaarden";
+"terms_and" = " en ";
+"privacy_policy" = "Privacybeleid";
+
+/* Settings */
+"settings_title" = "Instellingen";
+"settings_sign_in" = "Inloggen";
+"settings_sign_in_subtitle" = "Hiermee sla je bladwijzers, afspeellijsten en favorieten op";
+"settings_premium" = "Premium";
+"settings_premium_subtitle" = "Niet actief — Levenslang";
+"settings_update" = "Bijwerken";
+"settings_update_subtitle" = "Houd je app altijd up-to-date";
+"settings_membership_benefits" = "Lidmaatschapsvoordelen";
+"settings_section_appearance" = "Weergave";
+"settings_appearance" = "Weergave";
+"settings_color" = "Kleur";
+"settings_app_icon" = "App-pictogram";
+"settings_notifications" = "Meldingen";
+"settings_section_advanced" = "Geavanceerd";
+"settings_audio_quality" = "Audiokwaliteit";
+"settings_font" = "Lettertype";
+"settings_translation_manager" = "Vertaalbeheer";
+"settings_download_manager" = "Downloadbeheer";
+"settings_language" = "Taal";
+"settings_clear_cache" = "Cache wissen";
+"settings_pair_tv_app" = "TV-app koppelen";
+"settings_section_support" = "Ondersteuning";
+"settings_support" = "Ondersteuning";
+"settings_rate_us" = "Beoordeel ons";
+"settings_social_media" = "Sociale media";
+"settings_our_apps" = "Onze apps";
+"settings_credits" = "Met dank aan";
+"share_title" = "Delen";
+"upgrade_title" = "Upgrade";
+"notifications_title" = "Meldingen";
+"settings_title" = "Instellingen";
+"language_title" = "Taal";
+"lang_en" = "Engels";
+"lang_ar" = "Arabisch";
+"lang_fr" = "Frans";
+"lang_de" = "Duits";
+"lang_it" = "Italiaans";
+"lang_es" = "Spaans";
+"lang_nl" = "Nederlands";
+"lang_id" = "Indonesisch";
+"lang_ms" = "Maleis";
+"lang_tr" = "Turks";
+"lang_ur" = "Urdu";
+"lang_ru" = "Russisch";

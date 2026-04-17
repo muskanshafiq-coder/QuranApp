@@ -1,0 +1,77 @@
+/*
+  Localizable.strings
+  Spanish localization
+*/
+
+"more_features_title" = "Comenzar";
+"notification_title" = "Notificación";
+"verse_of_the_day_permission" = "Para recibir el versículo del día, debes permitir las notificaciones";
+"app_name_quran" = "Corán";
+"app_name_pro" = "Pro";
+"app_description" = "Escucha el Corán con las voces más bellas del mundo. Además de la mejor experiencia de lectura.";
+"sign_in_apple" = "Iniciar sesión con Apple";
+"other_sign_in_options" = "Otras opciones de inicio de sesión";
+"skip_button" = "Saltar";
+"allow_button" = "Permitir";
+"more_features" = "Más funciones";
+"more_features_description" = "Quran Pro ofrece la plataforma más completa jamás creada para escuchar y leer el Corán con un amplio conjunto de funciones";
+"feature_apple_watch_title" = "Apple Watch";
+"feature_apple_watch_desc" = "Disfruta de la mejor experiencia que ofrece el Apple Watch para escuchar el Corán sin necesidad del iPhone (*se requiere plan de datos).";
+"feature_ads_free_title" = "Sin anuncios";
+"feature_ads_free_desc" = "Los anuncios no interrumpen a los usuarios premium.";
+"feature_audio_sync_title" = "Sincronización de audio";
+"feature_audio_sync_desc" = "Los versículos del Corán se sincronizan mágicamente con el audio. Disponible solo para algunos recitadores.";
+"feature_carplay_title" = "CarPlay";
+"feature_carplay_desc" = "Accede a todos tus recitadores favoritos y tus listas de reproducción directamente desde el tablero de tu coche.";
+"start_button" = "Iniciar app";
+"app_description" = "Aquí va la descripción de tu aplicación";
+"terms_prefix" = "Al iniciar sesión aceptas nuestros";
+"terms_of_service" = "Términos de servicio";
+"terms_and" = " y ";
+"privacy_policy" = "Política de privacidad";
+
+/* Settings */
+"settings_title" = "Ajustes";
+"settings_sign_in" = "Iniciar sesión";
+"settings_sign_in_subtitle" = "Te permite guardar marcadores, listas de reproducción y favoritos";
+"settings_premium" = "Premium";
+"settings_premium_subtitle" = "No activo: de por vida";
+"settings_update" = "Actualizar";
+"settings_update_subtitle" = "Mantén la app siempre al día";
+"settings_membership_benefits" = "Beneficios de la suscripción";
+"settings_section_appearance" = "Apariencia";
+"settings_appearance" = "Apariencia";
+"settings_color" = "Color";
+"settings_app_icon" = "Icono de la app";
+"settings_notifications" = "Notificaciones";
+"settings_section_advanced" = "Avanzado";
+"settings_audio_quality" = "Calidad de audio";
+"settings_font" = "Tipografía";
+"settings_translation_manager" = "Gestor de traducciones";
+"settings_download_manager" = "Gestor de descargas";
+"settings_language" = "Idioma";
+"settings_clear_cache" = "Borrar caché";
+"settings_pair_tv_app" = "Vincular app para TV";
+"settings_section_support" = "Ayuda";
+"settings_support" = "Ayuda";
+"settings_rate_us" = "Valóranos";
+"settings_social_media" = "Redes sociales";
+"settings_our_apps" = "Nuestras apps";
+"settings_credits" = "Créditos";
+"share_title" = "Compartir";
+"upgrade_title" = "Actualizar";
+"notifications_title" = "Notificaciones";
+"settings_title" = "Configuración";
+"language_title" = "Idioma";
+"lang_en" = "Inglés";
+"lang_ar" = "Árabe";
+"lang_fr" = "Francés";
+"lang_de" = "Alemán";
+"lang_it" = "Italiano";
+"lang_es" = "Español";
+"lang_nl" = "Neerlandés";
+"lang_id" = "Indonesio";
+"lang_ms" = "Malayo";
+"lang_tr" = "Turco";
+"lang_ur" = "Urdu";
+"lang_ru" = "Ruso";

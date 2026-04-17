@@ -1,0 +1,77 @@
+/*
+  Localizable.strings
+  Italian localization
+*/
+
+"more_features_title" = "Inizia";
+"notification_title" = "Notifica";
+"verse_of_the_day_permission" = "Per ricevere il versetto del giorno devi consentire le notifiche";
+"app_name_quran" = "Corano";
+"app_name_pro" = "Pro";
+"app_description" = "Ascolta il Corano con le voci più belle del mondo. Insieme alla migliore esperienza di lettura.";
+"sign_in_apple" = "Accedi con Apple";
+"other_sign_in_options" = "Altre opzioni di accesso";
+"skip_button" = "Salta";
+"allow_button" = "Consenti";
+"more_features" = "Altre funzionalità";
+"more_features_description" = "Quran Pro offre la piattaforma più completa mai creata per ascoltare e leggere il Corano con un ampio set di funzionalità";
+"feature_apple_watch_title" = "Apple Watch";
+"feature_apple_watch_desc" = "Goditi la migliore esperienza offerta dall'Apple Watch per ascoltare il Corano senza bisogno dell’iPhone (*è necessario un piano dati).";
+"feature_ads_free_title" = "Senza pubblicità";
+"feature_ads_free_desc" = "Le pubblicità non interrompono gli utenti premium.";
+"feature_audio_sync_title" = "Sincronizzazione audio";
+"feature_audio_sync_desc" = "I versetti del Corano sono sincronizzati con l'audio in modo magico. Disponibile solo per alcuni recitatori.";
+"feature_carplay_title" = "CarPlay";
+"feature_carplay_desc" = "Accedi a tutti i tuoi recitatori preferiti e alle tue playlist direttamente dal cruscotto della tua auto.";
+"start_button" = "Avvia app";
+"app_description" = "La descrizione della tua app va qui";
+"terms_prefix" = "Accedendo accetti i nostri";
+"terms_of_service" = "Termini di servizio";
+"terms_and" = " e ";
+"privacy_policy" = "Informativa sulla privacy";
+
+/* Settings */
+"settings_title" = "Impostazioni";
+"settings_sign_in" = "Accedi";
+"settings_sign_in_subtitle" = "Consente di salvare segnalibri, playlist e preferiti";
+"settings_premium" = "Premium";
+"settings_premium_subtitle" = "Non attivo — A vita";
+"settings_update" = "Aggiorna";
+"settings_update_subtitle" = "Mantieni l'app sempre aggiornata";
+"settings_membership_benefits" = "Vantaggi dell'abbonamento";
+"settings_section_appearance" = "Aspetto";
+"settings_appearance" = "Aspetto";
+"settings_color" = "Colore";
+"settings_app_icon" = "Icona app";
+"settings_notifications" = "Notifiche";
+"settings_section_advanced" = "Avanzate";
+"settings_audio_quality" = "Qualità audio";
+"settings_font" = "Carattere";
+"settings_translation_manager" = "Gestione traduzioni";
+"settings_download_manager" = "Download";
+"settings_language" = "Lingua";
+"settings_clear_cache" = "Svuota cache";
+"settings_pair_tv_app" = "Abbina app TV";
+"settings_section_support" = "Supporto";
+"settings_support" = "Supporto";
+"settings_rate_us" = "Valutaci";
+"settings_social_media" = "Social";
+"settings_our_apps" = "Le nostre app";
+"settings_credits" = "Crediti";
+"share_title" = "Condividi";
+"upgrade_title" = "Aggiorna";
+"notifications_title" = "Notifiche";
+"settings_title" = "Impostazioni";
+"language_title" = "Lingua";
+"lang_en" = "Inglese";
+"lang_ar" = "Arabo";
+"lang_fr" = "Francese";
+"lang_de" = "Tedesco";
+"lang_it" = "Italiano";
+"lang_es" = "Spagnolo";
+"lang_nl" = "Olandese";
+"lang_id" = "Indonesiano";
+"lang_ms" = "Malese";
+"lang_tr" = "Turco";
+"lang_ur" = "Urdu";
+"lang_ru" = "Russo";

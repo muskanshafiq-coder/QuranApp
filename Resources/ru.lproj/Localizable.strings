@@ -1,0 +1,79 @@
+/*
+  Localizable.strings
+  new project
+
+  Created by Muhammad Ahsan on 17/03/2026.
+  
+*/
+"more_features_title" = "Начать";
+"notification_title" = "Уведомление";
+"verse_of_the_day_permission" = "Чтобы получать стих дня, вам нужно разрешить уведомления";
+"app_name_quran" = "Коран";
+"app_name_pro" = "Про";
+"app_description" = "Слушайте Коран с самыми красивыми голосами в мире. Вместе с лучшим опытом чтения.";
+"sign_in_apple" = "Войти через Apple";
+"other_sign_in_options" = "Другие варианты входа";
+"skip_button" = "Пропустить";
+"allow_button" = "Разрешить";
+"more_features" = "Дополнительные функции";
+"more_features_description" = "Quran Pro предлагает самую полную платформу для прослушивания и чтения Корана с множеством функций.";
+"feature_apple_watch_title" = "Apple Watch";
+"feature_apple_watch_desc" = "Наслаждайтесь лучшим опытом прослушивания Корана на Apple Watch без необходимости использовать iPhone (*необходим тарифный план).";
+"feature_ads_free_title" = "Без рекламы";
+"feature_ads_free_desc" = "Реклама не мешает премиум-пользователям.";
+"feature_audio_sync_title" = "Синхронизация аудио";
+"feature_audio_sync_desc" = "Стихи Корана магическим образом синхронизированы с аудио. Доступно только для некоторых чтецов.";
+"feature_carplay_title" = "CarPlay";
+"feature_carplay_desc" = "Готовьтесь получить доступ ко всем вашим любимым чтецам и плейлисту прямо с панели управления в машине.";
+"start_button" = "Запустить приложение";
+"app_description" = "Описание вашего приложения здесь";
+"terms_prefix" = "Входя в систему, вы соглашаетесь с нашими";
+"terms_of_service" = "Условиями использования";
+"terms_and" = " и ";
+"privacy_policy" = "Политикой конфиденциальности";
+
+/* Settings */
+"settings_title" = "Настройки";
+"settings_sign_in" = "Войти";
+"settings_sign_in_subtitle" = "Позволяет сохранять закладки, плейлисты и избранное";
+"settings_premium" = "Премиум";
+"settings_premium_subtitle" = "Не активно — Навсегда";
+"settings_update" = "Обновление";
+"settings_update_subtitle" = "Держите приложение актуальным";
+"settings_membership_benefits" = "Преимущества подписки";
+"settings_section_appearance" = "Оформление";
+"settings_appearance" = "Оформление";
+"settings_color" = "Цвет";
+"settings_app_icon" = "Иконка приложения";
+"settings_notifications" = "Уведомления";
+"settings_section_advanced" = "Дополнительно";
+"settings_audio_quality" = "Качество звука";
+"settings_font" = "Шрифт";
+"settings_translation_manager" = "Управление переводами";
+"settings_download_manager" = "Загрузки";
+"settings_language" = "Язык";
+"settings_clear_cache" = "Очистить кэш";
+"settings_pair_tv_app" = "Подключить приложение для TV";
+"settings_section_support" = "Поддержка";
+"settings_support" = "Поддержка";
+"settings_rate_us" = "Оцените нас";
+"settings_social_media" = "Соцсети";
+"settings_our_apps" = "Наши приложения";
+"settings_credits" = "Благодарности";
+"share_title" = "Поделиться";
+"upgrade_title" = "Обновить";
+"notifications_title" = "Уведомления";
+"settings_title" = "Настройки";
+"language_title" = "Язык";
+"lang_en" = "Английский";
+"lang_ar" = "Арабский";
+"lang_fr" = "Французский";
+"lang_de" = "Немецкий";
+"lang_it" = "Итальянский";
+"lang_es" = "Испанский";
+"lang_nl" = "Нидерландский";
+"lang_id" = "Индонезийский";
+"lang_ms" = "Малайский";
+"lang_tr" = "Турецкий";
+"lang_ur" = "Урду";
+"lang_ru" = "Русский";

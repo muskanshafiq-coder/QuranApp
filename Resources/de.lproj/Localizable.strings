@@ -1,0 +1,77 @@
+/*
+  Localizable.strings
+  German localization
+*/
+
+"more_features_title" = "Starten";
+"notification_title" = "Benachrichtigung";
+"verse_of_the_day_permission" = "Um das Vers des Tages zu erhalten, müssen Sie Benachrichtigungen zulassen";
+"app_name_quran" = "Koran";
+"app_name_pro" = "Pro";
+"app_description" = "Hören Sie den Koran mit den schönsten Stimmen der Welt. Genießen Sie außerdem das beste Leseerlebnis.";
+"sign_in_apple" = "Mit Apple anmelden";
+"other_sign_in_options" = "Weitere Anmeldeoptionen";
+"skip_button" = "Überspringen";
+"allow_button" = "Zulassen";
+"more_features" = "Weitere Funktionen";
+"more_features_description" = "Quran Pro bietet die vollständigste Plattform, die jemals erstellt wurde, um den Koran zu hören und zu lesen, mit einer Vielzahl von Funktionen";
+"feature_apple_watch_title" = "Apple Watch";
+"feature_apple_watch_desc" = "Genießen Sie das beste Erlebnis der Apple Watch, um den Koran zu hören, ohne das iPhone zu benötigen (*Datenplan erforderlich).";
+"feature_ads_free_title" = "Werbefrei";
+"feature_ads_free_desc" = "Werbung unterbricht Premium-Nutzer nicht.";
+"feature_audio_sync_title" = "Audio-Synchronisierung";
+"feature_audio_sync_desc" = "Die Koranverse werden auf magische Weise mit dem Audio synchronisiert. Nur für bestimmte Rezitatoren verfügbar.";
+"feature_carplay_title" = "CarPlay";
+"feature_carplay_desc" = "Greifen Sie direkt von Ihrem Armaturenbrett auf alle Ihre Lieblingsrezitatoren und Wiedergabelisten zu.";
+"start_button" = "App starten";
+"app_description" = "Hier kommt die Beschreibung Ihrer App";
+"terms_prefix" = "Indem Sie sich anmelden, stimmen Sie unseren";
+"terms_of_service" = "Nutzungsbedingungen";
+"terms_and" = " und ";
+"privacy_policy" = "Datenschutzbestimmungen";
+
+/* Settings */
+"settings_title" = "Einstellungen";
+"settings_sign_in" = "Anmelden";
+"settings_sign_in_subtitle" = "Damit können Sie Lesezeichen, Wiedergabelisten und Favoriten speichern";
+"settings_premium" = "Premium";
+"settings_premium_subtitle" = "Nicht aktiv – Lebenslang";
+"settings_update" = "Aktualisieren";
+"settings_update_subtitle" = "Halten Sie Ihre App immer auf dem neuesten Stand";
+"settings_membership_benefits" = "Mitgliedsvorteile";
+"settings_section_appearance" = "Erscheinungsbild";
+"settings_appearance" = "Erscheinungsbild";
+"settings_color" = "Farbe";
+"settings_app_icon" = "App-Symbol";
+"settings_notifications" = "Mitteilungen";
+"settings_section_advanced" = "Erweitert";
+"settings_audio_quality" = "Audioqualität";
+"settings_font" = "Schriftart";
+"settings_translation_manager" = "Übersetzungsverwaltung";
+"settings_download_manager" = "Download-Manager";
+"settings_language" = "Sprache";
+"settings_clear_cache" = "Cache leeren";
+"settings_pair_tv_app" = "TV-App koppeln";
+"settings_section_support" = "Support";
+"settings_support" = "Support";
+"settings_rate_us" = "Bewerten Sie uns";
+"settings_social_media" = "Soziale Medien";
+"settings_our_apps" = "Unsere Apps";
+"settings_credits" = "Danksagungen";
+"share_title" = "Teilen";
+"upgrade_title" = "Upgrade";
+"notifications_title" = "Benachrichtigungen";
+"settings_title" = "Einstellungen";
+"language_title" = "Sprache";
+"lang_en" = "Englisch";
+"lang_ar" = "Arabisch";
+"lang_fr" = "Französisch";
+"lang_de" = "Deutsch";
+"lang_it" = "Italienisch";
+"lang_es" = "Spanisch";
+"lang_nl" = "Niederländisch";
+"lang_id" = "Indonesisch";
+"lang_ms" = "Malaiisch";
+"lang_tr" = "Türkisch";
+"lang_ur" = "Urdu";
+"lang_ru" = "Russisch";

@@ -1,0 +1,78 @@
+/* 
+  Localizable.strings
+  new project
+
+  Created by Muhammad Ahsan on 17/03/2026.
+  
+*/
+"more_features_title" = "Start";
+"notification_title" = "Notification";
+"verse_of_the_day_permission" = "To receive the verse of the day you will need to allow the notification";
+"app_name_quran" = "Quran";
+"app_name_pro" = "Pro";
+"app_description" = "Listen to the Quran from the world's most beautiful voices. Along with the best reading experience.";
+"sign_in_apple" = "Sign in with Apple";
+"other_sign_in_options" = "Other Sign-in Options";
+"skip_button" = "Skip";
+"allow_button" = "Allow";
+"more_features" = "More Features";
+"more_features_description" = "Quran Pro offers the most complete platform ever created to listen and read the Quran with a large set of features";
+"feature_apple_watch_title" = "Apple Watch";
+"feature_apple_watch_desc" = "Enjoy the best experience offered by the Apple Watch of listening to the Quran without any need of the iPhone (*data plan is needed).";
+"feature_ads_free_title" = "Ads-Free";
+"feature_ads_free_desc" = "Commercials do not interrupt premium listeners.";
+"feature_audio_sync_title" = "Audio Sync";
+"feature_audio_sync_desc" = "The Quran Verses are synchronized with the audio in a magical way. Available for some reciters only.";
+"feature_carplay_title" = "CarPlay";
+"feature_carplay_desc" = "Get ready to access all your favorite reciters and your playlist right from your car’s dashboard.";
+"start_button" = "Start App";
+"app_description" = "Your app description goes here";
+"terms_prefix" = "By signing in you accept our";
+"terms_of_service" = "Terms of Service";
+"terms_and" = " and ";
+"privacy_policy" = "Privacy Policy";
+
+/* Settings */
+"settings_title" = "Settings";
+"settings_sign_in" = "Sign In";
+"settings_sign_in_subtitle" = "It allows you to store bookmarks, playlists, and favorites";
+"settings_premium" = "Premium";
+"settings_premium_subtitle" = "Not active - Lifetime";
+"settings_update" = "Update";
+"settings_update_subtitle" = "Keep your app always up to date";
+"settings_membership_benefits" = "Membership Benefits";
+"settings_section_appearance" = "Appearance";
+"settings_appearance" = "Appearance";
+"settings_color" = "Color";
+"settings_app_icon" = "App Icon";
+"settings_notifications" = "Notifications";
+"settings_section_advanced" = "Advanced";
+"settings_audio_quality" = "Audio Quality";
+"settings_font" = "Font";
+"settings_translation_manager" = "Translation Manager";
+"settings_download_manager" = "Download Manager";
+"settings_language" = "Language";
+"settings_clear_cache" = "Clear Cache";
+"settings_pair_tv_app" = "Pair TV App";
+"settings_section_support" = "Support";
+"settings_support" = "Support";
+"settings_rate_us" = "Rate us";
+"settings_social_media" = "Social media";
+"settings_our_apps" = "Our apps";
+"settings_credits" = "Credits";
+"share_title" = "Share";
+"upgrade_title" = "Upgrade";
+"notifications_title" = "Notifications";
+"language_title" = "Language";
+"lang_en" = "English";
+"lang_ar" = "Arabic";
+"lang_fr" = "French";
+"lang_de" = "German";
+"lang_it" = "Italian";
+"lang_es" = "Spanish";
+"lang_nl" = "Dutch";
+"lang_id" = "Indonesian";
+"lang_ms" = "Malay";
+"lang_tr" = "Turkish";
+"lang_ur" = "Urdu";
+"lang_ru" = "Russian";

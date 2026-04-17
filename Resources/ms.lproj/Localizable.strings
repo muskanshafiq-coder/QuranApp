@@ -1,0 +1,79 @@
+/*
+  Localizable.strings
+  new project
+
+  Created by Muhammad Ahsan on 17/03/2026.
+  
+*/
+"more_features_title" = "Mula";
+"notification_title" = "Pemberitahuan";
+"verse_of_the_day_permission" = "Untuk menerima ayat harian, anda perlu membenarkan pemberitahuan";
+"app_name_quran" = "Al-Quran";
+"app_name_pro" = "Pro";
+"app_description" = "Dengar Al-Quran daripada suara-suara paling indah di dunia. Berserta pengalaman membaca terbaik.";
+"sign_in_apple" = "Log masuk dengan Apple";
+"other_sign_in_options" = "Pilihan Log Masuk Lain";
+"skip_button" = "Langkau";
+"allow_button" = "Benarkan";
+"more_features" = "Lebih Banyak Ciri";
+"more_features_description" = "Quran Pro menawarkan platform paling lengkap yang pernah diwujudkan untuk mendengar dan membaca Al-Quran dengan pelbagai ciri.";
+"feature_apple_watch_title" = "Apple Watch";
+"feature_apple_watch_desc" = "Nikmati pengalaman terbaik menggunakan Apple Watch untuk mendengar Al-Quran tanpa memerlukan iPhone (*pelan data diperlukan).";
+"feature_ads_free_title" = "Tanpa Iklan";
+"feature_ads_free_desc" = "Iklan tidak mengganggu pendengar premium.";
+"feature_audio_sync_title" = "Penyegerakan Audio";
+"feature_audio_sync_desc" = "Ayat Al-Quran disegerakkan dengan audio secara magik. Hanya tersedia untuk beberapa pembaca.";
+"feature_carplay_title" = "CarPlay";
+"feature_carplay_desc" = "Bersedia untuk mengakses semua pembaca kegemaran anda dan senarai main terus dari papan pemuka kereta anda.";
+"start_button" = "Mula Aplikasi";
+"app_description" = "Deskripsi aplikasi anda di sini";
+"terms_prefix" = "Dengan log masuk, anda bersetuju dengan";
+"terms_of_service" = "Terma Perkhidmatan";
+"terms_and" = " dan ";
+"privacy_policy" = "Dasar Privasi";
+
+/* Settings */
+"settings_title" = "Tetapan";
+"settings_sign_in" = "Log masuk";
+"settings_sign_in_subtitle" = "Membolehkan anda menyimpan penanda buku, senarai main dan kegemaran";
+"settings_premium" = "Premium";
+"settings_premium_subtitle" = "Tidak aktif — Seumur hidup";
+"settings_update" = "Kemas kini";
+"settings_update_subtitle" = "Pastikan apl anda sentiasa terkini";
+"settings_membership_benefits" = "Faedah keahlian";
+"settings_section_appearance" = "Penampilan";
+"settings_appearance" = "Penampilan";
+"settings_color" = "Warna";
+"settings_app_icon" = "Ikon aplikasi";
+"settings_notifications" = "Pemberitahuan";
+"settings_section_advanced" = "Lanjutan";
+"settings_audio_quality" = "Kualiti audio";
+"settings_font" = "Fon";
+"settings_translation_manager" = "Pengurus terjemahan";
+"settings_download_manager" = "Pengurus muat turun";
+"settings_language" = "Bahasa";
+"settings_clear_cache" = "Kosongkan cache";
+"settings_pair_tv_app" = "Pasangkan apl TV";
+"settings_section_support" = "Sokongan";
+"settings_support" = "Sokongan";
+"settings_rate_us" = "Nilaikan kami";
+"settings_social_media" = "Media sosial";
+"settings_our_apps" = "Aplikasi kami";
+"settings_credits" = "Kredit";
+"share_title" = "Kongsi";
+"upgrade_title" = "Naik taraf";
+"notifications_title" = "Pemberitahuan";
+"settings_title" = "Tetapan";
+"language_title" = "Bahasa";
+"lang_en" = "Inggeris";
+"lang_ar" = "Arab";
+"lang_fr" = "Perancis";
+"lang_de" = "Jerman";
+"lang_it" = "Itali";
+"lang_es" = "Sepanyol";
+"lang_nl" = "Belanda";
+"lang_id" = "Indonesia";
+"lang_ms" = "Melayu";
+"lang_tr" = "Turki";
+"lang_ur" = "Urdu";
+"lang_ru" = "Rusia";
