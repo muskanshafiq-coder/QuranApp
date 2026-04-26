@@ -32,12 +32,11 @@ enum AppearanceMode: Int, CaseIterable, Identifiable {
         }
     }
 }
-
-/// Drives app appearance. Updates `UIWindow.overrideUserInterfaceStyle` so the whole window (including
-/// `fullScreenCover` / `NavigationView`) follows the choice — `preferredColorScheme` on a nested view alone is unreliable.
 final class ThemeManager: ObservableObject {
+    
     private static let storageKey = "appearanceMode"
-
+    
+    // MARK: - Appearance (Light/Dark)
     @Published var appearanceMode: AppearanceMode {
         didSet {
             guard appearanceMode != oldValue else { return }
@@ -45,7 +44,13 @@ final class ThemeManager: ObservableObject {
             Self.applyToAllWindows(appearanceMode)
         }
     }
-
+    
+    // MARK: - App Theme Color
+    @Published var selectedColor: Color = .red
+    @Published var selectedThemeID: String?
+    @Published var isPremiumUser: Bool = false
+    
+    // MARK: - Init
     init() {
         let raw: Int
         if UserDefaults.standard.object(forKey: Self.storageKey) == nil {
@@ -53,14 +58,17 @@ final class ThemeManager: ObservableObject {
         } else {
             raw = UserDefaults.standard.integer(forKey: Self.storageKey)
         }
+        
         let mode = AppearanceMode(rawValue: raw) ?? .auto
         self.appearanceMode = mode
-        // `didSet` is not always invoked for the initial assignment from `init`; apply once here.
+        
         Self.applyToAllWindows(mode)
     }
-
+    
+    // MARK: - Apply Appearance
     private static func applyToAllWindows(_ mode: AppearanceMode) {
         let style = mode.uiUserInterfaceStyle
+        
         DispatchQueue.main.async {
             for scene in UIApplication.shared.connectedScenes {
                 guard let windowScene = scene as? UIWindowScene else { continue }
@@ -69,5 +77,12 @@ final class ThemeManager: ObservableObject {
                 }
             }
         }
+    }
+    
+    // MARK: - Apply Color Theme
+    func applyColor(_ theme: AppColorTheme) {
+        guard !theme.isPremium || isPremiumUser else { return }
+        selectedThemeID = theme.id
+        selectedColor = theme.color
     }
 }

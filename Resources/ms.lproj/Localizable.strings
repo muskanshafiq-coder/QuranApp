@@ -77,3 +77,23 @@
 "lang_tr" = "Turki";
 "lang_ur" = "Urdu";
 "lang_ru" = "Rusia";
+"player_title" = "Pemain";
+"playlists_title" = "Senarai Main";
+"dua_ruqia_title" = "Doa & Ruqia";
+"popular_favorites_title" = "Paling Popular & Kegemaran";
+"salam_title" = "Salam Alaikum";
+"review_message" = "Kami amat menghargai jika anda boleh memberikan ulasan. Barakallah Fik";
+"rate_app_title" = "Nilai aplikasi";
+"appearance_title" = "Penampilan";
+"appearance_auto_title" = "Automatik (Sistem)";
+"appearance_style_title" = "Gaya";
+"appearance_light_title" = "Sentiasa cerah";
+"appearance_dark_title" = "Sentiasa gelap";
+"daily_surah_title" = "Surah Harian Baharu";
+"daily_surah_subtitle" = "Anda akan menerima notifikasi setiap hari pada jam 10:00 pagi";
+
+"kahf_title" = "Surah Al-Kahf";
+"kahf_subtitle" = "Anda akan menerima notifikasi setiap hari Jumaat pada jam 09:00 pagi";
+
+"promo_title" = "Promosi";
+"promo_subtitle" = "Kami mungkin menghantar berita tentang aplikasi dan kemas kini kami";

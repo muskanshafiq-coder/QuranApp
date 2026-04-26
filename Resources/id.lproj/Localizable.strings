@@ -77,3 +77,23 @@
 "lang_tr" = "Turki";
 "lang_ur" = "Urdu";
 "lang_ru" = "Rusia";
+"player_title" = "Pemutar";
+"playlists_title" = "Daftar Putar";
+"dua_ruqia_title" = "Doa & Ruqia";
+"popular_favorites_title" = "Paling Populer & Favorit";
+"salam_title" = "Salam Alaikum";
+"review_message" = "Kami akan sangat menghargai jika Anda dapat memberikan ulasan. Barakallah Fik";
+"rate_app_title" = "Beri penilaian aplikasi";
+"appearance_title" = "Tampilan";
+"appearance_auto_title" = "Otomatis (Sistem)";
+"appearance_style_title" = "Gaya";
+"appearance_light_title" = "Selalu terang";
+"appearance_dark_title" = "Selalu gelap";
+"daily_surah_title" = "Surah Baru Harian";
+"daily_surah_subtitle" = "Anda akan menerima notifikasi setiap hari pukul 10:00";
+
+"kahf_title" = "Surah Al-Kahf";
+"kahf_subtitle" = "Anda akan menerima notifikasi setiap hari Jumat pukul 09:00";
+
+"promo_title" = "Promosi";
+"promo_subtitle" = "Kami mungkin mengirimkan berita tentang aplikasi dan pembaruan kami";

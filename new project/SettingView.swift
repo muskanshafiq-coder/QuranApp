@@ -69,11 +69,17 @@ struct SettingsView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         divider()
-                        settingRow(title: "settings_color", icon: "eyedropper", circleColor: .purple)
+                        NavigationLink(destination: ColorSelectionView().environmentObject(themeManager)) {
+                            settingRow(title: "settings_color", icon: "eyedropper", circleColor: .purple)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                         divider()
                         settingRow(title: "settings_app_icon", icon: "app.fill", circleColor: .green)
                         divider()
-                        settingRow(title: "settings_notifications", icon: "bell.fill", circleColor: .blue)
+                        NavigationLink(destination: NotificationsView().environmentObject(themeManager)) {
+                            settingRow(title: "settings_notifications", icon: "bell.fill", circleColor: .blue)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                     .background(Color.card)
                     .cornerRadius(15)

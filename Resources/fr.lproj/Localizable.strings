@@ -76,3 +76,23 @@
 "lang_tr" = "Turc";
 "lang_ur" = "Ourdou";
 "lang_ru" = "Russe";
+"player_title" = "Lecteur";
+"playlists_title" = "Listes de lecture";
+"dua_ruqia_title" = "Dua et Ruqia";
+"popular_favorites_title" = "Les plus populaires et favoris";
+"salam_title" = "Salam Aleykoum";
+"review_message" = "Nous apprécierions beaucoup si vous pouviez nous laisser un avis. Barakallah Fik";
+"rate_app_title" = "Noter l'application";
+"appearance_title" = "Apparence";
+"appearance_auto_title" = "Automatique (Système)";
+"appearance_style_title" = "Style";
+"appearance_light_title" = "Toujours clair";
+"appearance_dark_title" = "Toujours sombre";
+"daily_surah_title" = "Nouvelle sourate quotidienne";
+"daily_surah_subtitle" = "Vous recevrez une notification quotidienne à 10h00";
+
+"kahf_title" = "Sourate Al-Kahf";
+"kahf_subtitle" = "Vous recevrez une notification chaque vendredi à 09h00";
+
+"promo_title" = "Promotionnel";
+"promo_subtitle" = "Nous pourrions vous envoyer des informations sur nos nouvelles apps et mises à jour";

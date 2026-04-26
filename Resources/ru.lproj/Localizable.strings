@@ -77,3 +77,23 @@
 "lang_tr" = "Турецкий";
 "lang_ur" = "Урду";
 "lang_ru" = "Русский";
+"player_title" = "Плеер";
+"playlists_title" = "Плейлисты";
+"dua_ruqia_title" = "Дуа и Рукия";
+"popular_favorites_title" = "Популярное и избранное";
+"salam_title" = "Салам алейкум";
+"review_message" = "Мы будем очень признательны, если вы оставите отзыв. Баракаллаху фик";
+"rate_app_title" = "Оценить приложение";
+"appearance_title" = "Внешний вид";
+"appearance_auto_title" = "Автоматически (Система)";
+"appearance_style_title" = "Стиль";
+"appearance_light_title" = "Всегда светлый";
+"appearance_dark_title" = "Всегда тёмный";
+"daily_surah_title" = "Ежедневная новая сура";
+"daily_surah_subtitle" = "Вы будете получать уведомление каждый день в 10:00";
+
+"kahf_title" = "Сура Аль-Кахф";
+"kahf_subtitle" = "Вы будете получать уведомление каждую пятницу в 09:00";
+
+"promo_title" = "Промо";
+"promo_subtitle" = "Мы можем отправлять новости о наших приложениях и обновлениях";

@@ -77,3 +77,23 @@
 "lang_tr" = "Türkçe";
 "lang_ur" = "Urduca";
 "lang_ru" = "Rusça";
+"player_title" = "Oynatıcı";
+"playlists_title" = "Çalma Listeleri";
+"dua_ruqia_title" = "Dua ve Ruqia";
+"popular_favorites_title" = "En Popüler ve Favoriler";
+"salam_title" = "Selamün Aleyküm";
+"review_message" = "Bize bir değerlendirme bırakmanız bizi çok mutlu eder. Barakallah Fik";
+"rate_app_title" = "Uygulamayı değerlendir";
+"appearance_title" = "Görünüm";
+"appearance_auto_title" = "Otomatik (Sistem)";
+"appearance_style_title" = "Stil";
+"appearance_light_title" = "Her zaman açık";
+"appearance_dark_title" = "Her zaman koyu";
+"daily_surah_title" = "Günlük Yeni Sure";
+"daily_surah_subtitle" = "Her gün saat 10:00'da bildirim alacaksınız";
+
+"kahf_title" = "Kehf Suresi";
+"kahf_subtitle" = "Her cuma saat 09:00'da bildirim alacaksınız";
+
+"promo_title" = "Promosyon";
+"promo_subtitle" = "Yeni uygulamalarımız ve güncellemeler hakkında haberler gönderebiliriz";

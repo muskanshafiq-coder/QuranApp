@@ -75,3 +75,23 @@
 "lang_tr" = "Turco";
 "lang_ur" = "Urdu";
 "lang_ru" = "Ruso";
+"player_title" = "Reproductor";
+"playlists_title" = "Listas de reproducción";
+"dua_ruqia_title" = "Dua y Ruqia";
+"popular_favorites_title" = "Más populares y favoritos";
+"salam_title" = "Salam Aleikum";
+"review_message" = "Agradeceríamos mucho que nos dejaras una reseña. Barakallah Fik";
+"rate_app_title" = "Calificar la app";
+"appearance_title" = "Apariencia";
+"appearance_auto_title" = "Automático (Sistema)";
+"appearance_style_title" = "Estilo";
+"appearance_light_title" = "Siempre claro";
+"appearance_dark_title" = "Siempre oscuro";
+"daily_surah_title" = "Nueva sura diaria";
+"daily_surah_subtitle" = "Recibirás una alerta diaria a las 10:00 am";
+
+"kahf_title" = "Sura Al-Kahf";
+"kahf_subtitle" = "Recibirás una alerta cada viernes a las 09:00 am";
+
+"promo_title" = "Promocional";
+"promo_subtitle" = "Podríamos enviarte noticias sobre nuestras nuevas apps y actualizaciones";

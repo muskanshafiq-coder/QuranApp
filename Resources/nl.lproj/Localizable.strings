@@ -77,3 +77,23 @@
 "lang_tr" = "Turks";
 "lang_ur" = "Urdu";
 "lang_ru" = "Russisch";
+"player_title" = "Speler";
+"playlists_title" = "Afspeellijsten";
+"dua_ruqia_title" = "Dua & Ruqia";
+"popular_favorites_title" = "Meest populair & favorieten";
+"salam_title" = "Salam Alaikum";
+"review_message" = "We zouden het zeer waarderen als u een beoordeling achterlaat. Barakallah Fik";
+"rate_app_title" = "Beoordeel de app";
+"appearance_title" = "Weergave";
+"appearance_auto_title" = "Automatisch (Systeem)";
+"appearance_style_title" = "Stijl";
+"appearance_light_title" = "Altijd licht";
+"appearance_dark_title" = "Altijd donker";
+"daily_surah_title" = "Dagelijkse nieuwe soera";
+"daily_surah_subtitle" = "Je ontvangt dagelijks om 10:00 uur een melding";
+
+"kahf_title" = "Soera Al-Kahf";
+"kahf_subtitle" = "Je ontvangt elke vrijdag om 09:00 uur een melding";
+
+"promo_title" = "Promotioneel";
+"promo_subtitle" = "We kunnen je nieuws sturen over onze apps en updates";
