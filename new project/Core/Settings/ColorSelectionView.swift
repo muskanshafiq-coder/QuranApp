@@ -10,14 +10,8 @@ struct AppColorTheme: Identifiable {
     let id: String
     let color: Color
     let isPremium: Bool
-}
-struct ColorSelectionView: View {
-    
-    @EnvironmentObject var themeManager: ThemeManager
-    
-    private let columns = Array(repeating: GridItem(.flexible()), count: 4)
-    
-    let colors: [AppColorTheme] = [
+
+    static let allThemes: [AppColorTheme] = [
         AppColorTheme(id: "red", color: Color(hex: "fb2d54"), isPremium: false),
         AppColorTheme(id: "pink", color: Color(hex: "e73b63"), isPremium: false),
         AppColorTheme(id: "blue", color: Color(hex: "5c9ceb"), isPremium: false),
@@ -27,11 +21,21 @@ struct ColorSelectionView: View {
         AppColorTheme(id: "teal", color: Color(hex: "49ceaf"), isPremium: false),
         AppColorTheme(id: "gray", color: Color(hex: "676d79"), isPremium: false)
     ]
+
+    static func theme(for id: String) -> AppColorTheme? {
+        allThemes.first(where: { $0.id == id })
+    }
+}
+struct ColorSelectionView: View {
+    
+    @EnvironmentObject var selectedThemeColorManager: SelectedThemeColorManager
+    
+    private let columns = Array(repeating: GridItem(.flexible()), count: 4)
     
     var body: some View {
         VStack {
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(colors) { theme in
+                ForEach(AppColorTheme.allThemes) { theme in
                     ColorItemView(theme: theme)
                 }
             }

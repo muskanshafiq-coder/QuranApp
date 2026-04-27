@@ -5,6 +5,7 @@ struct PlayerView: View {
     @State private var showSettings = false
     @EnvironmentObject private var languageManager: AppLanguageManager
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
     
     var body: some View {
         NavigationView {
@@ -83,13 +84,14 @@ struct PlayerView: View {
             SettingsView()
                 .environmentObject(languageManager)
                 .environmentObject(themeManager)
+                .environmentObject(selectedThemeColorManager)
         }
     }
 }
 struct ReviewBanner: View {
     
     @State private var isVisible: Bool = true
-    
+    @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
     var body: some View {
         if isVisible {
             HStack(alignment: .top, spacing: 12) {
@@ -116,7 +118,7 @@ struct ReviewBanner: View {
                         print("Rate app tapped")
                     }) {
                         Text("rate_app_title")
-                            .foregroundColor(.red)
+                            .foregroundColor(selectedThemeColorManager.selectedColor)
                             .fontWeight(.semibold)
                     }
                 }
@@ -129,7 +131,7 @@ struct ReviewBanner: View {
                     }
                 }) {
                     Image(systemName: "xmark")
-                        .foregroundColor(.red)
+                        .foregroundColor(selectedThemeColorManager.selectedColor)
                 }
             }
             .padding()
@@ -155,12 +157,13 @@ struct ReviewBanner: View {
 struct PlayerRow: View {
     let title: LocalizedStringKey
     let action: () -> Void
+    @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
     
     var body: some View {
         Button(action: action) {
             HStack {
                 Text(title)
-                    .foregroundColor(.red) // match your UI
+                    .foregroundColor(selectedThemeColorManager.selectedColor)
                 
                 Spacer()
                 

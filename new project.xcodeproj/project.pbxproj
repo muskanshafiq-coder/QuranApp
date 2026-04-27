@@ -6,26 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		78A965612F9CB47E001446B6 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A965602F9CB47E001446B6 /* NotificationsView.swift */; };
-		78A965652F9E3377001446B6 /* ColorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A965642F9E3377001446B6 /* ColorItemView.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		78A964C32F697197001446B6 /* new project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "new project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		78A965602F9CB47E001446B6 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
-		78A965642F9E3377001446B6 /* ColorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		78A964542F59B103001446B6 /* new project */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "new project";
-			sourceTree = "<group>";
-		};
-		78A964B82F680FC8001446B6 /* Resources */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -44,11 +32,8 @@
 		78A964492F59B103001446B6 = {
 			isa = PBXGroup;
 			children = (
-				78A965642F9E3377001446B6 /* ColorItemView.swift */,
-				78A964B82F680FC8001446B6 /* Resources */,
 				78A964542F59B103001446B6 /* new project */,
 				78A964C32F697197001446B6 /* new project.app */,
-				78A965602F9CB47E001446B6 /* NotificationsView.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,7 +54,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				78A964542F59B103001446B6 /* new project */,
-				78A964B82F680FC8001446B6 /* Resources */,
 			);
 			name = "new project";
 			packageProductDependencies = (
@@ -138,8 +122,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78A965612F9CB47E001446B6 /* NotificationsView.swift in Sources */,
-				78A965652F9E3377001446B6 /* ColorItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

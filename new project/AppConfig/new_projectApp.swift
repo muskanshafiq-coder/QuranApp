@@ -4,12 +4,14 @@ import SwiftUI
 struct MyApp: App {
     @StateObject private var languageManager = AppLanguageManager()
     @StateObject private var themeManager = ThemeManager()
+    @StateObject private var selectedThemeColorManager = SelectedThemeColorManager()
 
     var body: some Scene {
         WindowGroup {
             AppRootContainer()
                 .environmentObject(languageManager)
                 .environmentObject(themeManager)
+                .environmentObject(selectedThemeColorManager)
         }
     }
 }

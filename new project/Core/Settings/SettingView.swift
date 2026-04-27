@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var languageManager: AppLanguageManager
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var selectedThemeColorManager: SelectedThemeColorManager
     @Environment(\.dismiss) var dismiss
     @State private var showLogin = false
 
@@ -69,7 +70,7 @@ struct SettingsView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         divider()
-                        NavigationLink(destination: ColorSelectionView().environmentObject(themeManager)) {
+                        NavigationLink(destination: ColorSelectionView().environmentObject(selectedThemeColorManager)) {
                             settingRow(title: "settings_color", icon: "eyedropper", circleColor: .purple)
                         }
                         .buttonStyle(PlainButtonStyle())

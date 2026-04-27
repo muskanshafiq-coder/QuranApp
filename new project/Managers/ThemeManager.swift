@@ -45,11 +45,6 @@ final class ThemeManager: ObservableObject {
         }
     }
     
-    // MARK: - App Theme Color
-    @Published var selectedColor: Color = .red
-    @Published var selectedThemeID: String?
-    @Published var isPremiumUser: Bool = false
-    
     // MARK: - Init
     init() {
         let raw: Int
@@ -79,10 +74,4 @@ final class ThemeManager: ObservableObject {
         }
     }
     
-    // MARK: - Apply Color Theme
-    func applyColor(_ theme: AppColorTheme) {
-        guard !theme.isPremium || isPremiumUser else { return }
-        selectedThemeID = theme.id
-        selectedColor = theme.color
-    }
 }
