@@ -22,8 +22,5 @@ private struct AppRootContainer: View {
     var body: some View {
         PlayerView()
             .environment(\.locale, Locale(identifier: languageManager.currentLanguage))
-            // Appearance is applied via UIWindow.overrideUserInterfaceStyle in ThemeManager.
-            // Only rebuild the tree on language change, NOT on theme change — otherwise the screen goes blank.
-            .id(languageManager.currentLanguage)
     }
 }

@@ -49,15 +49,8 @@ struct PlayerView: View {
                         Text("share_title")
                     }
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {}) {
-                        Text("upgrade_title")
-                    }
-                }
-                if #available(iOS 26.0, *) {
-                    ToolbarSpacer(placement: .topBarTrailing)
-                }
+            }
+            .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button {
@@ -74,6 +67,14 @@ struct PlayerView: View {
                         
                     } label: {
                         Image(systemName: "ellipsis")
+                    }
+                }
+            }
+            .toolbarSpacerIfAvailable()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {}) {
+                        Text("upgrade_title")
                     }
                 }
             }
@@ -167,6 +168,21 @@ struct PlayerRow: View {
                     .foregroundColor(.gray)
             }
             .padding()
+        }
+    }
+}
+
+private extension View {
+    // Applies an iOS 26+ ToolbarSpacer without forcing the
+    // ToolbarContentBuilder.buildIf (iOS 16+) requirement.
+    @ViewBuilder
+    func toolbarSpacerIfAvailable() -> some View {
+        if #available(iOS 26.0, *) {
+            self.toolbar {
+                ToolbarSpacer(placement: .topBarTrailing)
+            }
+        } else {
+            self
         }
     }
 }
