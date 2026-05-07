@@ -96,3 +96,8 @@
 
 "promo_title" = "Promotional";
 "promo_subtitle" = "We might send you news about our new apps and updates";
+"tab_player" = "Player";
+"tab_sleep" = "Sleep";
+"tab_today" = "Today";
+"tab_reader" = "Reader";
+"tab_bookmarks" = "Bookmarks";

@@ -97,3 +97,8 @@
 
 "promo_title" = "Промо";
 "promo_subtitle" = "Мы можем отправлять новости о наших приложениях и обновлениях";
+"tab_player" = "Плеер";
+"tab_sleep" = "Сон";
+"tab_today" = "Сегодня";
+"tab_reader" = "Чтение";
+"tab_bookmarks" = "Закладки";

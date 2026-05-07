@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+  <defs>
+    <mask id="dotsMask">
+      <rect width="30" height="30" fill="white"/>
+      <circle cx="9.93" cy="13.35" r="1.65" fill="black"/>
+      <circle cx="15.3" cy="13.35" r="1.65" fill="black"/>
+      <circle cx="20.59" cy="13.35" r="1.65" fill="black"/>
+    </mask>
+  </defs>
+  <ellipse cx="15.3" cy="13.68" rx="12.01" ry="11.5" fill="#fff" mask="url(#dotsMask)"/>
+</svg>

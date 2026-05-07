@@ -95,3 +95,8 @@
 
 "promo_title" = "Werbung";
 "promo_subtitle" = "Wir senden Ihnen möglicherweise Neuigkeiten über unsere Apps und Updates";
+"tab_player" = "Player";
+"tab_sleep" = "Schlaf";
+"tab_today" = "Heute";
+"tab_reader" = "Lesen";
+"tab_bookmarks" = "Lesezeichen";

@@ -97,3 +97,8 @@
 
 "promo_title" = "Promosi";
 "promo_subtitle" = "Kami mungkin mengirimkan berita tentang aplikasi dan pembaruan kami";
+"tab_player" = "Pemutar";
+"tab_sleep" = "Tidur";
+"tab_today" = "Hari Ini";
+"tab_reader" = "Pembaca";
+"tab_bookmarks" = "Bookmark";
