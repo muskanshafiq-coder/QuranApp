@@ -10,13 +10,16 @@ import UIKit
 import SwiftUI
 import Combine
 
+private struct MainTab {
+    let titleKey: String
+    let imageName: String
+}
+
 class MainTabBarController: UITabBarController {
     private var languageManager: AppLanguageManager
     private var themeManager: ThemeManager
     private var selectedThemeColorManager: SelectedThemeColorManager
     private var themeColorSubscription: AnyCancellable?
-//    private let sleepViewModel = SleepViewModel()
-    private var selectedPlayItemCancellable: AnyCancellable?
 
     init(
         languageManager: AppLanguageManager,
@@ -27,11 +30,7 @@ class MainTabBarController: UITabBarController {
         self.themeManager = themeManager
         self.selectedThemeColorManager = selectedThemeColorManager
         super.init(nibName: nil, bundle: nil)
-        themeColorSubscription = selectedThemeColorManager.$selectedColor
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.updateThemeAppearance()
-            }
+        bindThemeColorChanges(to: selectedThemeColorManager)
     }
 
     required init?(coder: NSCoder) {
@@ -50,65 +49,27 @@ class MainTabBarController: UITabBarController {
         self.selectedThemeColorManager = selectedThemeColorManager
 
         if colorManagerChanged {
-            themeColorSubscription?.cancel()
-            themeColorSubscription = selectedThemeColorManager.$selectedColor
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] _ in
-                    self?.updateThemeAppearance()
-                }
+            bindThemeColorChanges(to: selectedThemeColorManager)
         }
 
         if isViewLoaded {
             updateThemeAppearance()
         }
     }
-//    private lazy var sleepPopupBar = SleepPopupBarViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabs()
         setupAppearance()
         setupNotificationObservers()
-        observeSleepPlayItem()
-//        popupBar.customBarViewController = sleepPopupBar
 
         // iOS 26+ specific behavior
         if #available(iOS 26.0, *) {
             self.tabBarMinimizeBehavior = .onScrollDown
         }
 
-        // Start Sleep stories fetch early so Featured / Recently Added isn’t late on first open.
-        Task(priority: .userInitiated) {
-//            await sleepViewModel.loadCategoriesAndStories()
-        }
     }
 
-    private func observeSleepPlayItem() {
-//        selectedPlayItemCancellable = sleepViewModel.$selectedPlayItem
-//            .dropFirst()
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] item in
-//                guard let self else { return }
-//                if let item = item {
-//                    self.presentSleepPlayer(item: item)
-//                }
-//            }
-    }
-
-    private func presentSleepPlayer() {
-//        let contentVC = SleepPlayContentViewController(
-//            item: item,
-//            playback: sleepViewModel.sharedPlayback,
-//            viewModel: sleepViewModel
-//        )
-//        let openFull = sleepViewModel.openPopupFullScreenWhenPresenting
-//        sleepViewModel.openPopupFullScreenWhenPresenting = true
-//        presentPopupBar(with: contentVC, openPopup: openFull, animated: true)
-//        if !openFull {
-//            DispatchQueue.main.async { contentVC.refreshBarContent() }
-//        }
-    }
-    
     private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(
             self,
@@ -116,13 +77,6 @@ class MainTabBarController: UITabBarController {
             name: NSNotification.Name("NavigateToHadithOfTheDay"),
             object: nil
         )
-//        // Listen for Theme Change
-//        NotificationCenter.default.addObserver(
-//            self,
-//            selector: #selector(handleThemeChange),
-//            name: AppNotificationManager.Name.themeDidChange,
-//            object: nil
-//        )
     }
     
     @objc private func openHadithOfTheDayTab() {
@@ -132,7 +86,15 @@ class MainTabBarController: UITabBarController {
         updateThemeAppearance()
     }
     private func setupTabs() {
-        func hostedPlayer() -> UIHostingController<AnyView> {
+        let tabConfigs: [MainTab] = [
+            MainTab(titleKey: "tab_player",     imageName: "prayer"),
+            MainTab(titleKey: "tab_sleep",      imageName: "sleep"),
+            MainTab(titleKey: "tab_today",      imageName: "dabba"),
+            MainTab(titleKey: "tab_reader",     imageName: "sleep"),
+            MainTab(titleKey: "tab_bookmarks",  imageName: "more")
+        ]
+
+        func makeHostedPlayer() -> UIHostingController<AnyView> {
             let root = PlayerView()
                 .environmentObject(languageManager)
                 .environmentObject(themeManager)
@@ -140,20 +102,12 @@ class MainTabBarController: UITabBarController {
             return UIHostingController(rootView: AnyView(root))
         }
 
-        let tabs: [(UIViewController, String, String)] = [
-            (hostedPlayer(), "tab_player", "prayer"),
-            (hostedPlayer(), "tab_sleep", "sleep"),
-            (hostedPlayer(), "tab_today", "dabba"),
-            (hostedPlayer(), "tab_reader", "sleep"),
-            (hostedPlayer(), "tab_bookmarks", "more")
-        ]
-        
-        viewControllers = tabs.enumerated().map { (index, element) in
-            let (vc, titleKey, imageName) = element
-            
+        viewControllers = tabConfigs.enumerated().map { (index, tab) in
+            let vc = makeHostedPlayer()
+
             vc.tabBarItem = UITabBarItem(
-                title: NSLocalizedString(titleKey, comment: "Main tab bar title"),
-                image: UIImage(named: imageName)?
+                title: NSLocalizedString(tab.titleKey, comment: "Main tab bar title"),
+                image: UIImage(named: tab.imageName)?
                     .resized(to: CGSize(width: 32, height: 32))
                     .withRenderingMode(.alwaysTemplate),
                 tag: index
@@ -169,7 +123,6 @@ class MainTabBarController: UITabBarController {
             
             return vc
         }
-        
         self.delegate = self
     }
     
@@ -191,6 +144,17 @@ class MainTabBarController: UITabBarController {
     deinit {
         themeColorSubscription?.cancel()
         NotificationCenter.default.removeObserver(self)
+    }
+}
+
+extension MainTabBarController {
+    private func bindThemeColorChanges(to manager: SelectedThemeColorManager) {
+        themeColorSubscription?.cancel()
+        themeColorSubscription = manager.$selectedColor
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateThemeAppearance()
+            }
     }
 }
 
