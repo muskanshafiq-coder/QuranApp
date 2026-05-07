@@ -10,6 +10,7 @@ struct MoreFeaturesView: View {
     ]
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State private var showMoreFeatures = false
     
     var body: some View {
         ScrollView {
@@ -72,7 +73,7 @@ struct MoreFeaturesView: View {
             .padding(.bottom, 20)
         }
         .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(false)
     }
 }
 
@@ -118,3 +119,4 @@ func featureRow(icon: String, color: Color, title: String, desc: String) -> some
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(.horizontal, 16)
 }
+

@@ -1,5 +1,4 @@
 //
-//  ColorSelectionView.swift
 //  new project
 //
 //  Created by Muhammad Ahsan on 26/04/2026.
@@ -13,13 +12,13 @@ struct AppColorTheme: Identifiable {
 
     static let allThemes: [AppColorTheme] = [
         AppColorTheme(id: "red", color: Color(hex: "fb2d54"), isPremium: false),
-        AppColorTheme(id: "pink", color: Color(hex: "e73b63"), isPremium: false),
-        AppColorTheme(id: "blue", color: Color(hex: "5c9ceb"), isPremium: false),
-        AppColorTheme(id: "cyan", color: Color(hex: "4fc0e8"), isPremium: false),
-        AppColorTheme(id: "purple", color: Color(hex: "aa91ec"), isPremium: false),
-        AppColorTheme(id: "mint", color: Color(hex: "ed87c1"), isPremium: false),
-        AppColorTheme(id: "teal", color: Color(hex: "49ceaf"), isPremium: false),
-        AppColorTheme(id: "gray", color: Color(hex: "676d79"), isPremium: false)
+        AppColorTheme(id: "pink", color: Color(hex: "e73b63"), isPremium: true),
+        AppColorTheme(id: "blue", color: Color(hex: "5c9ceb"), isPremium: true),
+        AppColorTheme(id: "cyan", color: Color(hex: "4fc0e8"), isPremium: true),
+        AppColorTheme(id: "purple", color: Color(hex: "aa91ec"), isPremium: true),
+        AppColorTheme(id: "mint", color: Color(hex: "ed87c1"), isPremium: true),
+        AppColorTheme(id: "teal", color: Color(hex: "49ceaf"), isPremium: true),
+        AppColorTheme(id: "gray", color: Color(hex: "676d79"), isPremium: true)
     ]
 
     static func theme(for id: String) -> AppColorTheme? {
@@ -34,18 +33,21 @@ struct ColorSelectionView: View {
     
     var body: some View {
         VStack {
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(AppColorTheme.allThemes) { theme in
-                    ColorItemView(theme: theme)
+            
+                LazyVGrid(columns: columns, spacing: 20) {
+                    ForEach(AppColorTheme.allThemes) { theme in
+                        ColorItemView(theme: theme)
+                    }
                 }
+                .padding()
             }
-            .padding()
+            Spacer()
+                .navigationTitle("Appearance")
+                .navigationBarTitleDisplayMode(.inline)
+                .background(Color.app)
         }
-        .navigationTitle("Appearance")
-        .navigationBarTitleDisplayMode(.inline)
-        .background(Color.app)
     }
-}
+
 import SwiftUI
 
 extension Color {

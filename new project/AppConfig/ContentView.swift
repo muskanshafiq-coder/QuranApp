@@ -178,3 +178,4 @@ extension LocalizedStringKey {
         return ""
     }
 }
+

@@ -1,5 +1,4 @@
 //
-//  ColorItemView.swift
 //  new project
 //
 //  Created by Muhammad Ahsan on 26/04/2026.
@@ -12,9 +11,9 @@ struct ColorItemView: View {
     
     var body: some View {
         ZStack {
-            Circle()
+            Rectangle()
                 .fill(theme.color)
-                .frame(width: 70, height: 70)
+                .frame(width: 50, height: 50)
             
             if selectedThemeColorManager.selectedThemeID == theme.id {
                 Image(systemName: "checkmark")
@@ -30,6 +29,7 @@ struct ColorItemView: View {
         }
         .scaleEffect(selectedThemeColorManager.selectedThemeID == theme.id ? 1.1 : 1.0)
         .animation(.easeInOut(duration: 0.2), value: selectedThemeColorManager.selectedThemeID)
+        .cornerRadius(40)
         .onTapGesture {
             if theme.isPremium && !selectedThemeColorManager.isPremiumUser {
                 print("🔒 Show Paywall")

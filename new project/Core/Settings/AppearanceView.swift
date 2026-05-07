@@ -12,7 +12,7 @@ struct AppearanceView: View {
         VStack(spacing: 20) {
 
             Toggle(
-                "Automatic (System)",
+                "appearance_auto_title",
                 isOn: Binding(
                     get: { appearanceMode == .auto },
                     set: { isAuto in
@@ -35,13 +35,13 @@ struct AppearanceView: View {
             if appearanceMode != .auto {
                 VStack(alignment: .leading, spacing: 10) {
 
-                    Text("Style")
+                    Text("appearance_style_title")
                         .padding(.horizontal)
 
                     VStack(spacing: 0) {
-                        themeRow(title: "Always Light", type: .light)
+                        themeRow(title: "appearance_light_title", type: .light)
                         Divider()
-                        themeRow(title: "Always Dark", type: .dark)
+                        themeRow(title: "appearance_dark_title", type: .dark)
                     }
                     .background(Color.card)
                     .cornerRadius(12)
@@ -51,14 +51,14 @@ struct AppearanceView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Appearance")
+        .navigationTitle("appearance_title")
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.app)
     }
 }
 
 extension AppearanceView {
-    func themeRow(title: String, type: AppearanceMode) -> some View {
+    func themeRow(title: LocalizedStringKey, type: AppearanceMode) -> some View {
         Button {
             themeManager.appearanceMode = type
         } label: {

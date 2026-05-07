@@ -89,7 +89,14 @@ struct SettingsView: View {
                     sectionTitle("settings_section_advanced")
 
                     VStack(spacing: 0) {
-                        settingRow(title: "settings_audio_quality", icon: "headphones", circleColor: .red)
+                        NavigationLink(destination: AudioQualityView().environmentObject(languageManager)) {
+                            settingRow(
+                                title: "settings_audio_quality",
+                                icon: "headphones",
+                                circleColor: .red
+                            )
+                        }
+                        .buttonStyle(PlainButtonStyle())
                         divider()
                         settingRow(title: "settings_font", icon: "textformat", circleColor: .purple)
                         divider()
