@@ -7,11 +7,27 @@
 
 import SwiftUI
 
+enum PlayerReciterSegment: String, CaseIterable, Identifiable, Hashable {
+    case duaa = "duaa"
+    case tilawats = "tilawates-and-rouqia"
+
+    var id: String { rawValue }
+    var slug: String { rawValue }
+
+    var localizedTitleKey: LocalizedStringKey {
+        switch self {
+        case .duaa:     return "reciters_segment_duaa"
+        case .tilawats: return "reciters_segment_tilawats"
+        }
+    }
+}
+
 struct PlayerReciterSurahListView: View {
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
 
     let reciter: PlayerReciterDisplayItem
     @Binding var preferredReciterId: String
+    let segments: [PlayerReciterSegment]
 
     @State private var surahSearch = ""
     @State private var bioExpanded = false
@@ -19,9 +35,21 @@ struct PlayerReciterSurahListView: View {
     @State private var isLoadingDetail = true
     @State private var detailLoadFailed = false
     @State private var playbackSession: ReciterPlaybackSession?
+    @State private var activeSlug: String
 
     private let horizontalInset: CGFloat = 16
     private let rowHPadding: CGFloat = 14
+
+    init(
+        reciter: PlayerReciterDisplayItem,
+        preferredReciterId: Binding<String>,
+        segments: [PlayerReciterSegment] = []
+    ) {
+        self.reciter = reciter
+        self._preferredReciterId = preferredReciterId
+        self.segments = segments
+        self._activeSlug = State(initialValue: segments.first?.slug ?? reciter.id)
+    }
 
     private var displayTitle: String {
         let t = detail?.nameEn.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -79,9 +107,14 @@ struct PlayerReciterSurahListView: View {
             .padding(.bottom, 28)
         }
         .background(Color.app.ignoresSafeArea())
-        .navigationTitle(displayTitle)
+        .navigationTitle(segments.isEmpty ? displayTitle : "")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            if !segments.isEmpty {
+                ToolbarItem(placement: .principal) {
+                    segmentPicker
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     
@@ -94,10 +127,16 @@ struct PlayerReciterSurahListView: View {
         .pinnedSearchable(text: $surahSearch, promptKey: "search_surah")
         .keepNavigationBarVisibleDuringSearch()
         .onAppear {
-            preferredReciterId = reciter.id
+            if segments.isEmpty {
+                preferredReciterId = reciter.id
+            }
         }
-        .task {
+        .task(id: activeSlug) {
             await loadReciterDetail()
+        }
+        .onChange(of: activeSlug) { _ in
+            surahSearch = ""
+            bioExpanded = false
         }
         .fullScreenCover(item: $playbackSession) { session in
             ReciterSurahNowPlayingView(
@@ -130,11 +169,27 @@ struct PlayerReciterSurahListView: View {
         return list.randomElement()
     }
 
+    private var segmentPicker: some View {
+        let selection = Binding(
+            get: { segments.first { $0.slug == activeSlug } ?? .duaa },
+            set: { activeSlug = $0.slug }
+        )
+        return Picker(selection: selection) {
+            ForEach(segments) { segment in
+                Text(segment.localizedTitleKey).tag(segment)
+            }
+        } label: {
+            Text("reciters_segment_picker_label")
+        }
+        .pickerStyle(.segmented)
+        .labelsHidden()
+    }
+
     private var loadFailureBanner: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("error")
                 .font(.subheadline)
-                .foregroundColor(.white.opacity(0.75))
+                .foregroundColor(.secondary)
             Button("retry") {
                 Task { await loadReciterDetail() }
             }
@@ -147,12 +202,13 @@ struct PlayerReciterSurahListView: View {
     }
 
     private func loadReciterDetail() async {
+        let slug = activeSlug
         await MainActor.run {
             isLoadingDetail = true
             detailLoadFailed = false
         }
         do {
-            let d = try await IslamicCloudAPIClient.shared.fetchReciterDetail(slug: reciter.id)
+            let d = try await IslamicCloudAPIClient.shared.fetchReciterDetail(slug: slug)
             await MainActor.run {
                 detail = d
                 isLoadingDetail = false
@@ -176,9 +232,10 @@ struct PlayerReciterSurahListView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(displayTitle)
                         .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.primary)
                     Text(String(format: "player_reciter_recorded_count", recordedCount))
                         .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.white.opacity(0.55))
+                        .foregroundColor(.secondary)
                 }
                 Spacer(minLength: 0)
             }
@@ -202,10 +259,10 @@ struct PlayerReciterSurahListView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "film")
                         .font(.system(size: 15, weight: .medium))
-                        .foregroundColor(.white.opacity(0.55))
+                        .foregroundColor(.secondary)
                     Text("player_reciter_audio_sync")
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.white.opacity(0.72))
+                        .foregroundColor(.secondary)
                 }
                 Spacer(minLength: 0)
             }
@@ -264,7 +321,7 @@ struct PlayerReciterSurahListView: View {
             if bioExpanded || !needsMore {
                 Text(full)
                     .font(.system(size: 14, weight: .regular))
-                    .foregroundColor(.white.opacity(0.78))
+                    .foregroundColor(.primary)
                     .fixedSize(horizontal: false, vertical: true)
                 if needsMore {
                     bioToggleButton(
@@ -275,7 +332,7 @@ struct PlayerReciterSurahListView: View {
             } else {
                 Text(String(full.prefix(shortLimit)) + "…")
                     .font(.system(size: 14, weight: .regular))
-                    .foregroundColor(.white.opacity(0.78))
+                    .foregroundColor(.primary)
                     .fixedSize(horizontal: false, vertical: true)
                 bioToggleButton(
                     titleKey: "player_reciter_bio_more",
@@ -345,7 +402,6 @@ struct PlayerReciterSurahListView: View {
         HStack {
             Spacer()
             ProgressView()
-                .tint(.white)
             Spacer()
         }
         .padding(.vertical, 40)
@@ -359,7 +415,7 @@ struct PlayerReciterSurahListView: View {
             if filteredSurahs.isEmpty {
                 Text("player_reciter_surahs_empty")
                     .font(.subheadline)
-                    .foregroundColor(.white.opacity(0.55))
+                    .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 28)
                     .background(.card)
@@ -370,7 +426,7 @@ struct PlayerReciterSurahListView: View {
                         surahRow(row)
                         if index < filteredSurahs.count - 1 {
                             Divider()
-                                .background(Color.white.opacity(0.10))
+                                .background(Color(.separator))
                                 .padding(.horizontal, rowHPadding)
                         }
                     }
@@ -387,19 +443,19 @@ struct PlayerReciterSurahListView: View {
         HStack(alignment: .center, spacing: 0) {
             Text("\(row.number)")
                 .font(.system(size: 14, weight: .medium, design: .rounded))
-                .foregroundColor(.white.opacity(0.45))
+                .foregroundColor(.secondary)
                 .frame(width: 28, alignment: .leading)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(row.englishLine)
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .lineLimit(2)
                     .minimumScaleFactor(0.85)
                 if !row.arabicLine.isEmpty {
                     Text(row.arabicLine)
                         .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.white.opacity(0.55))
+                        .foregroundColor(.secondary)
                         .lineLimit(1)
                 }
             }
@@ -440,11 +496,11 @@ struct PlayerReciterSurahListView: View {
     private func playerGlassBackground(cornerRadius: CGFloat) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .fill(Color.white.opacity(0.06))
+                .fill(Color.primary.opacity(0.06))
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .fill(.ultraThinMaterial.opacity(0.65))
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .stroke(Color.white.opacity(0.10), lineWidth: 1)
+                .stroke(Color.primary.opacity(0.10), lineWidth: 1)
         }
     }
 }

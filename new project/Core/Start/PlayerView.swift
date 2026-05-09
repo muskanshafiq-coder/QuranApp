@@ -19,11 +19,13 @@ struct PlayerView: View {
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
     @EnvironmentObject private var authManager: AuthManager
     @State private var navigateToPopularReciters = false
+    @State private var navigateToAllReciters = false
+    @State private var navigateToDuaRuqia = false
     @State private var popularReciterItems: [PlayerReciterDisplayItem] = []
     @State private var recitersLoading = false
     @State private var playerReciterItems: [PlayerReciterDisplayItem] = []
     @State private var recitersLoadFailed = false
-    @State private var featuredReciters: [IslamicCloudReciterDTO] = []
+    @State private var featuredReciterItems: [PlayerReciterDisplayItem] = []
     @AppStorage(UserDefaultsManager.Keys.quranPreferredAudioReciterEdition) private var preferredAudioReciterId: String = ""
     var body: some View {
         NavigationStack {
@@ -45,7 +47,7 @@ struct PlayerView: View {
                             Divider()
                                 .padding(.horizontal)
                             PlayerRow(title: "dua_ruqia_title") {
-                                print("Dua & Ruqia tapped")
+                                navigateToDuaRuqia = true
                             }
                             
                             Divider()
@@ -66,35 +68,36 @@ struct PlayerView: View {
                         Text("Features")
                             .font(.largeTitle)
                             .padding(.horizontal)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 16) {
-                            
-                            FeatureCard(title: "Gift of Ramadan", subtitle: "Editor`s Pick", image: "feature1")
-                            FeatureCard(title: "Adhkar", subtitle: "Morning & Evening", image: "feature2")
-                            FeatureCard(title: "99 Names", subtitle: "of Allah", image: "feature2")
-                            FeatureCard(title: "Daily Duas", subtitle: "", image: "feature1")
-                            FeatureCard(title: "Stories", subtitle: "of Prophets", image: "feature2")
-                            FeatureCard(title: "Stories", subtitle: "of Prophets", image: "feature1")
-                            FeatureCard(title: "Stories", subtitle: "of Prophets", image: "feature2")
-                            FeatureCard(title: "Stories", subtitle: "of Prophets", image: "feature1")
-                            FeatureCard(title: "Stories", subtitle: "of Prophets", image: "feature2")
+                    if recitersLoading && featuredReciterItems.isEmpty {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
                         }
-                        .padding(.horizontal, 4)
+                        .frame(minHeight: 250)
+                    } else {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 16) {
+                                ForEach(featuredReciterItems) { item in
+                                    NavigationLink {
+                                        PlayerReciterSurahListView(
+                                            reciter: item,
+                                            preferredReciterId: $preferredAudioReciterId
+                                        )
+                                    } label: {
+                                        FeaturedReciterCard(item: item)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                            .padding(.horizontal, 4)
+                        }
                     }
                     Text("Expertly curated playlists of the world's best voice of the moment")
                         .foregroundColor(.gray)
                         .padding(.horizontal)
                         .lineLimit(2)
                 }
-                let reciters: [Reciter] = [
-                    Reciter(name: "Yasser Al-Dosari", image: "reciter1"),
-                    Reciter(name: "Mishary Rashid Alafasy", image: "reciter1"),
-                    Reciter(name: "Maher Al Mueaqly", image: "reciter1"),
-                    Reciter(name: "Fatih Seferagic", image: "reciter1"),
-                    Reciter(name: "Abdul Rahman Al Sudais", image: "reciter1"),
-                    Reciter(name: "Abdullah Al-Johany", image: "reciter1"),
-                    Reciter(name: "Saad El Ghamidi", image: "reciter1")
-                ]
                 VStack(alignment: .leading, spacing: 12) {
                     
                     // Header
@@ -105,20 +108,44 @@ struct PlayerView: View {
                         Spacer()
                         
                         Button("See All") {
-                            print("See all tapped")
+                            navigateToAllReciters = true
                         }
                         .foregroundColor(.red)
                         .font(.caption)
+                        .disabled(playerReciterItems.isEmpty)
                     }
                     
-                    // Horizontal list
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 16) {
-                            ForEach(reciters) { reciter in
-                                ReciterItem(reciter: reciter)
-                            }
+                    // Horizontal list — 2 rows, spinner while loading
+                    if recitersLoading && playerReciterItems.isEmpty {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
                         }
-                        .padding(.horizontal, 4)
+                        .frame(minHeight: 236)
+                    } else {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHGrid(
+                                rows: [
+                                    GridItem(.fixed(110), spacing: 16),
+                                    GridItem(.fixed(110), spacing: 16)
+                                ],
+                                spacing: 16
+                            ) {
+                                ForEach(playerReciterItems) { item in
+                                    NavigationLink {
+                                        PlayerReciterSurahListView(
+                                            reciter: item,
+                                            preferredReciterId: $preferredAudioReciterId
+                                        )
+                                    } label: {
+                                        PlayerReciterCircleItem(item: item)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                            .padding(.horizontal, 4)
+                        }
                     }
                 }
                 .padding() // 👈 inner spacing
@@ -140,6 +167,24 @@ struct PlayerView: View {
                     .environmentObject(languageManager)
                     .environmentObject(themeManager)
                     .environmentObject(selectedThemeColorManager)
+            }
+            .navigationDestination(isPresented: $navigateToAllReciters) {
+                PlayerAllRecitersView(reciters: playerReciterItems, preferredReciterId: $preferredAudioReciterId)
+                    .environmentObject(authManager)
+                    .environmentObject(languageManager)
+                    .environmentObject(themeManager)
+                    .environmentObject(selectedThemeColorManager)
+            }
+            .navigationDestination(isPresented: $navigateToDuaRuqia) {
+                PlayerReciterSurahListView(
+                    reciter: PlayerReciterDisplayItem(id: PlayerReciterSegment.duaa.slug),
+                    preferredReciterId: $preferredAudioReciterId,
+                    segments: PlayerReciterSegment.allCases
+                )
+                .environmentObject(authManager)
+                .environmentObject(languageManager)
+                .environmentObject(themeManager)
+                .environmentObject(selectedThemeColorManager)
             }
             .background(Color.app.ignoresSafeArea())
             .toolbar {
@@ -226,32 +271,25 @@ struct PlayerView: View {
         await MainActor.run { recitersLoadFailed = false; recitersLoading = true }
         do {
             let dtos = try await IslamicCloudAPIClient.shared.fetchReciters()
-            let featured = dtos.filter { Self.isFeaturedReciterType($0.reciterListType) }
-            let popular = dtos.filter { Self.isPopularReciterType($0.reciterListType) }
-            let standard = dtos.filter { !Self.isFeaturedReciterType($0.reciterListType) }
-            let items = standard
+
+            let featuredItems = dtos.filtered(by: .featured)
+                .map { PlayerReciterDisplayItem(dto: $0) }
+            let popularItems = dtos.filtered(by: .popular)
                 .map { PlayerReciterDisplayItem(dto: $0) }
                 .sorted { $0.englishName.localizedCaseInsensitiveCompare($1.englishName) == .orderedAscending }
-            let popularItems = popular
+            let allItems = dtos.filtered(by: .all)
                 .map { PlayerReciterDisplayItem(dto: $0) }
                 .sorted { $0.englishName.localizedCaseInsensitiveCompare($1.englishName) == .orderedAscending }
+
             await MainActor.run {
-                featuredReciters = featured
-                playerReciterItems = items
+                featuredReciterItems = featuredItems
+                playerReciterItems = allItems
                 popularReciterItems = popularItems
                 recitersLoading = false
             }
         } catch {
             await MainActor.run { recitersLoadFailed = true; recitersLoading = false }
         }
-    }
-    /// API `type`: `featured` (carousel) vs `standard` (list). Unknown / missing → treat as standard.
-    private static func isFeaturedReciterType(_ raw: String?) -> Bool {
-        (raw?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == "featured")
-    }
-
-    private static func isPopularReciterType(_ raw: String?) -> Bool {
-        (raw?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == "popular")
     }
 }
 

@@ -72,7 +72,7 @@ struct PlayerReciterAvatarCell: View {
 
                 Text(item.englishName)
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .minimumScaleFactor(0.78)

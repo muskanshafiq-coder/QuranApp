@@ -112,11 +112,11 @@ struct PlayerAllRecitersView: View {
             Spacer(minLength: 0)
             Text("reciters_favorites_empty_title")
                 .font(.system(size: 28, weight: .bold))
-                .foregroundStyle(Color.white.opacity(0.55))
+                .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
             Text("reciters_favorites_empty_subtitle")
                 .font(.system(size: 17, weight: .regular))
-                .foregroundStyle(Color.white.opacity(0.35))
+                .foregroundStyle(.tertiary)
                 .multilineTextAlignment(.center)
             Spacer(minLength: 0)
         }

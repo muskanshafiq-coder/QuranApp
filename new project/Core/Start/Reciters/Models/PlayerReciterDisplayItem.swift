@@ -22,6 +22,13 @@ struct PlayerReciterDisplayItem: Identifiable, Hashable {
             .flatMap { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .flatMap { URL(string: $0) }
     }
+
+    init(id: String, englishName: String = "", arabicDisplayName: String? = nil, portraitURL: URL? = nil) {
+        self.id = id
+        self.englishName = englishName
+        self.arabicDisplayName = arabicDisplayName
+        self.portraitURL = portraitURL
+    }
 }
 
 struct IslamicCloudReciterDTO: Decodable {
