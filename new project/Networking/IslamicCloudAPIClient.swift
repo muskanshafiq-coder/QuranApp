@@ -82,6 +82,23 @@ final class IslamicCloudAPIClient {
         )
         return response.data.story
     }
+    /// Single reciter with `surahs[]` and audio URLs — `GET /reciters/{slug}`.
+    func fetchReciterDetail(slug: String) async throws -> IslamicCloudReciterDetailPayload {
+        let segment = slug.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !segment.isEmpty else { throw IslamicCloudAPIError.invalidURL }
+        let encoded = segment.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? segment
+        let path = AppConfig.IslamicCloud.recitersPath + "/" + encoded
+        let envelope: IslamicCloudReciterDetailEnvelope = try await get(path: path, queryItems: [])
+        guard let data = envelope.data else {
+            throw IslamicCloudAPIError.noData
+        }
+        return data
+    }
+    /// Fetches all Quran reciters (`/reciters`): each row includes `type` (`featured` | `standard`).
+    func fetchReciters() async throws -> [IslamicCloudReciterDTO] {
+        let envelope: IslamicCloudRecitersEnvelope = try await get(path: AppConfig.IslamicCloud.recitersPath, queryItems: [])
+        return envelope.data?.reciters ?? []
+    }
 }
 
 // MARK: - Islamic Cloud API Error

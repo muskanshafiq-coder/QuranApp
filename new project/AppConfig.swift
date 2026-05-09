@@ -16,6 +16,9 @@ enum AppConfig {
         /// Quran reciter catalogue (profiles + portraits). GET `{base}/reciters`
         static let recitersPath = "/reciters"
     }
+    enum QuranCloud {
+        static let baseURL = "https://api.alquran.cloud/v1"
+    }
 }
 
 /// Reads compile-time secrets from `Info.plist`, which are injected from

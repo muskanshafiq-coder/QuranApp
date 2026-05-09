@@ -184,3 +184,23 @@
 "add_audio_bookmark" = "أضف الصوت إلى الإشارات المرجعية";
 "no_bookmarks_title" = "لا توجد إشارات مرجعية";
 "add_text_bookmark" = "أضف النص إلى الإشارات المرجعية";
+"home_reciters_all_title" = "جميع القراء";
+"home_reciters_search_placeholder" = "اسم القارئ";
+// MARK: - Reciter surah list (Player)
+"player_reciter_search_surah_placeholder" = "سورة";
+"player_reciter_recorded_count" = "تم تسجيل %d سورة";
+"player_reciter_all_download" = "الكل";
+"player_reciter_audio_sync" = "مزامنة الصوت";
+"player_reciter_bio_mock" = "معروف بوضوح التلاوة وصدق المشاعر — صوت يعتمد عليه ملايين الناس يوميًا. استكشف كل سورة بجودة عالية.";
+"player_reciter_bio_more" = "المزيد";
+"player_reciter_play" = "تشغيل";
+"player_reciter_shuffle" = "عشوائي";
+"player_reciter_surahs_empty" = "لا توجد سور للعرض.";
+
+// MARK: - Reciters list segments (Most Popular / Favorites)
+"reciters_segment_picker_label" = "قائمة القراء";
+"reciters_segment_most_popular" = "الأكثر شيوعًا";
+"reciters_segment_favorites" = "المفضلة";
+"reciters_favorites_empty_title" = "قائمة المفضلة فارغة";
+"reciters_favorites_empty_subtitle" = "لا يوجد قارئ مفضل";
+"search_surah" = "سورة";

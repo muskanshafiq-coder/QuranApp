@@ -183,3 +183,23 @@
 "add_audio_bookmark" = "Sesi Yer İmlerine Ekle";
 "no_bookmarks_title" = "Yer İmi Yok";
 "add_text_bookmark" = "Metni Yer İmlerine Ekle";
+"home_reciters_all_title" = "Tüm okuyucular";
+"home_reciters_search_placeholder" = "Okuyucu adı";
+// MARK: - Reciter surah list (Player)
+"player_reciter_search_surah_placeholder" = "Sure";
+"player_reciter_recorded_count" = "%d sure kaydedildi";
+"player_reciter_all_download" = "TÜMÜ";
+"player_reciter_audio_sync" = "Ses senkronu";
+"player_reciter_bio_mock" = "Netliği ve içten okuyuşuyla tanınan — milyonların her gün güvendiği bir ses. Her sureyi yüksek kalitede keşfedin.";
+"player_reciter_bio_more" = "Daha fazla";
+"player_reciter_play" = "Oynat";
+"player_reciter_shuffle" = "Karışık";
+"player_reciter_surahs_empty" = "Gösterilecek sure yok.";
+
+// MARK: - Reciters list segments (Most Popular / Favorites)
+"reciters_segment_picker_label" = "Okuyucu listesi";
+"reciters_segment_most_popular" = "En Popüler";
+"reciters_segment_favorites" = "Favoriler";
+"reciters_favorites_empty_title" = "Favori Listesi Boş";
+"reciters_favorites_empty_subtitle" = "Favori okuyucu yok";
+"search_surah" = "Sure";

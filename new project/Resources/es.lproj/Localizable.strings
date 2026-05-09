@@ -181,3 +181,23 @@
 "add_audio_bookmark" = "Agregar audio a marcadores";
 "no_bookmarks_title" = "Sin marcadores";
 "add_text_bookmark" = "Agregar texto a marcadores";
+"home_reciters_all_title" = "Todos los recitadores";
+"home_reciters_search_placeholder" = "Nombre del recitador";
+// MARK: - Reciter surah list (Player)
+"player_reciter_search_surah_placeholder" = "Sura";
+"player_reciter_recorded_count" = "%d suras grabadas";
+"player_reciter_all_download" = "TODAS";
+"player_reciter_audio_sync" = "Sincronización de audio";
+"player_reciter_bio_mock" = "Conocido por la claridad y una recitación sincera: una voz en la que millones confían cada día. Explora cada sura en alta calidad.";
+"player_reciter_bio_more" = "Más";
+"player_reciter_play" = "Reproducir";
+"player_reciter_shuffle" = "Aleatorio";
+"player_reciter_surahs_empty" = "No hay suras que mostrar.";
+
+// MARK: - Reciters list segments (Most Popular / Favorites)
+"reciters_segment_picker_label" = "Lista de recitadores";
+"reciters_segment_most_popular" = "Más populares";
+"reciters_segment_favorites" = "Favoritos";
+"reciters_favorites_empty_title" = "Lista de favoritos vacía";
+"reciters_favorites_empty_subtitle" = "Sin recitador favorito";
+"search_surah" = "Sura";

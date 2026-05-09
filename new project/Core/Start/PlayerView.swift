@@ -18,7 +18,13 @@ struct PlayerView: View {
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
     @EnvironmentObject private var authManager: AuthManager
-
+    @State private var navigateToPopularReciters = false
+    @State private var popularReciterItems: [PlayerReciterDisplayItem] = []
+    @State private var recitersLoading = false
+    @State private var playerReciterItems: [PlayerReciterDisplayItem] = []
+    @State private var recitersLoadFailed = false
+    @State private var featuredReciters: [IslamicCloudReciterDTO] = []
+    @AppStorage(UserDefaultsManager.Keys.quranPreferredAudioReciterEdition) private var preferredAudioReciterId: String = ""
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -45,7 +51,7 @@ struct PlayerView: View {
                             Divider()
                                 .padding(.horizontal)
                             PlayerRow(title: "popular_favorites_title") {
-                                print("Most Popular & Favorites tapped")
+                                navigateToPopularReciters = true
                             }
                         }
                         
@@ -128,6 +134,13 @@ struct PlayerView: View {
                     .environmentObject(themeManager)
                     .environmentObject(selectedThemeColorManager)
             }
+            .navigationDestination(isPresented: $navigateToPopularReciters) {
+                PlayerAllRecitersView(reciters: popularReciterItems, preferredReciterId: $preferredAudioReciterId)
+                    .environmentObject(authManager)
+                    .environmentObject(languageManager)
+                    .environmentObject(themeManager)
+                    .environmentObject(selectedThemeColorManager)
+            }
             .background(Color.app.ignoresSafeArea())
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -164,6 +177,7 @@ struct PlayerView: View {
                     }
                 }
             }
+            .task { await loadReciters() }
         }
         .fullScreenCover(isPresented: $showSettings) {
             SettingsView()
@@ -205,6 +219,39 @@ struct PlayerView: View {
     private func shareApp() {
         let message = NSLocalizedString("share_message", comment: "Share app message")
         ShareHelper.presentShareSheet(items: [message])
+    }
+    private func loadReciters(force: Bool = false) async {
+        guard !recitersLoading else { return }
+        if !force && !playerReciterItems.isEmpty { return }
+        await MainActor.run { recitersLoadFailed = false; recitersLoading = true }
+        do {
+            let dtos = try await IslamicCloudAPIClient.shared.fetchReciters()
+            let featured = dtos.filter { Self.isFeaturedReciterType($0.reciterListType) }
+            let popular = dtos.filter { Self.isPopularReciterType($0.reciterListType) }
+            let standard = dtos.filter { !Self.isFeaturedReciterType($0.reciterListType) }
+            let items = standard
+                .map { PlayerReciterDisplayItem(dto: $0) }
+                .sorted { $0.englishName.localizedCaseInsensitiveCompare($1.englishName) == .orderedAscending }
+            let popularItems = popular
+                .map { PlayerReciterDisplayItem(dto: $0) }
+                .sorted { $0.englishName.localizedCaseInsensitiveCompare($1.englishName) == .orderedAscending }
+            await MainActor.run {
+                featuredReciters = featured
+                playerReciterItems = items
+                popularReciterItems = popularItems
+                recitersLoading = false
+            }
+        } catch {
+            await MainActor.run { recitersLoadFailed = true; recitersLoading = false }
+        }
+    }
+    /// API `type`: `featured` (carousel) vs `standard` (list). Unknown / missing → treat as standard.
+    private static func isFeaturedReciterType(_ raw: String?) -> Bool {
+        (raw?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == "featured")
+    }
+
+    private static func isPopularReciterType(_ raw: String?) -> Bool {
+        (raw?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == "popular")
     }
 }
 

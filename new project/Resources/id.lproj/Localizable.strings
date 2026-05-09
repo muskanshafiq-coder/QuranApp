@@ -184,3 +184,23 @@
 "add_audio_bookmark" = "Tambahkan Audio ke Bookmark";
 "no_bookmarks_title" = "Tidak Ada Bookmark";
 "add_text_bookmark" = "Tambahkan Teks ke Bookmark";
+"home_reciters_all_title" = "Semua Qari";
+"home_reciters_search_placeholder" = "Nama Qari";
+// MARK: - Reciter surah list (Player)
+"player_reciter_search_surah_placeholder" = "Surah";
+"player_reciter_recorded_count" = "%d surah direkam";
+"player_reciter_all_download" = "SEMUA";
+"player_reciter_audio_sync" = "Sinkron Audio";
+"player_reciter_bio_mock" = "Terkenal karena kejelasan dan tilawah yang tulus — suara yang dipilih jutaan orang setiap hari. Jelajahi setiap surah dalam kualitas tinggi.";
+"player_reciter_bio_more" = "Selengkapnya";
+"player_reciter_play" = "Putar";
+"player_reciter_shuffle" = "Acak";
+"player_reciter_surahs_empty" = "Tidak ada surah untuk ditampilkan.";
+
+// MARK: - Reciters list segments (Most Popular / Favorites)
+"reciters_segment_picker_label" = "Daftar qari";
+"reciters_segment_most_popular" = "Paling Populer";
+"reciters_segment_favorites" = "Favorit";
+"reciters_favorites_empty_title" = "Daftar Favorit Kosong";
+"reciters_favorites_empty_subtitle" = "Tidak ada qari favorit";
+"search_surah" = "Surah";

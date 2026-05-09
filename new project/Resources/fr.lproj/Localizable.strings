@@ -182,3 +182,23 @@
 "add_audio_bookmark" = "Ajouter l’audio aux favoris";
 "no_bookmarks_title" = "Aucun favori";
 "add_text_bookmark" = "Ajouter le texte aux favoris";
+"home_reciters_all_title" = "Tous les récitateurs";
+"home_reciters_search_placeholder" = "Nom du récitateur";
+// MARK: - Reciter surah list (Player)
+"player_reciter_search_surah_placeholder" = "Sourate";
+"player_reciter_recorded_count" = "%d sourates enregistrées";
+"player_reciter_all_download" = "TOUT";
+"player_reciter_audio_sync" = "Synchronisation audio";
+"player_reciter_bio_mock" = "Réputé pour sa clarté et une récitation du cœur — une voix à laquelle des millions se tournent chaque jour. Explorez chaque sourate en haute qualité.";
+"player_reciter_bio_more" = "Plus";
+"player_reciter_play" = "Lecture";
+"player_reciter_shuffle" = "Aléatoire";
+"player_reciter_surahs_empty" = "Aucune sourate à afficher.";
+
+// MARK: - Reciters list segments (Most Popular / Favorites)
+"reciters_segment_picker_label" = "Liste des récitateurs";
+"reciters_segment_most_popular" = "Les plus populaires";
+"reciters_segment_favorites" = "Favoris";
+"reciters_favorites_empty_title" = "Liste de favoris vide";
+"reciters_favorites_empty_subtitle" = "Aucun récitateur favori";
+"search_surah" = "Sourate";

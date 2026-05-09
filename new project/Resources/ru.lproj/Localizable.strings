@@ -183,3 +183,23 @@
 "add_audio_bookmark" = "Добавить аудио в закладки";
 "no_bookmarks_title" = "Нет закладок";
 "add_text_bookmark" = "Добавить текст в закладки";
+"home_reciters_all_title" = "Все чтецы";
+"home_reciters_search_placeholder" = "Имя чтеца";
+// MARK: - Reciter surah list (Player)
+"player_reciter_search_surah_placeholder" = "Сура";
+"player_reciter_recorded_count" = "Записано сур: %d";
+"player_reciter_all_download" = "ВСЕ";
+"player_reciter_audio_sync" = "Синхронизация аудио";
+"player_reciter_bio_mock" = "Известен ясностью и душевным чтением — голос, которому ежедневно доверяют миллионы. Слушайте каждую суру в высоком качестве.";
+"player_reciter_bio_more" = "Ещё";
+"player_reciter_play" = "Воспроизвести";
+"player_reciter_shuffle" = "В случайном порядке";
+"player_reciter_surahs_empty" = "Нет сур для отображения.";
+
+// MARK: - Reciters list segments (Most Popular / Favorites)
+"reciters_segment_picker_label" = "Список чтецов";
+"reciters_segment_most_popular" = "Популярные";
+"reciters_segment_favorites" = "Избранное";
+"reciters_favorites_empty_title" = "Список избранного пуст";
+"reciters_favorites_empty_subtitle" = "Нет избранного чтеца";
+"search_surah" = "Сура";
