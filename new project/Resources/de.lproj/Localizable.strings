@@ -202,3 +202,22 @@
 "reciters_favorites_empty_title" = "Favoritenliste leer";
 "reciters_favorites_empty_subtitle" = "Kein favorisierter Rezitator";
 "search_surah" = "Sure";
+
+// MARK: - Reader / Quran tab
+"quran_title" = "Koran";
+"quran_continue_reading" = "Lesen fortsetzen";
+"quran_my_bookmarks" = "Meine Lesezeichen";
+"quran_suras" = "Suren";
+"quran_juz_hizb_rubu" = "Juz, Hizb und Rubu";
+"quran_sajdas" = "Sajdas";
+"quran_see_more" = "Mehr anzeigen";
+"quran_meccan" = "Mekkanisch";
+"quran_medinan" = "Medinensisch";
+"quran_ayas_count" = "%d Verse";
+"quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Vers %3$d";
+"loading" = "Wird geladen…";
+
+// MARK: - Reader books strip
+"reader_book_holy_quran" = "Heiliger Koran";
+"reader_book_madinah" = "Medina";
+"reader_book_tajweed" = "Tadschwid";

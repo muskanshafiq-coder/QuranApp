@@ -211,3 +211,22 @@
 "reciters_dua_ruqia_empty_subtitle" = "Nothing here yet";
 
 "search_surah" = "Surah";
+
+// MARK: - Reader / Quran tab
+"quran_title" = "Quran";
+"quran_continue_reading" = "Continue Reading";
+"quran_my_bookmarks" = "My Bookmarks";
+"quran_suras" = "Suras";
+"quran_juz_hizb_rubu" = "Juz, Hizb & Rubu";
+"quran_sajdas" = "Sajdas";
+"quran_see_more" = "See More";
+"quran_meccan" = "Meccan";
+"quran_medinan" = "Medinan";
+"quran_ayas_count" = "%d Ayahs";
+"quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Ayah %3$d";
+"loading" = "Loading…";
+
+// MARK: - Reader books strip
+"reader_book_holy_quran" = "Holy Quran";
+"reader_book_madinah" = "Madinah";
+"reader_book_tajweed" = "Tajweed";

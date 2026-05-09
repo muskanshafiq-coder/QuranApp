@@ -22,7 +22,10 @@ struct SuraRowView: View {
                     .font(.system(size: 16, weight: .semibold, design: .rounded))
                     .foregroundColor(colorScheme == .dark ? .white : .black)
 
-                Text("quran_ayas_count")
+                Text(String.localizedStringWithFormat(
+                    NSLocalizedString("quran_ayas_count", comment: ""),
+                    surah.numberOfAyahs
+                ))
                 .font(.system(size: 12))
                 .foregroundColor(.gray)
             }

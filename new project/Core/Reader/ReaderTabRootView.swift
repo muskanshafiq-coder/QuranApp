@@ -46,7 +46,7 @@ struct QuranView: View {
     @State private var showAllSajdas = false
     @State private var surahDetailContext: SuraDetailContext?
 
-    private var navigationTitleKey: String {
+    private var navigationTitleKey: LocalizedStringKey {
         showQuranBooksStrip ? "tab_reader" : "quran_title"
     }
 

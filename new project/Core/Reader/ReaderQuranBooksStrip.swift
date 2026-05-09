@@ -64,7 +64,7 @@ struct ReaderQuranBooksStrip: View {
                 }
             }
 
-            Text(book.titleKey)
+            Text(LocalizedStringKey(book.titleKey))
                 .font(.system(size: 13, weight: .semibold, design: .rounded))
                 .foregroundColor(Color(UIColor.label))
                 .multilineTextAlignment(.center)

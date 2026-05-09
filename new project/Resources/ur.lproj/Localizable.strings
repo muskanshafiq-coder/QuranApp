@@ -204,3 +204,22 @@
 "reciters_favorites_empty_title" = "پسندیدہ فہرست خالی ہے";
 "reciters_favorites_empty_subtitle" = "کوئی پسندیدہ قاری نہیں";
 "search_surah" = "سورۃ";
+
+// MARK: - Reader / Quran tab
+"quran_title" = "قرآن";
+"quran_continue_reading" = "پڑھنا جاری رکھیں";
+"quran_my_bookmarks" = "میرے بُک مارکس";
+"quran_suras" = "سورتیں";
+"quran_juz_hizb_rubu" = "پارہ، حزب اور ربع";
+"quran_sajdas" = "سجدے";
+"quran_see_more" = "مزید دیکھیں";
+"quran_meccan" = "مکی";
+"quran_medinan" = "مدنی";
+"quran_ayas_count" = "%d آیات";
+"quran_juz_hizb_ayah" = "پارہ %1$d • حزب %2$d • آیت %3$d";
+"loading" = "لوڈ ہو رہا ہے…";
+
+// MARK: - Reader books strip
+"reader_book_holy_quran" = "قرآن مجید";
+"reader_book_madinah" = "مدینہ مصحف";
+"reader_book_tajweed" = "تجوید مصحف";
