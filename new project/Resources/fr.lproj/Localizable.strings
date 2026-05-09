@@ -191,6 +191,7 @@
 "player_reciter_audio_sync" = "Synchronisation audio";
 "player_reciter_bio_mock" = "Réputé pour sa clarté et une récitation du cœur — une voix à laquelle des millions se tournent chaque jour. Explorez chaque sourate en haute qualité.";
 "player_reciter_bio_more" = "Plus";
+"player_reciter_bio_less" = "Moins";
 "player_reciter_play" = "Lecture";
 "player_reciter_shuffle" = "Aléatoire";
 "player_reciter_surahs_empty" = "Aucune sourate à afficher.";

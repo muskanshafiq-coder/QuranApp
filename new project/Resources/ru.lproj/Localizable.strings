@@ -192,6 +192,7 @@
 "player_reciter_audio_sync" = "Синхронизация аудио";
 "player_reciter_bio_mock" = "Известен ясностью и душевным чтением — голос, которому ежедневно доверяют миллионы. Слушайте каждую суру в высоком качестве.";
 "player_reciter_bio_more" = "Ещё";
+"player_reciter_bio_less" = "Свернуть";
 "player_reciter_play" = "Воспроизвести";
 "player_reciter_shuffle" = "В случайном порядке";
 "player_reciter_surahs_empty" = "Нет сур для отображения.";

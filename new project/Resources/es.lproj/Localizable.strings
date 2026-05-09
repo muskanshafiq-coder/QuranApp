@@ -190,6 +190,7 @@
 "player_reciter_audio_sync" = "Sincronización de audio";
 "player_reciter_bio_mock" = "Conocido por la claridad y una recitación sincera: una voz en la que millones confían cada día. Explora cada sura en alta calidad.";
 "player_reciter_bio_more" = "Más";
+"player_reciter_bio_less" = "Menos";
 "player_reciter_play" = "Reproducir";
 "player_reciter_shuffle" = "Aleatorio";
 "player_reciter_surahs_empty" = "No hay suras que mostrar.";

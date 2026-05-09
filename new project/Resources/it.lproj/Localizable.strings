@@ -190,6 +190,7 @@
 "player_reciter_audio_sync" = "Sincronizzazione audio";
 "player_reciter_bio_mock" = "Noto per chiarezza e recitazione sentita — una voce alla quale milioni si affidano ogni giorno. Esplora ogni sura in alta qualità.";
 "player_reciter_bio_more" = "Altro";
+"player_reciter_bio_less" = "Meno";
 "player_reciter_play" = "Riproduci";
 "player_reciter_shuffle" = "Casuale";
 "player_reciter_surahs_empty" = "Nessuna sura da mostrare.";

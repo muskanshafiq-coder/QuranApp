@@ -192,6 +192,7 @@
 "player_reciter_audio_sync" = "Audiosynchronisatie";
 "player_reciter_bio_mock" = "Bekend om helderheid en oprechte voordracht — een stem waar dagelijks miljoenen op vertrouwen. Ontdek elke soera in hoge kwaliteit.";
 "player_reciter_bio_more" = "Meer";
+"player_reciter_bio_less" = "Minder";
 "player_reciter_play" = "Afspelen";
 "player_reciter_shuffle" = "Willekeurig";
 "player_reciter_surahs_empty" = "Geen soera’s om te tonen.";

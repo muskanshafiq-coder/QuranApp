@@ -192,6 +192,7 @@
 "player_reciter_audio_sync" = "آڈیو سنک";
 "player_reciter_bio_mock" = "وضاحت اور دل سے تلاوت کے لیے مشہور — روزانہ لاکھوں کا بھروسہ۔ ہر سورۃ اعلیٰ معیار میں سنیں۔";
 "player_reciter_bio_more" = "مزید";
+"player_reciter_bio_less" = "کم";
 "player_reciter_play" = "چلائیں";
 "player_reciter_shuffle" = "شفل";
 "player_reciter_surahs_empty" = "دکھانے کے لیے کوئی سورت نہیں۔";

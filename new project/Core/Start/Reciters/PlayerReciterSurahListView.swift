@@ -266,20 +266,34 @@ struct PlayerReciterSurahListView: View {
                     .font(.system(size: 14, weight: .regular))
                     .foregroundColor(.white.opacity(0.78))
                     .fixedSize(horizontal: false, vertical: true)
+                if needsMore {
+                    bioToggleButton(
+                        titleKey: "player_reciter_bio_less",
+                        expand: false
+                    )
+                }
             } else {
                 Text(String(full.prefix(shortLimit)) + "…")
                     .font(.system(size: 14, weight: .regular))
                     .foregroundColor(.white.opacity(0.78))
                     .fixedSize(horizontal: false, vertical: true)
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)) { bioExpanded = true }
-                } label: {
-                    Text("player_reciter_bio_more")
-                        .font(.system(size: 14, weight: .semibold))
-                }
-                .buttonStyle(.plain)
+                bioToggleButton(
+                    titleKey: "player_reciter_bio_more",
+                    expand: true
+                )
             }
         }
+    }
+
+    private func bioToggleButton(titleKey: LocalizedStringKey, expand: Bool) -> some View {
+        Button {
+            withAnimation(.easeInOut(duration: 0.2)) { bioExpanded = expand }
+        } label: {
+            Text(titleKey)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(selectedThemeColorManager.selectedColor)
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Play / Shuffle

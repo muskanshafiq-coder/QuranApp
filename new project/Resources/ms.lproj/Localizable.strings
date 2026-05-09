@@ -192,6 +192,7 @@
 "player_reciter_audio_sync" = "Penyegerakan Audio";
 "player_reciter_bio_mock" = "Dikenali kerana kejelasan dan tilawah yang ikhlas — suara yang dipercayai berjuta-juta orang setiap hari. Terokai setiap surah dalam kualiti tinggi.";
 "player_reciter_bio_more" = "Lagi";
+"player_reciter_bio_less" = "Kurang";
 "player_reciter_play" = "Main";
 "player_reciter_shuffle" = "Rawak";
 "player_reciter_surahs_empty" = "Tiada surah untuk dipaparkan.";

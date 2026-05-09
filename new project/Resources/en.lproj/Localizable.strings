@@ -192,6 +192,7 @@
 "player_reciter_audio_sync" = "Audio Sync";
 "player_reciter_bio_mock" = "Known for clarity and heartfelt recitation — a voice millions turn to daily. Explore every surah in high quality.";
 "player_reciter_bio_more" = "More";
+"player_reciter_bio_less" = "Less";
 "player_reciter_play" = "Play";
 "player_reciter_shuffle" = "Shuffle";
 "player_reciter_surahs_empty" = "No surahs to show.";

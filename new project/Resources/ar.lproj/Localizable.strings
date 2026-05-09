@@ -193,6 +193,7 @@
 "player_reciter_audio_sync" = "مزامنة الصوت";
 "player_reciter_bio_mock" = "معروف بوضوح التلاوة وصدق المشاعر — صوت يعتمد عليه ملايين الناس يوميًا. استكشف كل سورة بجودة عالية.";
 "player_reciter_bio_more" = "المزيد";
+"player_reciter_bio_less" = "أقل";
 "player_reciter_play" = "تشغيل";
 "player_reciter_shuffle" = "عشوائي";
 "player_reciter_surahs_empty" = "لا توجد سور للعرض.";

@@ -192,6 +192,7 @@
 "player_reciter_audio_sync" = "Ses senkronu";
 "player_reciter_bio_mock" = "Netliği ve içten okuyuşuyla tanınan — milyonların her gün güvendiği bir ses. Her sureyi yüksek kalitede keşfedin.";
 "player_reciter_bio_more" = "Daha fazla";
+"player_reciter_bio_less" = "Daha az";
 "player_reciter_play" = "Oynat";
 "player_reciter_shuffle" = "Karışık";
 "player_reciter_surahs_empty" = "Gösterilecek sure yok.";

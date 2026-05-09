@@ -193,6 +193,7 @@
 "player_reciter_audio_sync" = "Sinkron Audio";
 "player_reciter_bio_mock" = "Terkenal karena kejelasan dan tilawah yang tulus — suara yang dipilih jutaan orang setiap hari. Jelajahi setiap surah dalam kualitas tinggi.";
 "player_reciter_bio_more" = "Selengkapnya";
+"player_reciter_bio_less" = "Lebih sedikit";
 "player_reciter_play" = "Putar";
 "player_reciter_shuffle" = "Acak";
 "player_reciter_surahs_empty" = "Tidak ada surah untuk ditampilkan.";
