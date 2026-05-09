@@ -131,3 +131,29 @@
 "sleep_duration_none" = "—";
 "sleep_duration_min_singular" = "1 min";
 "sleep_duration_min_plural" = "%d min";
+
+/* Auth & Sign-In */
+"login_choose_method_description" = "Elige un método de inicio de sesión o registro. Te permite guardar tus listas de reproducción y administrar tus datos entre dispositivos.";
+"sign_in_google" = "Iniciar sesión con Google";
+"alert_cancel" = "Cancelar";
+"alert_sign_in" = "Iniciar sesión";
+"auth_registered_users_title" = "Solo usuarios registrados";
+"auth_registered_users_message" = "Las listas de reproducción y los marcadores solo están disponibles para usuarios registrados. Inicia sesión para crear tu lista de reproducción.";
+
+/* Playlists */
+"playlists_empty_title" = "Sin lista de reproducción";
+"playlists_empty_subtitle" = "Toca + para añadir una nueva lista de reproducción";
+"playlist_alert_title" = "Nombre de la lista";
+"playlist_alert_message" = "Introduce un nombre para la nueva lista de reproducción";
+"playlist_alert_placeholder" = "Nombre de la lista";
+"playlist_alert_add" = "Añadir";
+"playlist_add_button_accessibility" = "Añadir nueva lista";
+"playlist_more_options_accessibility" = "Más opciones";
+"playlist_surah_count_zero" = "0 sura";
+"playlist_surah_count_one" = "1 sura";
+"playlist_surah_count_other" = "%d suras";
+"playlist_downloaded_badge" = "DESCARGADA";
+"playlist_action_play" = "Reproducir";
+"playlist_action_shuffle" = "Aleatorio";
+"playlist_action_rename" = "Renombrar";
+"playlist_action_delete" = "Eliminar";

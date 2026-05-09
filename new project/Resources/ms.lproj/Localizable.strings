@@ -133,3 +133,29 @@
 "sleep_duration_none" = "—";
 "sleep_duration_min_singular" = "1 min";
 "sleep_duration_min_plural" = "%d min";
+
+/* Auth & Sign-In */
+"login_choose_method_description" = "Pilih kaedah log masuk atau daftar. Ia membolehkan anda menyimpan senarai main dan mengurus data anda merentas peranti.";
+"sign_in_google" = "Log masuk dengan Google";
+"alert_cancel" = "Batal";
+"alert_sign_in" = "Log masuk";
+"auth_registered_users_title" = "Hanya pengguna berdaftar";
+"auth_registered_users_message" = "Senarai main & penanda buku hanya tersedia untuk pengguna berdaftar. Sila log masuk untuk mencipta senarai main anda.";
+
+/* Playlists */
+"playlists_empty_title" = "Tiada senarai main";
+"playlists_empty_subtitle" = "Ketik + untuk menambah senarai main baharu";
+"playlist_alert_title" = "Nama senarai main";
+"playlist_alert_message" = "Masukkan nama untuk senarai main baharu";
+"playlist_alert_placeholder" = "Nama senarai main";
+"playlist_alert_add" = "Tambah";
+"playlist_add_button_accessibility" = "Tambah senarai main baharu";
+"playlist_more_options_accessibility" = "Lagi pilihan";
+"playlist_surah_count_zero" = "0 surah";
+"playlist_surah_count_one" = "1 surah";
+"playlist_surah_count_other" = "%d surah";
+"playlist_downloaded_badge" = "DIMUAT TURUN";
+"playlist_action_play" = "Main";
+"playlist_action_shuffle" = "Rawak";
+"playlist_action_rename" = "Namakan semula";
+"playlist_action_delete" = "Padam";

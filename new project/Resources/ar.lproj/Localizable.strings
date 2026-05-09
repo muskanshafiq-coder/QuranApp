@@ -134,3 +134,29 @@
 "sleep_duration_none" = "—";
 "sleep_duration_min_singular" = "دقيقة واحدة";
 "sleep_duration_min_plural" = "%d دقيقة";
+
+/* Auth & Sign-In */
+"login_choose_method_description" = "اختر طريقة تسجيل الدخول أو الاشتراك. يتيح لك ذلك تخزين قوائم التشغيل وإدارة بياناتك بين الأجهزة.";
+"sign_in_google" = "تسجيل الدخول باستخدام جوجل";
+"alert_cancel" = "إلغاء";
+"alert_sign_in" = "تسجيل الدخول";
+"auth_registered_users_title" = "للمستخدمين المسجلين فقط";
+"auth_registered_users_message" = "قوائم التشغيل والإشارات المرجعية متاحة للمستخدمين المسجلين فقط. يرجى تسجيل الدخول لإنشاء قائمة التشغيل الخاصة بك.";
+
+/* Playlists */
+"playlists_empty_title" = "لا توجد قائمة تشغيل";
+"playlists_empty_subtitle" = "اضغط على + لإضافة قائمة تشغيل جديدة";
+"playlist_alert_title" = "اسم قائمة التشغيل";
+"playlist_alert_message" = "أدخل اسمًا لقائمة التشغيل الجديدة";
+"playlist_alert_placeholder" = "اسم قائمة التشغيل";
+"playlist_alert_add" = "إضافة";
+"playlist_add_button_accessibility" = "إضافة قائمة تشغيل جديدة";
+"playlist_more_options_accessibility" = "المزيد من الخيارات";
+"playlist_surah_count_zero" = "٠ سورة";
+"playlist_surah_count_one" = "سورة واحدة";
+"playlist_surah_count_other" = "%d سور";
+"playlist_downloaded_badge" = "تم التنزيل";
+"playlist_action_play" = "تشغيل";
+"playlist_action_shuffle" = "عشوائي";
+"playlist_action_rename" = "إعادة تسمية";
+"playlist_action_delete" = "حذف";

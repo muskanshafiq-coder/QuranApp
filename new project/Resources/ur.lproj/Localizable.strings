@@ -133,3 +133,29 @@
 "sleep_duration_none" = "—";
 "sleep_duration_min_singular" = "1 منٹ";
 "sleep_duration_min_plural" = "%d منٹ";
+
+/* Auth & Sign-In */
+"login_choose_method_description" = "سائن ان یا سائن اپ کا طریقہ منتخب کریں۔ یہ آپ کو اپنی پلے لسٹس محفوظ کرنے اور آلات کے درمیان ڈیٹا کا انتظام کرنے کی اجازت دیتا ہے۔";
+"sign_in_google" = "گوگل سے سائن ان کریں";
+"alert_cancel" = "منسوخ کریں";
+"alert_sign_in" = "سائن ان";
+"auth_registered_users_title" = "صرف رجسٹرڈ صارفین کے لیے";
+"auth_registered_users_message" = "پلے لسٹ اور بک مارک صرف رجسٹرڈ صارفین کے لیے دستیاب ہیں۔ اپنی پلے لسٹ بنانے کے لیے براہ کرم سائن ان کریں۔";
+
+/* Playlists */
+"playlists_empty_title" = "کوئی پلے لسٹ نہیں";
+"playlists_empty_subtitle" = "نئی پلے لسٹ شامل کرنے کے لیے + پر ٹیپ کریں";
+"playlist_alert_title" = "پلے لسٹ کا نام";
+"playlist_alert_message" = "نئی پلے لسٹ کے لیے نام درج کریں";
+"playlist_alert_placeholder" = "پلے لسٹ کا نام";
+"playlist_alert_add" = "شامل کریں";
+"playlist_add_button_accessibility" = "نئی پلے لسٹ شامل کریں";
+"playlist_more_options_accessibility" = "مزید اختیارات";
+"playlist_surah_count_zero" = "۰ سورہ";
+"playlist_surah_count_one" = "۱ سورہ";
+"playlist_surah_count_other" = "%d سورتیں";
+"playlist_downloaded_badge" = "ڈاؤن لوڈ شدہ";
+"playlist_action_play" = "چلائیں";
+"playlist_action_shuffle" = "شفل";
+"playlist_action_rename" = "نام تبدیل کریں";
+"playlist_action_delete" = "حذف کریں";

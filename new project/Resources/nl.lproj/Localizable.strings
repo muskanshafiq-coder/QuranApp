@@ -133,3 +133,29 @@
 "sleep_duration_none" = "—";
 "sleep_duration_min_singular" = "1 min";
 "sleep_duration_min_plural" = "%d min";
+
+/* Auth & Sign-In */
+"login_choose_method_description" = "Kies een aanmeld- of registratiemethode. Hiermee kun je je afspeellijsten opslaan en je gegevens tussen apparaten beheren.";
+"sign_in_google" = "Aanmelden met Google";
+"alert_cancel" = "Annuleer";
+"alert_sign_in" = "Aanmelden";
+"auth_registered_users_title" = "Alleen geregistreerde gebruikers";
+"auth_registered_users_message" = "Afspeellijsten en bladwijzers zijn alleen beschikbaar voor geregistreerde gebruikers. Meld je aan om je afspeellijst te maken.";
+
+/* Playlists */
+"playlists_empty_title" = "Geen afspeellijst";
+"playlists_empty_subtitle" = "Tik op + om een nieuwe afspeellijst toe te voegen";
+"playlist_alert_title" = "Naam afspeellijst";
+"playlist_alert_message" = "Voer een naam in voor de nieuwe afspeellijst";
+"playlist_alert_placeholder" = "Naam van de afspeellijst";
+"playlist_alert_add" = "Voeg toe";
+"playlist_add_button_accessibility" = "Nieuwe afspeellijst toevoegen";
+"playlist_more_options_accessibility" = "Meer opties";
+"playlist_surah_count_zero" = "0 soera";
+"playlist_surah_count_one" = "1 soera";
+"playlist_surah_count_other" = "%d soera's";
+"playlist_downloaded_badge" = "GEDOWNLOAD";
+"playlist_action_play" = "Afspelen";
+"playlist_action_shuffle" = "Willekeurig";
+"playlist_action_rename" = "Hernoemen";
+"playlist_action_delete" = "Verwijder";

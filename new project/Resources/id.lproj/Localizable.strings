@@ -133,3 +133,30 @@
 "sleep_duration_none" = "—";
 "sleep_duration_min_singular" = "1 mnt";
 "sleep_duration_min_plural" = "%d mnt";
+
+/* Auth & Sign-In */
+"close_button" = "Tutup";
+"login_choose_method_description" = "Pilih metode masuk atau daftar. Ini memungkinkan Anda menyimpan daftar putar dan mengelola data Anda di seluruh perangkat.";
+"sign_in_google" = "Masuk dengan Google";
+"alert_cancel" = "Batal";
+"alert_sign_in" = "Masuk";
+"auth_registered_users_title" = "Hanya untuk pengguna terdaftar";
+"auth_registered_users_message" = "Daftar putar & markah hanya tersedia untuk pengguna terdaftar. Silakan masuk untuk membuat daftar putar Anda.";
+
+/* Playlists */
+"playlists_empty_title" = "Tidak ada daftar putar";
+"playlists_empty_subtitle" = "Ketuk + untuk menambah daftar putar baru";
+"playlist_alert_title" = "Nama daftar putar";
+"playlist_alert_message" = "Masukkan nama untuk daftar putar baru";
+"playlist_alert_placeholder" = "Nama daftar putar";
+"playlist_alert_add" = "Tambah";
+"playlist_add_button_accessibility" = "Tambah daftar putar baru";
+"playlist_more_options_accessibility" = "Opsi lainnya";
+"playlist_surah_count_zero" = "0 surah";
+"playlist_surah_count_one" = "1 surah";
+"playlist_surah_count_other" = "%d surah";
+"playlist_downloaded_badge" = "DIUNDUH";
+"playlist_action_play" = "Putar";
+"playlist_action_shuffle" = "Acak";
+"playlist_action_rename" = "Ganti nama";
+"playlist_action_delete" = "Hapus";

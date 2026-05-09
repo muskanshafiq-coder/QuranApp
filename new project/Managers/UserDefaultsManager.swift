@@ -7,6 +7,8 @@ final class UserDefaultsManager {
     enum Keys {
         static let selectedThemeColorID = "selectedThemeColorID"
         static let hasCompletedOnboarding = "hasCompletedOnboarding"
+        static let isSignedIn = "isSignedIn"
+        static let playlistsData = "playlistsData"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -27,5 +29,21 @@ final class UserDefaultsManager {
 
     func hasCompletedOnboarding() -> Bool {
         defaults.bool(forKey: Keys.hasCompletedOnboarding)
+    }
+
+    func setSignedIn(_ signedIn: Bool) {
+        defaults.set(signedIn, forKey: Keys.isSignedIn)
+    }
+
+    func isSignedIn() -> Bool {
+        defaults.bool(forKey: Keys.isSignedIn)
+    }
+
+    func savePlaylistsData(_ data: Data) {
+        defaults.set(data, forKey: Keys.playlistsData)
+    }
+
+    func playlistsData() -> Data? {
+        defaults.data(forKey: Keys.playlistsData)
     }
 }

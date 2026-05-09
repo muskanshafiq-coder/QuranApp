@@ -133,3 +133,29 @@
 "sleep_duration_none" = "—";
 "sleep_duration_min_singular" = "1 мин";
 "sleep_duration_min_plural" = "%d мин";
+
+/* Auth & Sign-In */
+"login_choose_method_description" = "Выберите способ входа или регистрации. Это позволит сохранять плейлисты и управлять данными на разных устройствах.";
+"sign_in_google" = "Войти через Google";
+"alert_cancel" = "Отмена";
+"alert_sign_in" = "Войти";
+"auth_registered_users_title" = "Только для зарегистрированных пользователей";
+"auth_registered_users_message" = "Плейлисты и закладки доступны только зарегистрированным пользователям. Пожалуйста, войдите, чтобы создать свой плейлист.";
+
+/* Playlists */
+"playlists_empty_title" = "Нет плейлиста";
+"playlists_empty_subtitle" = "Нажмите +, чтобы добавить новый плейлист";
+"playlist_alert_title" = "Название плейлиста";
+"playlist_alert_message" = "Введите название для нового плейлиста";
+"playlist_alert_placeholder" = "Название плейлиста";
+"playlist_alert_add" = "Добавить";
+"playlist_add_button_accessibility" = "Добавить новый плейлист";
+"playlist_more_options_accessibility" = "Другие параметры";
+"playlist_surah_count_zero" = "0 сур";
+"playlist_surah_count_one" = "1 сура";
+"playlist_surah_count_other" = "%d сур";
+"playlist_downloaded_badge" = "ЗАГРУЖЕНО";
+"playlist_action_play" = "Воспроизвести";
+"playlist_action_shuffle" = "В случайном порядке";
+"playlist_action_rename" = "Переименовать";
+"playlist_action_delete" = "Удалить";

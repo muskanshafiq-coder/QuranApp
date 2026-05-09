@@ -133,3 +133,29 @@
 "sleep_duration_none" = "—";
 "sleep_duration_min_singular" = "1 dk";
 "sleep_duration_min_plural" = "%d dk";
+
+/* Auth & Sign-In */
+"login_choose_method_description" = "Bir oturum açma veya kaydolma yöntemi seçin. Bu, çalma listelerinizi kaydetmenize ve verilerinizi cihazlar arasında yönetmenize olanak tanır.";
+"sign_in_google" = "Google ile giriş yap";
+"alert_cancel" = "İptal";
+"alert_sign_in" = "Giriş yap";
+"auth_registered_users_title" = "Yalnızca kayıtlı kullanıcılar";
+"auth_registered_users_message" = "Çalma listeleri ve yer imleri yalnızca kayıtlı kullanıcılar içindir. Çalma listenizi oluşturmak için lütfen giriş yapın.";
+
+/* Playlists */
+"playlists_empty_title" = "Çalma listesi yok";
+"playlists_empty_subtitle" = "Yeni bir çalma listesi eklemek için + simgesine dokunun";
+"playlist_alert_title" = "Çalma Listesi Adı";
+"playlist_alert_message" = "Yeni çalma listesi için bir ad girin";
+"playlist_alert_placeholder" = "Çalma listesinin adı";
+"playlist_alert_add" = "Ekle";
+"playlist_add_button_accessibility" = "Yeni çalma listesi ekle";
+"playlist_more_options_accessibility" = "Daha fazla seçenek";
+"playlist_surah_count_zero" = "0 sure";
+"playlist_surah_count_one" = "1 sure";
+"playlist_surah_count_other" = "%d sure";
+"playlist_downloaded_badge" = "İNDİRİLDİ";
+"playlist_action_play" = "Oynat";
+"playlist_action_shuffle" = "Karışık";
+"playlist_action_rename" = "Yeniden adlandır";
+"playlist_action_delete" = "Sil";

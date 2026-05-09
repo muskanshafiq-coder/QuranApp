@@ -131,3 +131,29 @@
 "sleep_duration_none" = "—";
 "sleep_duration_min_singular" = "1 min";
 "sleep_duration_min_plural" = "%d min";
+
+/* Auth & Sign-In */
+"login_choose_method_description" = "Scegli un metodo di accesso o registrazione. Ti consente di salvare le tue playlist e gestire i tuoi dati tra i dispositivi.";
+"sign_in_google" = "Accedi con Google";
+"alert_cancel" = "Annulla";
+"alert_sign_in" = "Accedi";
+"auth_registered_users_title" = "Solo utenti registrati";
+"auth_registered_users_message" = "Le playlist e i segnalibri sono disponibili solo per gli utenti registrati. Accedi per creare la tua playlist.";
+
+/* Playlists */
+"playlists_empty_title" = "Nessuna playlist";
+"playlists_empty_subtitle" = "Tocca + per aggiungere una nuova playlist";
+"playlist_alert_title" = "Nome playlist";
+"playlist_alert_message" = "Inserisci un nome per la nuova playlist";
+"playlist_alert_placeholder" = "Nome della playlist";
+"playlist_alert_add" = "Aggiungi";
+"playlist_add_button_accessibility" = "Aggiungi nuova playlist";
+"playlist_more_options_accessibility" = "Altre opzioni";
+"playlist_surah_count_zero" = "0 sura";
+"playlist_surah_count_one" = "1 sura";
+"playlist_surah_count_other" = "%d sure";
+"playlist_downloaded_badge" = "SCARICATA";
+"playlist_action_play" = "Riproduci";
+"playlist_action_shuffle" = "Casuale";
+"playlist_action_rename" = "Rinomina";
+"playlist_action_delete" = "Elimina";

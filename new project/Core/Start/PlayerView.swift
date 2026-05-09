@@ -10,12 +10,16 @@ import SwiftUI
 struct PlayerView: View {
     
     @State private var showSettings = false
+    @State private var showSignInRequiredAlert = false
+    @State private var showLoginSheet = false
+    @State private var navigateToPlaylists = false
     @EnvironmentObject private var languageManager: AppLanguageManager
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
-    
+    @EnvironmentObject private var authManager: AuthManager
+
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack {
                     
@@ -25,7 +29,7 @@ struct PlayerView: View {
                         VStack(spacing: 0) {
                             
                             PlayerRow(title: "playlists_title") {
-                                print("Playlists tapped")
+                                handlePlaylistsTap()
                             }
                             
                             Divider()
@@ -113,7 +117,14 @@ struct PlayerView: View {
                 .padding(.horizontal)
             }
             .navigationTitle("player_title")
-            .background(Color.app.ignoresSafeArea())   // ✅ FIXED HERE
+            .navigationDestination(isPresented: $navigateToPlaylists) {
+                PlaylistsView()
+                    .environmentObject(authManager)
+                    .environmentObject(languageManager)
+                    .environmentObject(themeManager)
+                    .environmentObject(selectedThemeColorManager)
+            }
+            .background(Color.app.ignoresSafeArea())
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: shareApp) {
@@ -155,6 +166,35 @@ struct PlayerView: View {
                 .environmentObject(languageManager)
                 .environmentObject(themeManager)
                 .environmentObject(selectedThemeColorManager)
+        }
+        .alert("auth_registered_users_title", isPresented: $showSignInRequiredAlert) {
+            Button("alert_cancel", role: .cancel, action: {})
+            Button("alert_sign_in") { showLoginSheet = true }
+        } message: {
+            Text("auth_registered_users_message")
+        }
+        .sheet(isPresented: $showLoginSheet, onDismiss: handleLoginSheetDismissed) {
+            LoginView(mode: .standalone)
+                .environmentObject(authManager)
+                .environmentObject(languageManager)
+                .environmentObject(themeManager)
+                .environmentObject(selectedThemeColorManager)
+        }
+    }
+
+    /// After the login sheet closes, send the (now-signed-in) user straight into
+    /// Playlists so they don't have to tap the row a second time.
+    private func handleLoginSheetDismissed() {
+        if authManager.isSignedIn {
+            navigateToPlaylists = true
+        }
+    }
+
+    private func handlePlaylistsTap() {
+        if authManager.isSignedIn {
+            navigateToPlaylists = true
+        } else {
+            showSignInRequiredAlert = true
         }
     }
 

@@ -5,6 +5,7 @@ struct MyApp: App {
     @StateObject private var languageManager = AppLanguageManager()
     @StateObject private var themeManager = ThemeManager()
     @StateObject private var selectedThemeColorManager = SelectedThemeColorManager()
+    @StateObject private var authManager = AuthManager.shared
     init(){
         prefetchSleepStories()
     }
@@ -15,6 +16,7 @@ struct MyApp: App {
                 .environmentObject(languageManager)
                 .environmentObject(themeManager)
                 .environmentObject(selectedThemeColorManager)
+                .environmentObject(authManager)
         }
     }
 }
