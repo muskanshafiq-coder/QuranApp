@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1804E9F52FAF6F9300E4AD75 /* LNPopupController-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 1804E9F42FAF6F9300E4AD75 /* LNPopupController-Static */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		78A9647A2F59B105001446B6 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		78A964C32F697197001446B6 /* new project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "new project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1804E9F52FAF6F9300E4AD75 /* LNPopupController-Static in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +64,7 @@
 			);
 			name = "new project";
 			packageProductDependencies = (
+				1804E9F42FAF6F9300E4AD75 /* LNPopupController-Static */,
 			);
 			productName = "new project";
 			productReference = 78A964C32F697197001446B6 /* new project.app */;
@@ -99,6 +105,9 @@
 			);
 			mainGroup = 78A964492F59B103001446B6;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1804E9F32FAF6F9300E4AD75 /* XCRemoteSwiftPackageReference "LNPopupController" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 78A964492F59B103001446B6;
 			projectDirPath = "";
@@ -345,6 +354,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1804E9F32FAF6F9300E4AD75 /* XCRemoteSwiftPackageReference "LNPopupController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LeoNatan/LNPopupController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1804E9F42FAF6F9300E4AD75 /* LNPopupController-Static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1804E9F32FAF6F9300E4AD75 /* XCRemoteSwiftPackageReference "LNPopupController" */;
+			productName = "LNPopupController-Static";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 78A9644A2F59B103001446B6 /* Project object */;
 }

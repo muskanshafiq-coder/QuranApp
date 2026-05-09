@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SwiftUI
 import Combine
+import LNPopupController
 
 private struct MainTab {
     enum Icon {
@@ -44,6 +45,8 @@ class MainTabBarController: UITabBarController {
         super.init(nibName: nil, bundle: nil)
         bindThemeColorChanges(to: selectedThemeColorManager)
     }
+    private var selectedPlayItemCancellable: AnyCancellable?
+    private lazy var sleepPopupBar = SleepPopupBarViewController()
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -70,12 +73,16 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         setupTabs()
         setupAppearance()
+        popupBar.customBarViewController = sleepPopupBar
 
         // iOS 26+ specific behavior
         if #available(iOS 26.0, *) {
             self.tabBarMinimizeBehavior = .onScrollDown
         }
-
+        // Start Sleep stories fetch early so Featured / Recently Added isn’t late on first open.
+        Task(priority: .userInitiated) {
+            await sleepViewModel.loadCategoriesAndStories()
+        }
     }
     
     private func setupTabs() {

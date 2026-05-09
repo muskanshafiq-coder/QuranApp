@@ -11,13 +11,13 @@ final class PremiumManager: NSObject, ObservableObject {
 
     static let shared = PremiumManager()
 
-    @Published private(set) var isPremium: Bool
+    @Published private(set) var isPremium: Bool = true
 
     private let defaults = UserDefaults.standard
     private let cacheKey = "is_premium_user"
 
     private override init() {
-        isPremium = defaults.bool(forKey: cacheKey)
+//        isPremium = defaults.bool(forKey: cacheKey)
         super.init()
     }
 
