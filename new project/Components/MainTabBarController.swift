@@ -16,8 +16,14 @@ private struct MainTab {
         case systemSymbol(String)
     }
 
+    enum Content {
+        case player
+        case sleep
+    }
+
     let titleKey: String
     let icon: Icon
+    let content: Content
 }
 
 class MainTabBarController: UITabBarController {
@@ -25,6 +31,7 @@ class MainTabBarController: UITabBarController {
     private var themeManager: ThemeManager
     private var selectedThemeColorManager: SelectedThemeColorManager
     private var themeColorSubscription: AnyCancellable?
+    private lazy var sleepViewModel: SleepViewModel = SleepViewModel()
 
     init(
         languageManager: AppLanguageManager,
@@ -73,40 +80,48 @@ class MainTabBarController: UITabBarController {
     
     private func setupTabs() {
         let tabConfigs: [MainTab] = [
-            MainTab(titleKey: "tab_player",     icon: .systemSymbol("headphones")),
-            MainTab(titleKey: "tab_sleep",      icon: .asset("sleep")),
-            MainTab(titleKey: "tab_today",      icon: .asset("dabba")),
-            MainTab(titleKey: "tab_reader",     icon: .systemSymbol("book.pages.fill")),
-            MainTab(titleKey: "tab_bookmarks",  icon: .systemSymbol("bookmark.fill"))
+            MainTab(titleKey: "tab_player",     icon: .systemSymbol("headphones"),       content: .player),
+            MainTab(titleKey: "tab_sleep",      icon: .asset("sleep"),                   content: .sleep),
+            MainTab(titleKey: "tab_today",      icon: .asset("dabba"),                   content: .player),
+            MainTab(titleKey: "tab_reader",     icon: .systemSymbol("book.pages.fill"),  content: .player),
+            MainTab(titleKey: "tab_bookmarks",  icon: .systemSymbol("bookmark.fill"),    content: .player)
         ]
 
-        func makeHostedPlayer() -> UIHostingController<AnyView> {
-            let root = PlayerView()
-                .environmentObject(languageManager)
-                .environmentObject(themeManager)
-                .environmentObject(selectedThemeColorManager)
-            return UIHostingController(rootView: AnyView(root))
-        }
-
         viewControllers = tabConfigs.enumerated().map { (index, tab) in
-            let vc = makeHostedPlayer()
+            let hostingVC = makeHostingController(for: tab.content)
 
-            vc.tabBarItem = UITabBarItem(
+            hostingVC.tabBarItem = UITabBarItem(
                 title: NSLocalizedString(tab.titleKey, comment: "Main tab bar title"),
                 image: image(for: tab.icon),
                 tag: index
             )
 
-            if let hostingVC = vc as? UIHostingController<AnyView> {
-                hostingVC.view.backgroundColor = .clear
-                if #available(iOS 16.0, *) {
-                    hostingVC.sizingOptions = .preferredContentSize
-                }
+            hostingVC.view.backgroundColor = .clear
+            if #available(iOS 16.0, *) {
+                hostingVC.sizingOptions = .preferredContentSize
             }
 
-            return vc
+            return hostingVC
         }
         self.delegate = self
+    }
+
+    private func makeHostingController(for content: MainTab.Content) -> UIHostingController<AnyView> {
+        switch content {
+        case .player:
+            let root = PlayerView()
+                .environmentObject(languageManager)
+                .environmentObject(themeManager)
+                .environmentObject(selectedThemeColorManager)
+            return UIHostingController(rootView: AnyView(root))
+        case .sleep:
+            let root = SleepView()
+                .environmentObject(languageManager)
+                .environmentObject(themeManager)
+                .environmentObject(selectedThemeColorManager)
+                .environmentObject(sleepViewModel)
+            return UIHostingController(rootView: AnyView(root))
+        }
     }
 
     private func image(for icon: MainTab.Icon) -> UIImage? {

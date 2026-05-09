@@ -103,3 +103,33 @@
 "tab_reader" = "Okuyucu";
 "tab_bookmarks" = "Yer İmleri";
 "share_message" = "Okumak, dinlemek ve öğrenmek için en iyi uygulama Quran Pro'yu keşfedin. Apple TV, Apple Watch ve CarPlay'de mevcuttur\nhttp://quran.li";
+
+/* Sleep View */
+"sleep_title" = "Uyku Hikayeleri";
+"sleep_featured" = "Öne Çıkanlar";
+"sleep_recently_added" = "Yakın Zamanda Eklenenler";
+"sleep_section_recently_added" = "Yakın Zamanda Eklenenler";
+"sleep_section_life_of_prophets" = "Peygamberlerin Hayatı";
+"sleep_section_history_architecture" = "Tarih ve Mimari";
+"sleep_section_rashidun_caliphates" = "Raşid Halifeleri";
+"sleep_section_islamic_events" = "İslami Olaylar";
+"sleep_section_women_in_islam" = "İslam'da Kadınlar";
+"sleep_section_ramadan" = "Ramazan";
+"sleep_option_download" = "Hikayeyi indir";
+"sleep_option_add_to_favorite" = "Favorilere ekle";
+"sleep_option_share" = "Paylaş";
+"sleep_option_remove_from_downloads" = "İndirilenlerden kaldır";
+"sleep_option_downloading" = "İndiriliyor...";
+"sleep_option_remove_from_favorites" = "Favorilerden kaldır";
+"sleep_saved_stories" = "Kaydedilen hikayeler";
+"sleep_option_airplay" = "AirPlay";
+"sleep_action_retry" = "Tekrar dene";
+"sleep_accessibility_options" = "Seçenekler";
+"sleep_accessibility_downloaded" = "İndirildi";
+"sleep_accessibility_saved" = "Kaydedildi";
+"sleep_now_playing_not_playing" = "Çalmıyor";
+"sleep_now_playing_unknown_title" = "Bilinmeyen Başlık";
+"sleep_playback_error_cannot_play" = "Bu dosya oynatılamadı.";
+"sleep_duration_none" = "—";
+"sleep_duration_min_singular" = "1 dk";
+"sleep_duration_min_plural" = "%d dk";

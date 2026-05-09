@@ -101,3 +101,33 @@
 "tab_reader" = "Lesen";
 "tab_bookmarks" = "Lesezeichen";
 "share_message" = "Entdecken Sie Quran Pro, die ultimative App zum Lesen, Hören und Lernen. Verfügbar auf Apple TV, Apple Watch und CarPlay\nhttp://quran.li";
+
+/* Sleep View */
+"sleep_title" = "Schlafgeschichten";
+"sleep_featured" = "Empfohlen";
+"sleep_recently_added" = "Kürzlich hinzugefügt";
+"sleep_section_recently_added" = "Kürzlich hinzugefügt";
+"sleep_section_life_of_prophets" = "Leben der Propheten";
+"sleep_section_history_architecture" = "Geschichte & Architektur";
+"sleep_section_rashidun_caliphates" = "Raschidūn-Kalifate";
+"sleep_section_islamic_events" = "Islamische Ereignisse";
+"sleep_section_women_in_islam" = "Frauen im Islam";
+"sleep_section_ramadan" = "Ramadan";
+"sleep_option_download" = "Geschichte herunterladen";
+"sleep_option_add_to_favorite" = "Zu Favoriten hinzufügen";
+"sleep_option_share" = "Teilen";
+"sleep_option_remove_from_downloads" = "Aus Downloads entfernen";
+"sleep_option_downloading" = "Wird geladen...";
+"sleep_option_remove_from_favorites" = "Aus Favoriten entfernen";
+"sleep_saved_stories" = "Gespeicherte Geschichten";
+"sleep_option_airplay" = "AirPlay";
+"sleep_action_retry" = "Erneut versuchen";
+"sleep_accessibility_options" = "Optionen";
+"sleep_accessibility_downloaded" = "Heruntergeladen";
+"sleep_accessibility_saved" = "Gespeichert";
+"sleep_now_playing_not_playing" = "Wird nicht abgespielt";
+"sleep_now_playing_unknown_title" = "Unbekannter Titel";
+"sleep_playback_error_cannot_play" = "Diese Datei konnte nicht abgespielt werden.";
+"sleep_duration_none" = "—";
+"sleep_duration_min_singular" = "1 Min.";
+"sleep_duration_min_plural" = "%d Min.";

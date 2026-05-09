@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		78A9647A2F59B105001446B6 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		78A964C32F697197001446B6 /* new project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "new project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -32,6 +33,7 @@
 		78A964492F59B103001446B6 = {
 			isa = PBXGroup;
 			children = (
+				78A9647A2F59B105001446B6 /* Secrets.xcconfig */,
 				78A964542F59B103001446B6 /* new project */,
 				78A964C32F697197001446B6 /* new project.app */,
 			);
@@ -130,6 +132,7 @@
 /* Begin XCBuildConfiguration section */
 		78A9645B2F59B105001446B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78A9647A2F59B105001446B6 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -195,6 +198,7 @@
 		};
 		78A9645C2F59B105001446B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78A9647A2F59B105001446B6 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

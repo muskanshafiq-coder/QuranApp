@@ -104,3 +104,33 @@
 "tab_reader" = "القارئ";
 "tab_bookmarks" = "الإشارات المرجعية";
 "share_message" = "اكتشف تطبيق قرآن برو، التطبيق الأمثل للقراءة والاستماع والتعلم. متوفر على Apple TV وApple Watch وCarPlay\nhttp://quran.li";
+
+/* Sleep View */
+"sleep_title" = "قصص قبل النوم";
+"sleep_featured" = "المختارة";
+"sleep_recently_added" = "أُضيف مؤخرًا";
+"sleep_section_recently_added" = "أُضيف مؤخرًا";
+"sleep_section_life_of_prophets" = "حياة الأنبياء";
+"sleep_section_history_architecture" = "التاريخ والعمارة";
+"sleep_section_rashidun_caliphates" = "الخلفاء الراشدون";
+"sleep_section_islamic_events" = "الأحداث الإسلامية";
+"sleep_section_women_in_islam" = "المرأة في الإسلام";
+"sleep_section_ramadan" = "رمضان";
+"sleep_option_download" = "تنزيل القصة";
+"sleep_option_add_to_favorite" = "إضافة إلى المفضلة";
+"sleep_option_share" = "مشاركة";
+"sleep_option_remove_from_downloads" = "إزالة من التنزيلات";
+"sleep_option_downloading" = "جارٍ التنزيل...";
+"sleep_option_remove_from_favorites" = "إزالة من المفضلة";
+"sleep_saved_stories" = "القصص المحفوظة";
+"sleep_option_airplay" = "AirPlay";
+"sleep_action_retry" = "إعادة المحاولة";
+"sleep_accessibility_options" = "خيارات";
+"sleep_accessibility_downloaded" = "تم التنزيل";
+"sleep_accessibility_saved" = "محفوظة";
+"sleep_now_playing_not_playing" = "لا يوجد تشغيل";
+"sleep_now_playing_unknown_title" = "عنوان غير معروف";
+"sleep_playback_error_cannot_play" = "تعذّر تشغيل هذا الملف.";
+"sleep_duration_none" = "—";
+"sleep_duration_min_singular" = "دقيقة واحدة";
+"sleep_duration_min_plural" = "%d دقيقة";

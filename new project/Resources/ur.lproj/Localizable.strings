@@ -103,3 +103,33 @@
 "tab_reader" = "قاری";
 "tab_bookmarks" = "بک مارکس";
 "share_message" = "قرآن پرو دیکھیں، پڑھنے، سننے اور سیکھنے کے لیے بہترین ایپ۔ Apple TV، Apple Watch اور CarPlay پر دستیاب\nhttp://quran.li";
+
+/* Sleep View */
+"sleep_title" = "نیند کی کہانیاں";
+"sleep_featured" = "نمایاں";
+"sleep_recently_added" = "حال ہی میں شامل کی گئیں";
+"sleep_section_recently_added" = "حال ہی میں شامل کی گئیں";
+"sleep_section_life_of_prophets" = "انبیاء کی زندگی";
+"sleep_section_history_architecture" = "تاریخ اور فنِ تعمیر";
+"sleep_section_rashidun_caliphates" = "خلفائے راشدین";
+"sleep_section_islamic_events" = "اسلامی واقعات";
+"sleep_section_women_in_islam" = "اسلام میں خواتین";
+"sleep_section_ramadan" = "رمضان";
+"sleep_option_download" = "کہانی ڈاؤن لوڈ کریں";
+"sleep_option_add_to_favorite" = "پسندیدہ میں شامل کریں";
+"sleep_option_share" = "شیئر کریں";
+"sleep_option_remove_from_downloads" = "ڈاؤن لوڈز سے ہٹائیں";
+"sleep_option_downloading" = "ڈاؤن لوڈ ہو رہا ہے...";
+"sleep_option_remove_from_favorites" = "پسندیدہ سے ہٹائیں";
+"sleep_saved_stories" = "محفوظ شدہ کہانیاں";
+"sleep_option_airplay" = "AirPlay";
+"sleep_action_retry" = "دوبارہ کوشش کریں";
+"sleep_accessibility_options" = "اختیارات";
+"sleep_accessibility_downloaded" = "ڈاؤن لوڈ ہو گیا";
+"sleep_accessibility_saved" = "محفوظ ہو گیا";
+"sleep_now_playing_not_playing" = "نہیں چل رہی";
+"sleep_now_playing_unknown_title" = "نامعلوم عنوان";
+"sleep_playback_error_cannot_play" = "یہ فائل چلائی نہیں جا سکی۔";
+"sleep_duration_none" = "—";
+"sleep_duration_min_singular" = "1 منٹ";
+"sleep_duration_min_plural" = "%d منٹ";

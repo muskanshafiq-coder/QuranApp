@@ -103,3 +103,33 @@
 "tab_reader" = "Чтение";
 "tab_bookmarks" = "Закладки";
 "share_message" = "Откройте для себя Quran Pro — лучшее приложение для чтения, прослушивания и обучения. Доступно на Apple TV, Apple Watch и CarPlay\nhttp://quran.li";
+
+/* Sleep View */
+"sleep_title" = "Истории для сна";
+"sleep_featured" = "Избранное";
+"sleep_recently_added" = "Недавно добавленные";
+"sleep_section_recently_added" = "Недавно добавленные";
+"sleep_section_life_of_prophets" = "Жизнь пророков";
+"sleep_section_history_architecture" = "История и архитектура";
+"sleep_section_rashidun_caliphates" = "Праведные халифы";
+"sleep_section_islamic_events" = "Исламские события";
+"sleep_section_women_in_islam" = "Женщины в исламе";
+"sleep_section_ramadan" = "Рамадан";
+"sleep_option_download" = "Скачать историю";
+"sleep_option_add_to_favorite" = "Добавить в избранное";
+"sleep_option_share" = "Поделиться";
+"sleep_option_remove_from_downloads" = "Удалить из загрузок";
+"sleep_option_downloading" = "Загрузка...";
+"sleep_option_remove_from_favorites" = "Удалить из избранного";
+"sleep_saved_stories" = "Сохранённые истории";
+"sleep_option_airplay" = "AirPlay";
+"sleep_action_retry" = "Повторить";
+"sleep_accessibility_options" = "Параметры";
+"sleep_accessibility_downloaded" = "Загружено";
+"sleep_accessibility_saved" = "Сохранено";
+"sleep_now_playing_not_playing" = "Не воспроизводится";
+"sleep_now_playing_unknown_title" = "Неизвестное название";
+"sleep_playback_error_cannot_play" = "Не удалось воспроизвести этот файл.";
+"sleep_duration_none" = "—";
+"sleep_duration_min_singular" = "1 мин";
+"sleep_duration_min_plural" = "%d мин";

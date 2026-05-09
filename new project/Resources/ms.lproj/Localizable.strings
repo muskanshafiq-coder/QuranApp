@@ -103,3 +103,33 @@
 "tab_reader" = "Pembaca";
 "tab_bookmarks" = "Penanda Buku";
 "share_message" = "Cuba Quran Pro, aplikasi terbaik untuk membaca, mendengar dan belajar. Tersedia di Apple TV, Apple Watch dan CarPlay\nhttp://quran.li";
+
+/* Sleep View */
+"sleep_title" = "Cerita Sebelum Tidur";
+"sleep_featured" = "Pilihan";
+"sleep_recently_added" = "Baru Ditambah";
+"sleep_section_recently_added" = "Baru Ditambah";
+"sleep_section_life_of_prophets" = "Kehidupan Para Nabi";
+"sleep_section_history_architecture" = "Sejarah & Seni Bina";
+"sleep_section_rashidun_caliphates" = "Khulafa al-Rasyidin";
+"sleep_section_islamic_events" = "Peristiwa Islam";
+"sleep_section_women_in_islam" = "Wanita dalam Islam";
+"sleep_section_ramadan" = "Ramadan";
+"sleep_option_download" = "Muat turun cerita";
+"sleep_option_add_to_favorite" = "Tambah ke Kegemaran";
+"sleep_option_share" = "Kongsi";
+"sleep_option_remove_from_downloads" = "Buang daripada muat turun";
+"sleep_option_downloading" = "Memuat turun...";
+"sleep_option_remove_from_favorites" = "Buang daripada kegemaran";
+"sleep_saved_stories" = "Cerita disimpan";
+"sleep_option_airplay" = "AirPlay";
+"sleep_action_retry" = "Cuba lagi";
+"sleep_accessibility_options" = "Pilihan";
+"sleep_accessibility_downloaded" = "Dimuat turun";
+"sleep_accessibility_saved" = "Disimpan";
+"sleep_now_playing_not_playing" = "Tidak Dimainkan";
+"sleep_now_playing_unknown_title" = "Tajuk Tidak Diketahui";
+"sleep_playback_error_cannot_play" = "Fail ini tidak boleh dimainkan.";
+"sleep_duration_none" = "—";
+"sleep_duration_min_singular" = "1 min";
+"sleep_duration_min_plural" = "%d min";

@@ -103,3 +103,33 @@
 "tab_reader" = "Pembaca";
 "tab_bookmarks" = "Bookmark";
 "share_message" = "Coba Quran Pro, aplikasi terbaik untuk membaca, mendengarkan, dan belajar. Tersedia di Apple TV, Apple Watch, dan CarPlay\nhttp://quran.li";
+
+/* Sleep View */
+"sleep_title" = "Cerita Sebelum Tidur";
+"sleep_featured" = "Pilihan";
+"sleep_recently_added" = "Baru Ditambahkan";
+"sleep_section_recently_added" = "Baru Ditambahkan";
+"sleep_section_life_of_prophets" = "Kehidupan Para Nabi";
+"sleep_section_history_architecture" = "Sejarah & Arsitektur";
+"sleep_section_rashidun_caliphates" = "Khulafaur Rasyidin";
+"sleep_section_islamic_events" = "Peristiwa Islam";
+"sleep_section_women_in_islam" = "Wanita dalam Islam";
+"sleep_section_ramadan" = "Ramadan";
+"sleep_option_download" = "Unduh cerita";
+"sleep_option_add_to_favorite" = "Tambahkan ke Favorit";
+"sleep_option_share" = "Bagikan";
+"sleep_option_remove_from_downloads" = "Hapus dari unduhan";
+"sleep_option_downloading" = "Mengunduh...";
+"sleep_option_remove_from_favorites" = "Hapus dari favorit";
+"sleep_saved_stories" = "Cerita tersimpan";
+"sleep_option_airplay" = "AirPlay";
+"sleep_action_retry" = "Coba lagi";
+"sleep_accessibility_options" = "Opsi";
+"sleep_accessibility_downloaded" = "Terunduh";
+"sleep_accessibility_saved" = "Tersimpan";
+"sleep_now_playing_not_playing" = "Tidak Diputar";
+"sleep_now_playing_unknown_title" = "Judul Tidak Diketahui";
+"sleep_playback_error_cannot_play" = "File ini tidak dapat diputar.";
+"sleep_duration_none" = "—";
+"sleep_duration_min_singular" = "1 mnt";
+"sleep_duration_min_plural" = "%d mnt";
