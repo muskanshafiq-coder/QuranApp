@@ -73,6 +73,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         setupTabs()
         setupAppearance()
+        observeSleepPlayItem()
         popupBar.customBarViewController = sleepPopupBar
 
         // iOS 26+ specific behavior
@@ -82,6 +83,32 @@ class MainTabBarController: UITabBarController {
         // Start Sleep stories fetch early so Featured / Recently Added isn’t late on first open.
         Task(priority: .userInitiated) {
             await sleepViewModel.loadCategoriesAndStories()
+        }
+    }
+    
+    private func observeSleepPlayItem() {
+        selectedPlayItemCancellable = sleepViewModel.$selectedPlayItem
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] item in
+                guard let self else { return }
+                if let item = item {
+                    self.presentSleepPlayer(item: item)
+                }
+            }
+    }
+
+    private func presentSleepPlayer(item: SleepAudioItem) {
+        let contentVC = SleepPlayContentViewController(
+            item: item,
+            playback: sleepViewModel.sharedPlayback,
+            viewModel: sleepViewModel
+        )
+        let openFull = sleepViewModel.openPopupFullScreenWhenPresenting
+        sleepViewModel.openPopupFullScreenWhenPresenting = true
+        presentPopupBar(with: contentVC, openPopup: openFull, animated: true)
+        if !openFull {
+            DispatchQueue.main.async { contentVC.refreshBarContent() }
         }
     }
     
