@@ -204,4 +204,10 @@
 "reciters_favorites_empty_title" = "Favorite List Empty";
 "reciters_favorites_empty_subtitle" = "No Favorite reciter";
 
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "Duaa";
+"reciters_segment_tilawats" = "Ruqia & Tilawates";
+"reciters_dua_ruqia_empty_title" = "No Reciters";
+"reciters_dua_ruqia_empty_subtitle" = "Nothing here yet";
+
 "search_surah" = "Surah";
