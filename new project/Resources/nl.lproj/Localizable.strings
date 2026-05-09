@@ -211,3 +211,22 @@
 "player_all_reciters_title" = "Alle voordragers";
 "player_see_all" = "Toon alles";
 "featured_reciter_editors_pick" = "Keuze van de redactie";
+
+// MARK: - Reader / Quran tab
+"quran_title" = "Koran";
+"quran_continue_reading" = "Doorgaan met lezen";
+"quran_my_bookmarks" = "Mijn bladwijzers";
+"quran_suras" = "Soera's";
+"quran_juz_hizb_rubu" = "Juz, Hizb en Rubu";
+"quran_sajdas" = "Sajda's";
+"quran_see_more" = "Meer bekijken";
+"quran_meccan" = "Mekkaans";
+"quran_medinan" = "Medinees";
+"quran_ayas_count" = "%d verzen";
+"quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Vers %3$d";
+"loading" = "Laden…";
+
+// MARK: - Reader books strip
+"reader_book_holy_quran" = "Heilige Koran";
+"reader_book_madinah" = "Medina";
+"reader_book_tajweed" = "Tajwid";

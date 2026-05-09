@@ -211,3 +211,22 @@
 "player_all_reciters_title" = "Tüm Okuyucular";
 "player_see_all" = "Tümünü gör";
 "featured_reciter_editors_pick" = "Editörün Seçimi";
+
+// MARK: - Reader / Quran tab
+"quran_title" = "Kur'an";
+"quran_continue_reading" = "Okumaya devam et";
+"quran_my_bookmarks" = "Yer imlerim";
+"quran_suras" = "Sureler";
+"quran_juz_hizb_rubu" = "Cüz, Hizb ve Rubu";
+"quran_sajdas" = "Secdeler";
+"quran_see_more" = "Daha fazla";
+"quran_meccan" = "Mekki";
+"quran_medinan" = "Medeni";
+"quran_ayas_count" = "%d ayet";
+"quran_juz_hizb_ayah" = "Cüz %1$d • Hizb %2$d • Ayet %3$d";
+"loading" = "Yükleniyor…";
+
+// MARK: - Reader books strip
+"reader_book_holy_quran" = "Kur'an-ı Kerim";
+"reader_book_madinah" = "Medine Mushafı";
+"reader_book_tajweed" = "Tecvidli Mushaf";

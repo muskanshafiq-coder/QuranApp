@@ -212,3 +212,22 @@
 "player_all_reciters_title" = "جميع القراء";
 "player_see_all" = "عرض الكل";
 "featured_reciter_editors_pick" = "اختيار المحرر";
+
+// MARK: - Reader / Quran tab
+"quran_title" = "القرآن";
+"quran_continue_reading" = "متابعة القراءة";
+"quran_my_bookmarks" = "إشاراتي المرجعية";
+"quran_suras" = "السور";
+"quran_juz_hizb_rubu" = "الجزء والحزب والربع";
+"quran_sajdas" = "السجدات";
+"quran_see_more" = "عرض المزيد";
+"quran_meccan" = "مكية";
+"quran_medinan" = "مدنية";
+"quran_ayas_count" = "%d آية";
+"quran_juz_hizb_ayah" = "الجزء %1$d • الحزب %2$d • الآية %3$d";
+"loading" = "جارٍ التحميل…";
+
+// MARK: - Reader books strip
+"reader_book_holy_quran" = "القرآن الكريم";
+"reader_book_madinah" = "مصحف المدينة";
+"reader_book_tajweed" = "مصحف التجويد";

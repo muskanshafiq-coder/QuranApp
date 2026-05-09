@@ -212,3 +212,22 @@
 "player_all_reciters_title" = "Semua Qari";
 "player_see_all" = "Lihat semua";
 "featured_reciter_editors_pick" = "Pilihan Editor";
+
+// MARK: - Reader / Quran tab
+"quran_title" = "Al-Qur'an";
+"quran_continue_reading" = "Lanjutkan membaca";
+"quran_my_bookmarks" = "Penanda saya";
+"quran_suras" = "Surah";
+"quran_juz_hizb_rubu" = "Juz, Hizb & Rubu";
+"quran_sajdas" = "Sajdah";
+"quran_see_more" = "Lihat selengkapnya";
+"quran_meccan" = "Makkiyah";
+"quran_medinan" = "Madaniyah";
+"quran_ayas_count" = "%d ayat";
+"quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Ayat %3$d";
+"loading" = "Memuat…";
+
+// MARK: - Reader books strip
+"reader_book_holy_quran" = "Al-Qur'an";
+"reader_book_madinah" = "Mushaf Madinah";
+"reader_book_tajweed" = "Mushaf Tajwid";

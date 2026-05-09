@@ -209,3 +209,22 @@
 "player_all_reciters_title" = "Tutti i recitatori";
 "player_see_all" = "Vedi tutti";
 "featured_reciter_editors_pick" = "Scelto dalla redazione";
+
+// MARK: - Reader / Quran tab
+"quran_title" = "Corano";
+"quran_continue_reading" = "Continua la lettura";
+"quran_my_bookmarks" = "I miei segnalibri";
+"quran_suras" = "Sure";
+"quran_juz_hizb_rubu" = "Juz, Hizb e Rubu";
+"quran_sajdas" = "Sajdas";
+"quran_see_more" = "Mostra altro";
+"quran_meccan" = "Meccana";
+"quran_medinan" = "Medinese";
+"quran_ayas_count" = "%d versetti";
+"quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Versetto %3$d";
+"loading" = "Caricamento…";
+
+// MARK: - Reader books strip
+"reader_book_holy_quran" = "Sacro Corano";
+"reader_book_madinah" = "Medina";
+"reader_book_tajweed" = "Tajwid";

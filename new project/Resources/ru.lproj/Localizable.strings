@@ -211,3 +211,22 @@
 "player_all_reciters_title" = "Все чтецы";
 "player_see_all" = "Смотреть все";
 "featured_reciter_editors_pick" = "Выбор редакции";
+
+// MARK: - Reader / Quran tab
+"quran_title" = "Коран";
+"quran_continue_reading" = "Продолжить чтение";
+"quran_my_bookmarks" = "Мои закладки";
+"quran_suras" = "Суры";
+"quran_juz_hizb_rubu" = "Джуз, Хизб и Руб";
+"quran_sajdas" = "Саджды";
+"quran_see_more" = "Показать ещё";
+"quran_meccan" = "Мекканская";
+"quran_medinan" = "Мединская";
+"quran_ayas_count" = "%d аятов";
+"quran_juz_hizb_ayah" = "Джуз %1$d • Хизб %2$d • Аят %3$d";
+"loading" = "Загрузка…";
+
+// MARK: - Reader books strip
+"reader_book_holy_quran" = "Священный Коран";
+"reader_book_madinah" = "Мединский мусхаф";
+"reader_book_tajweed" = "Мусхаф с таджвидом";

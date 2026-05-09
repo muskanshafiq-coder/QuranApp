@@ -24,7 +24,12 @@ struct ContinueReadingCard: View {
                          Text(surah.displayName(translationEnabled: isTranslationEnabled))
                              .font(.system(size: 16, weight: .semibold, design: .rounded))
                              .foregroundColor(colorScheme == .dark ? .white : .black)
-                         Text("quran_juz_hizb_ayah")
+                         Text(String.localizedStringWithFormat(
+                             NSLocalizedString("quran_juz_hizb_ayah", comment: ""),
+                             progress.juz,
+                             hizbNumber,
+                             progress.ayahNumber
+                         ))
                              .font(.system(size: 12, weight: .regular, design: .rounded))
                              .foregroundColor(Color.gray)
                      }
