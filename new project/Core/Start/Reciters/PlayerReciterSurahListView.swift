@@ -1,8 +1,5 @@
 //
-//  PlayerReciterSurahListView.swift
-//  new project
-//
-//  Created by apple on 09/05/2026.
+//  PlayerReciterSurahListView.swift 
 //
 
 import SwiftUI
@@ -92,7 +89,15 @@ struct PlayerReciterSurahListView: View {
                     loadFailureBanner
                 }
 
-                profileGlassCard
+                ReciterProfileCard(
+                    displayTitle: displayTitle,
+                    portraitImageURL: portraitImageURL,
+                    reciterId: reciter.id,
+                    bioText: bioText,
+                    recordedCount: recordedCount,
+                    isLoadingDetail: isLoadingDetail,
+                    bioExpanded: $bioExpanded
+                )
 
                 playShuffleRow
 
@@ -203,154 +208,22 @@ struct PlayerReciterSurahListView: View {
 
     private func loadReciterDetail() async {
         let slug = activeSlug
-        await MainActor.run {
-            isLoadingDetail = true
-            detailLoadFailed = false
+        isLoadingDetail = true
+        detailLoadFailed = false
+
+        let success = await ReciterRepository.loadReciterDetail(slug: slug) { fresh in
+            // Drop late results if the user switched segments mid-flight.
+            guard slug == activeSlug else { return }
+            detail = fresh
+            isLoadingDetail = false
         }
-        do {
-            let d = try await IslamicCloudAPIClient.shared.fetchReciterDetail(slug: slug)
-            await MainActor.run {
-                detail = d
-                isLoadingDetail = false
-            }
-        } catch {
-            await MainActor.run {
-                detail = nil
-                isLoadingDetail = false
-                detailLoadFailed = true
-            }
+
+        guard slug == activeSlug else { return }
+        isLoadingDetail = false
+        if !success {
+            detail = nil
+            detailLoadFailed = true
         }
-    }
-
-    // MARK: - Profile card
-
-    private var profileGlassCard: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            HStack(alignment: .top, spacing: 14) {
-                portrait
-                    .frame(width: 72, height: 72)
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(displayTitle)
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.primary)
-                    Text(String(format: "player_reciter_recorded_count", recordedCount))
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.secondary)
-                }
-                Spacer(minLength: 0)
-            }
-
-            HStack(spacing: 18) {
-                Button {} label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: "icloud.and.arrow.down")
-                            .font(.system(size: 12, weight: .semibold))
-                        Text("player_reciter_all_download")
-                            .font(.system(size: 12, weight: .bold))
-                    }
-                    .foregroundColor(.white)
-                    .padding(.horizontal,8)
-                    .padding(.vertical,4)
-                    .background(selectedThemeColorManager.selectedColor)
-                    .clipShape(Capsule())
-                }
-                .buttonStyle(.plain)
-
-                HStack(spacing: 6) {
-                    Image(systemName: "film")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundColor(.secondary)
-                    Text("player_reciter_audio_sync")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.secondary)
-                }
-                Spacer(minLength: 0)
-            }
-
-            bioBlock
-        }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.card)
-        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-    }
-
-    @ViewBuilder
-    private var portrait: some View {
-        if let url = portraitImageURL {
-            AsyncImage(url: url) { phase in
-                if case .success(let img) = phase {
-                    img.resizable().aspectRatio(contentMode: .fill)
-                } else {
-                    portraitPlaceholder
-                }
-            }
-            .clipShape(Circle())
-        } else {
-            portraitPlaceholder
-        }
-    }
-
-    private var portraitPlaceholder: some View {
-        Circle()
-            .fill(LinearGradient(
-                colors: PlayerReciterAvatarPalette.gradient(for: reciter.id),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ))
-            .overlay {
-                Text(PlayerReciterAvatarPalette.initials(for: displayTitle))
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
-            }
-    }
-
-    @ViewBuilder
-    private var bioBlock: some View {
-        if isLoadingDetail || bioText.isEmpty {
-            EmptyView()
-        } else {
-            bioTextBlock(full: bioText)
-        }
-    }
-
-    private func bioTextBlock(full: String) -> some View {
-        let shortLimit = 120
-        let needsMore = full.count > shortLimit
-        return VStack(alignment: .leading, spacing: 6) {
-            if bioExpanded || !needsMore {
-                Text(full)
-                    .font(.system(size: 14, weight: .regular))
-                    .foregroundColor(.primary)
-                    .fixedSize(horizontal: false, vertical: true)
-                if needsMore {
-                    bioToggleButton(
-                        titleKey: "player_reciter_bio_less",
-                        expand: false
-                    )
-                }
-            } else {
-                Text(String(full.prefix(shortLimit)) + "…")
-                    .font(.system(size: 14, weight: .regular))
-                    .foregroundColor(.primary)
-                    .fixedSize(horizontal: false, vertical: true)
-                bioToggleButton(
-                    titleKey: "player_reciter_bio_more",
-                    expand: true
-                )
-            }
-        }
-    }
-
-    private func bioToggleButton(titleKey: LocalizedStringKey, expand: Bool) -> some View {
-        Button {
-            withAnimation(.easeInOut(duration: 0.2)) { bioExpanded = expand }
-        } label: {
-            Text(titleKey)
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(selectedThemeColorManager.selectedColor)
-        }
-        .buttonStyle(.plain)
     }
 
     // MARK: - Play / Shuffle

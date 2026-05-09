@@ -169,11 +169,15 @@ struct PlayerView: View {
                     .environmentObject(selectedThemeColorManager)
             }
             .navigationDestination(isPresented: $navigateToAllReciters) {
-                PlayerAllRecitersView(reciters: playerReciterItems, preferredReciterId: $preferredAudioReciterId)
-                    .environmentObject(authManager)
-                    .environmentObject(languageManager)
-                    .environmentObject(themeManager)
-                    .environmentObject(selectedThemeColorManager)
+                PlayerAllRecitersView(
+                    reciters: playerReciterItems,
+                    preferredReciterId: $preferredAudioReciterId,
+                    showSegmentedPicker: false
+                )
+                .environmentObject(authManager)
+                .environmentObject(languageManager)
+                .environmentObject(themeManager)
+                .environmentObject(selectedThemeColorManager)
             }
             .navigationDestination(isPresented: $navigateToDuaRuqia) {
                 PlayerReciterSurahListView(
@@ -268,28 +272,23 @@ struct PlayerView: View {
     private func loadReciters(force: Bool = false) async {
         guard !recitersLoading else { return }
         if !force && !playerReciterItems.isEmpty { return }
-        await MainActor.run { recitersLoadFailed = false; recitersLoading = true }
-        do {
-            let dtos = try await IslamicCloudAPIClient.shared.fetchReciters()
+        recitersLoadFailed = false
+        recitersLoading = true
+        let success = await ReciterRepository.loadReciters(update: applyReciters)
+        recitersLoading = false
+        recitersLoadFailed = !success
+    }
 
-            let featuredItems = dtos.filtered(by: .featured)
-                .map { PlayerReciterDisplayItem(dto: $0) }
-            let popularItems = dtos.filtered(by: .popular)
-                .map { PlayerReciterDisplayItem(dto: $0) }
-                .sorted { $0.englishName.localizedCaseInsensitiveCompare($1.englishName) == .orderedAscending }
-            let allItems = dtos.filtered(by: .all)
-                .map { PlayerReciterDisplayItem(dto: $0) }
-                .sorted { $0.englishName.localizedCaseInsensitiveCompare($1.englishName) == .orderedAscending }
-
-            await MainActor.run {
-                featuredReciterItems = featuredItems
-                playerReciterItems = allItems
-                popularReciterItems = popularItems
-                recitersLoading = false
-            }
-        } catch {
-            await MainActor.run { recitersLoadFailed = true; recitersLoading = false }
-        }
+    @MainActor
+    private func applyReciters(_ dtos: [IslamicCloudReciterDTO]) {
+        featuredReciterItems = dtos.filtered(by: .featured)
+            .map { PlayerReciterDisplayItem(dto: $0) }
+        popularReciterItems = dtos.filtered(by: .popular)
+            .map { PlayerReciterDisplayItem(dto: $0) }
+            .sorted { $0.englishName.localizedCaseInsensitiveCompare($1.englishName) == .orderedAscending }
+        playerReciterItems = dtos.filtered(by: .all)
+            .map { PlayerReciterDisplayItem(dto: $0) }
+            .sorted { $0.englishName.localizedCaseInsensitiveCompare($1.englishName) == .orderedAscending }
     }
 }
 

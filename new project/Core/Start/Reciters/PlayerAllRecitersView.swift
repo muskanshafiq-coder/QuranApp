@@ -25,6 +25,7 @@ enum ReciterListSegment: String, CaseIterable, Identifiable {
 struct PlayerAllRecitersView: View {
     let reciters: [PlayerReciterDisplayItem]
     @Binding var preferredReciterId: String
+    var showSegmentedPicker: Bool = true
 
     @State private var searchText = ""
     @State private var selectedSegment: ReciterListSegment = .mostPopular
@@ -88,10 +89,13 @@ struct PlayerAllRecitersView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                segmentPicker
+            if showSegmentedPicker {
+                ToolbarItem(placement: .principal) {
+                    segmentPicker
+                }
             }
         }
+        .modifier(SearchableIfNeeded(text: $searchText, enabled: !showSegmentedPicker))
         .background(Color.app.ignoresSafeArea())
     }
 
@@ -122,6 +126,19 @@ struct PlayerAllRecitersView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 24)
+    }
+}
+
+private struct SearchableIfNeeded: ViewModifier {
+    @Binding var text: String
+    let enabled: Bool
+
+    func body(content: Content) -> some View {
+        if enabled {
+            content.pinnedSearchable(text: $text, promptKey: "home_reciters_search_placeholder")
+        } else {
+            content
+        }
     }
 }
 
