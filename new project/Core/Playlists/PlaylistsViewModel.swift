@@ -12,6 +12,9 @@ import SwiftUI
 
 @MainActor
 final class PlaylistsViewModel: ObservableObject {
+    /// Shared instance so `PlayerView` and `PlaylistsView` show the same list and counts.
+    static let shared = PlaylistsViewModel()
+
     @Published private(set) var playlists: [Playlist] = []
 
     private let store: PlaylistsStoring
@@ -34,12 +37,36 @@ final class PlaylistsViewModel: ObservableObject {
     }
 
     func deletePlaylist(_ playlist: Playlist) {
-        playlists.removeAll { $0.id == playlist.id }
+        deletePlaylist(id: playlist.id)
+    }
+
+    func deletePlaylist(id: UUID) {
+        playlists.removeAll { $0.id == id }
         store.save(playlists)
     }
 
     func deletePlaylists(at offsets: IndexSet) {
         playlists.remove(atOffsets: offsets)
+        store.save(playlists)
+    }
+
+    /// Returns the latest model for `id`, if it is still in the list.
+    func playlist(withId id: UUID) -> Playlist? {
+        playlists.first { $0.id == id }
+    }
+
+    @discardableResult
+    func renamePlaylist(id: UUID, to newName: String) -> Bool {
+        let trimmed = newName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty, let index = playlists.firstIndex(where: { $0.id == id }) else { return false }
+        playlists[index].name = trimmed
+        store.save(playlists)
+        return true
+    }
+
+    func moveSurahs(inPlaylistId id: UUID, from source: IndexSet, to destination: Int) {
+        guard let index = playlists.firstIndex(where: { $0.id == id }) else { return }
+        playlists[index].surahIDs.move(fromOffsets: source, toOffset: destination)
         store.save(playlists)
     }
 }

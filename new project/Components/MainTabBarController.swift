@@ -147,6 +147,7 @@ class MainTabBarController: UITabBarController {
                 .environmentObject(languageManager)
                 .environmentObject(themeManager)
                 .environmentObject(selectedThemeColorManager)
+                .environmentObject(AuthManager.shared)
             return UIHostingController(rootView: AnyView(root))
         case .sleep:
             let root = SleepView()

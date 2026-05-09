@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1804E9F52FAF6F9300E4AD75 /* LNPopupController-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 1804E9F42FAF6F9300E4AD75 /* LNPopupController-Static */; };
+		1804EA0A2FAF971500E4AD75 /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1804EA092FAF971500E4AD75 /* AlertKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1804EA0A2FAF971500E4AD75 /* AlertKit in Frameworks */,
 				1804E9F52FAF6F9300E4AD75 /* LNPopupController-Static in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +67,7 @@
 			name = "new project";
 			packageProductDependencies = (
 				1804E9F42FAF6F9300E4AD75 /* LNPopupController-Static */,
+				1804EA092FAF971500E4AD75 /* AlertKit */,
 			);
 			productName = "new project";
 			productReference = 78A964C32F697197001446B6 /* new project.app */;
@@ -107,6 +110,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1804E9F32FAF6F9300E4AD75 /* XCRemoteSwiftPackageReference "LNPopupController" */,
+				1804EA082FAF971500E4AD75 /* XCRemoteSwiftPackageReference "AlertKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 78A964492F59B103001446B6;
@@ -364,6 +368,14 @@
 				minimumVersion = 4.4.1;
 			};
 		};
+		1804EA082FAF971500E4AD75 /* XCRemoteSwiftPackageReference "AlertKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparrowcode/AlertKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.9;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -371,6 +383,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1804E9F32FAF6F9300E4AD75 /* XCRemoteSwiftPackageReference "LNPopupController" */;
 			productName = "LNPopupController-Static";
+		};
+		1804EA092FAF971500E4AD75 /* AlertKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1804EA082FAF971500E4AD75 /* XCRemoteSwiftPackageReference "AlertKit" */;
+			productName = AlertKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

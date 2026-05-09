@@ -38,4 +38,9 @@ final class AuthManager: ObservableObject {
         isSignedIn = false
         storage.setSignedIn(false)
     }
+
+    /// Display name used in share text until a profile name is wired from sign-in.
+    var playlistShareDisplayName: String {
+        NSLocalizedString("playlist_share_default_user", comment: "")
+    }
 }

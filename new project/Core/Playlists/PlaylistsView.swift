@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PlaylistsView: View {
-    @StateObject private var viewModel = PlaylistsViewModel()
+    @ObservedObject private var viewModel = PlaylistsViewModel.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @State private var showAddAlert: Bool = false
@@ -90,8 +90,11 @@ struct PlaylistsView: View {
     }
 
     private func confirmAdd() {
-        viewModel.addPlaylist(named: newPlaylistName)
+        let name = newPlaylistName
         newPlaylistName = ""
+        if viewModel.addPlaylist(named: name) {
+            PlaylistSuccessFeedback.presentPlaylistCreated()
+        }
     }
 
     private func cancelAdd() {

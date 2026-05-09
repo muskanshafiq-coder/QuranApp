@@ -13,6 +13,7 @@ struct PlayerView: View {
     @State private var showSignInRequiredAlert = false
     @State private var showLoginSheet = false
     @State private var navigateToPlaylists = false
+    @ObservedObject private var playlistsViewModel = PlaylistsViewModel.shared
     @EnvironmentObject private var languageManager: AppLanguageManager
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
@@ -28,7 +29,10 @@ struct PlayerView: View {
                         // MARK: - Menu Items
                         VStack(spacing: 0) {
                             
-                            PlayerRow(title: "playlists_title") {
+                            PlayerRow(
+                                title: "playlists_title",
+                                trailingCount: playlistsViewModel.playlists.count
+                            ) {
                                 handlePlaylistsTap()
                             }
                             
@@ -271,6 +275,7 @@ struct ReviewBanner: View {
 
 struct PlayerRow: View {
     let title: LocalizedStringKey
+    var trailingCount: Int? = nil
     let action: () -> Void
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
 
@@ -281,6 +286,7 @@ struct PlayerRow: View {
         .buttonStyle(
             PlayerRowButtonStyle(
                 title: title,
+                trailingCount: trailingCount,
                 titleColor: selectedThemeColorManager.selectedColor,
                 highlightColor: selectedThemeColorManager.selectedColor
             )
@@ -290,6 +296,7 @@ struct PlayerRow: View {
 
 private struct PlayerRowButtonStyle: ButtonStyle {
     let title: LocalizedStringKey
+    var trailingCount: Int?
     let titleColor: Color
     let highlightColor: Color
 
@@ -300,6 +307,13 @@ private struct PlayerRowButtonStyle: ButtonStyle {
                 .foregroundColor(isPressed ? .white : titleColor)
 
             Spacer()
+
+            if let trailingCount {
+                Text("\(trailingCount)")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundColor(isPressed ? .white.opacity(0.9) : .secondary)
+                    .padding(.trailing, 4)
+            }
 
             Image(systemName: "chevron.forward")
                 .foregroundColor(.gray)
