@@ -27,6 +27,27 @@ struct PlayerView: View {
     @State private var recitersLoadFailed = false
     @State private var featuredReciterItems: [PlayerReciterDisplayItem] = []
     @AppStorage(UserDefaultsManager.Keys.quranPreferredAudioReciterEdition) private var preferredAudioReciterId: String = ""
+
+    // MARK: - All Reciters grid layout
+    /// Intrinsic minimum height per row to fit `PlayerReciterCircleItem`
+    /// (112pt circle + 6pt spacing + ~32pt for a 2-line caption).
+    private let allRecitersRowMinHeight: CGFloat = 150
+
+    /// Two flexible rows: each can grow with available space but never
+    /// collapses below the cell's intrinsic content height.
+    private var allRecitersGridRows: [GridItem] {
+        [
+            GridItem(.flexible(minimum: allRecitersRowMinHeight), spacing: 16),
+            GridItem(.flexible(minimum: allRecitersRowMinHeight), spacing: 16)
+        ]
+    }
+
+    /// Total min height of the grid (2 rows + inter-row spacing). Reused for
+    /// the loading-state placeholder so the layout doesn't jump.
+    private var allRecitersGridMinHeight: CGFloat {
+        allRecitersRowMinHeight * 2 + 16
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -65,9 +86,11 @@ struct PlayerView: View {
                 }
                 VStack(alignment: .leading, spacing: 12) {
                     
-                        Text("Features")
-                            .font(.largeTitle)
-                            .padding(.horizontal)
+                    Text("player_features_section_title")
+                        .font(.system(size: 24))
+                        .fontWeight(.bold)
+                        .padding(.horizontal)
+                        .padding(.top)
                     if recitersLoading && featuredReciterItems.isEmpty {
                         HStack {
                             Spacer()
@@ -75,6 +98,7 @@ struct PlayerView: View {
                             Spacer()
                         }
                         .frame(minHeight: 250)
+                        .padding(.horizontal)
                     } else {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
@@ -90,10 +114,10 @@ struct PlayerView: View {
                                     .buttonStyle(.plain)
                                 }
                             }
-                            .padding(.horizontal, 4)
+                            .padding(.horizontal)
                         }
                     }
-                    Text("Expertly curated playlists of the world's best voice of the moment")
+                    Text("player_features_section_subtitle")
                         .foregroundColor(.gray)
                         .padding(.horizontal)
                         .lineLimit(2)
@@ -102,16 +126,19 @@ struct PlayerView: View {
                     
                     // Header
                     HStack {
-                        Text("All Reciters")
-                            .font(.headline)
-                        
+                        Text("player_all_reciters_title")
+                            .font(.system(size: 24))
+                            .fontWeight(.bold)
+                            .padding(.horizontal)
+                            .padding(.top)
                         Spacer()
-                        
-                        Button("See All") {
+
+                        Button("player_see_all") {
                             navigateToAllReciters = true
                         }
-                        .foregroundColor(.red)
-                        .font(.caption)
+                        .foregroundColor(selectedThemeColorManager.selectedColor)
+                        .font(.system(size: 14))
+                        .fontWeight(.medium)
                         .disabled(playerReciterItems.isEmpty)
                     }
                     
@@ -122,14 +149,11 @@ struct PlayerView: View {
                             ProgressView()
                             Spacer()
                         }
-                        .frame(minHeight: 236)
+                        .frame(minHeight: allRecitersGridMinHeight)
                     } else {
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHGrid(
-                                rows: [
-                                    GridItem(.fixed(110), spacing: 16),
-                                    GridItem(.fixed(110), spacing: 16)
-                                ],
+                                rows: allRecitersGridRows,
                                 spacing: 16
                             ) {
                                 ForEach(playerReciterItems) { item in
@@ -146,12 +170,12 @@ struct PlayerView: View {
                             }
                             .padding(.horizontal, 4)
                         }
+                        .frame(minHeight: allRecitersGridMinHeight)
                     }
                 }
-                .padding() // 👈 inner spacing
-                .background(Color(.systemGray5)) // 👈 ONE gray frame
-                .cornerRadius(16) // 👈 rounded like iOS cards
                 .padding(.horizontal)
+                .padding(.bottom)
+                .background(.card)
             }
             .navigationTitle("player_title")
             .navigationDestination(isPresented: $navigateToPlaylists) {
@@ -388,6 +412,7 @@ private struct PlayerRowButtonStyle: ButtonStyle {
         let isPressed = configuration.isPressed
         return HStack {
             Text(title)
+                .font(.system(size: 20, weight: .medium))
                 .foregroundColor(isPressed ? .white : titleColor)
 
             Spacer()

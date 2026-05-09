@@ -204,3 +204,10 @@
 "reciters_favorites_empty_title" = "Список избранного пуст";
 "reciters_favorites_empty_subtitle" = "Нет избранного чтеца";
 "search_surah" = "Сура";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "Подборки";
+"player_features_section_subtitle" = "Тщательно подобранные плейлисты с лучшими голосами мира на сегодня";
+"player_all_reciters_title" = "Все чтецы";
+"player_see_all" = "Смотреть все";
+"featured_reciter_editors_pick" = "Выбор редакции";

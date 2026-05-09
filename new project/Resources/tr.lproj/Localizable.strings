@@ -204,3 +204,10 @@
 "reciters_favorites_empty_title" = "Favori Listesi Boş";
 "reciters_favorites_empty_subtitle" = "Favori okuyucu yok";
 "search_surah" = "Sure";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "Öne Çıkanlar";
+"player_features_section_subtitle" = "Dünyanın en güzel seslerinden uzmanca derlenmiş çalma listeleri";
+"player_all_reciters_title" = "Tüm Okuyucular";
+"player_see_all" = "Tümünü gör";
+"featured_reciter_editors_pick" = "Editörün Seçimi";

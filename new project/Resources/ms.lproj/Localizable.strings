@@ -204,3 +204,10 @@
 "reciters_favorites_empty_title" = "Senarai Kegemaran Kosong";
 "reciters_favorites_empty_subtitle" = "Tiada qari kegemaran";
 "search_surah" = "Surah";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "Pilihan";
+"player_features_section_subtitle" = "Senarai main pilihan pakar daripada suara terbaik dunia ketika ini";
+"player_all_reciters_title" = "Semua Qari";
+"player_see_all" = "Lihat semua";
+"featured_reciter_editors_pick" = "Pilihan Editor";

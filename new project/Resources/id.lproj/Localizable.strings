@@ -205,3 +205,10 @@
 "reciters_favorites_empty_title" = "Daftar Favorit Kosong";
 "reciters_favorites_empty_subtitle" = "Tidak ada qari favorit";
 "search_surah" = "Surah";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "Unggulan";
+"player_features_section_subtitle" = "Daftar putar pilihan ahli dari suara-suara terbaik dunia saat ini";
+"player_all_reciters_title" = "Semua Qari";
+"player_see_all" = "Lihat semua";
+"featured_reciter_editors_pick" = "Pilihan Editor";

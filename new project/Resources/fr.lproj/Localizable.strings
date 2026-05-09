@@ -203,3 +203,10 @@
 "reciters_favorites_empty_title" = "Liste de favoris vide";
 "reciters_favorites_empty_subtitle" = "Aucun récitateur favori";
 "search_surah" = "Sourate";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "À la une";
+"player_features_section_subtitle" = "Des playlists soigneusement sélectionnées avec les meilleures voix du moment";
+"player_all_reciters_title" = "Tous les récitateurs";
+"player_see_all" = "Voir tout";
+"featured_reciter_editors_pick" = "Choix de la rédaction";

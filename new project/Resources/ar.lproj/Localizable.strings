@@ -205,3 +205,10 @@
 "reciters_favorites_empty_title" = "قائمة المفضلة فارغة";
 "reciters_favorites_empty_subtitle" = "لا يوجد قارئ مفضل";
 "search_surah" = "سورة";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "المميزات";
+"player_features_section_subtitle" = "قوائم تشغيل منسقة بعناية لأفضل الأصوات في العالم في الوقت الحالي";
+"player_all_reciters_title" = "جميع القراء";
+"player_see_all" = "عرض الكل";
+"featured_reciter_editors_pick" = "اختيار المحرر";

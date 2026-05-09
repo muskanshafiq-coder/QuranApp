@@ -202,3 +202,10 @@
 "reciters_favorites_empty_title" = "Favoritenliste leer";
 "reciters_favorites_empty_subtitle" = "Kein favorisierter Rezitator";
 "search_surah" = "Sure";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "Highlights";
+"player_features_section_subtitle" = "Sorgfältig kuratierte Playlists mit den besten Stimmen der Welt";
+"player_all_reciters_title" = "Alle Rezitatoren";
+"player_see_all" = "Alle ansehen";
+"featured_reciter_editors_pick" = "Empfehlung der Redaktion";

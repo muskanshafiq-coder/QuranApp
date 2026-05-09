@@ -211,3 +211,10 @@
 "reciters_dua_ruqia_empty_subtitle" = "Nothing here yet";
 
 "search_surah" = "Surah";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "Features";
+"player_features_section_subtitle" = "Expertly curated playlists of the world's best voice of the moment";
+"player_all_reciters_title" = "All Reciters";
+"player_see_all" = "See All";
+"featured_reciter_editors_pick" = "Editor's Pick";

@@ -18,14 +18,14 @@ struct PlayerReciterCircleItem: View {
                         if case .success(let img) = phase {
                             img.resizable()
                                 .scaledToFill()
-                                .frame(width: 70, height: 70)
+                                .frame(width: 112, height: 112)
                                 .clipShape(Circle())
                         }
                     }
-                    .frame(width: 70, height: 70)
+                    .frame(width: 112, height: 112)
                 }
             }
-            .frame(width: 70, height: 70)
+            .frame(width: 112, height: 112)
 
             Text(item.englishName)
                 .font(.caption)

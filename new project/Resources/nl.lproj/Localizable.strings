@@ -204,3 +204,10 @@
 "reciters_favorites_empty_title" = "Favorietenlijst leeg";
 "reciters_favorites_empty_subtitle" = "Geen favoriete voordrager";
 "search_surah" = "Soera";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "Uitgelicht";
+"player_features_section_subtitle" = "Zorgvuldig samengestelde afspeellijsten met 's werelds beste stemmen van het moment";
+"player_all_reciters_title" = "Alle voordragers";
+"player_see_all" = "Toon alles";
+"featured_reciter_editors_pick" = "Keuze van de redactie";

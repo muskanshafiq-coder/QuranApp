@@ -202,3 +202,10 @@
 "reciters_favorites_empty_title" = "Lista de favoritos vacía";
 "reciters_favorites_empty_subtitle" = "Sin recitador favorito";
 "search_surah" = "Sura";
+
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "Destacados";
+"player_features_section_subtitle" = "Listas de reproducción cuidadosamente seleccionadas con las mejores voces del mundo del momento";
+"player_all_reciters_title" = "Todos los recitadores";
+"player_see_all" = "Ver todo";
+"featured_reciter_editors_pick" = "Elección del editor";
