@@ -174,3 +174,10 @@
 "playlist_detail_empty_surahs" = "Nessuna sura in questa playlist.";
 "playlist_surah_row_format" = "Sura %d";
 "playlist_reorder_done_accessibility" = "Fine riordino";
+"bookmarks_title" = "Segnalibri";
+"audio_title" = "Audio";
+"reading_title" = "Lettura";
+"no_surah_title" = "Nessuna sura";
+"add_audio_bookmark" = "Aggiungi audio ai segnalibri";
+"no_bookmarks_title" = "Nessun segnalibro";
+"add_text_bookmark" = "Aggiungi testo ai segnalibri";

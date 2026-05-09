@@ -176,3 +176,10 @@
 "playlist_detail_empty_surahs" = "В этом плейлисте пока нет сур.";
 "playlist_surah_row_format" = "Сура %d";
 "playlist_reorder_done_accessibility" = "Готово";
+"bookmarks_title" = "Закладки";
+"audio_title" = "Аудио";
+"reading_title" = "Чтение";
+"no_surah_title" = "Нет суры";
+"add_audio_bookmark" = "Добавить аудио в закладки";
+"no_bookmarks_title" = "Нет закладок";
+"add_text_bookmark" = "Добавить текст в закладки";

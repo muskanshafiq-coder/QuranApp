@@ -176,3 +176,10 @@
 "playlist_detail_empty_surahs" = "Tiada surah dalam senarai ini lagi.";
 "playlist_surah_row_format" = "Surah %d";
 "playlist_reorder_done_accessibility" = "Selesai menyusun";
+"bookmarks_title" = "Penanda Buku";
+"audio_title" = "Audio";
+"reading_title" = "Bacaan";
+"no_surah_title" = "Tiada Surah";
+"add_audio_bookmark" = "Tambah Audio ke Penanda Buku";
+"no_bookmarks_title" = "Tiada Penanda Buku";
+"add_text_bookmark" = "Tambah Teks ke Penanda Buku";

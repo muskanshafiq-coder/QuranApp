@@ -176,3 +176,10 @@
 "playlist_detail_empty_surahs" = "No surahs in this playlist yet.";
 "playlist_surah_row_format" = "Surah %d";
 "playlist_reorder_done_accessibility" = "Done reordering";
+"bookmarks_title" = "Bookmarks";
+"audio_title" = "Audio";
+"reading_title" = "Reading";
+"no_surah_title" = "No Surah";
+"add_audio_bookmark" = "Add Audio to Bookmark";
+"no_bookmarks_title" = "No Bookmarks";
+"add_text_bookmark" = "Add Text to Bookmark";

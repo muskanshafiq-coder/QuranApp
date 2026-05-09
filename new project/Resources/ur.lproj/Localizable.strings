@@ -176,3 +176,10 @@
 "playlist_detail_empty_surahs" = "اس فہرست میں ابھی کوئی سورت نہیں۔";
 "playlist_surah_row_format" = "سورۃ %d";
 "playlist_reorder_done_accessibility" = "ترتیب مکمل";
+"bookmarks_title" = "بک مارکس";
+"audio_title" = "آڈیو";
+"reading_title" = "مطالعہ";
+"no_surah_title" = "کوئی سورہ نہیں";
+"add_audio_bookmark" = "آڈیو کو بک مارکس میں شامل کریں";
+"no_bookmarks_title" = "کوئی بک مارکس نہیں";
+"add_text_bookmark" = "متن کو بک مارکس میں شامل کریں";

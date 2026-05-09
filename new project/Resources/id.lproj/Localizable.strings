@@ -177,3 +177,10 @@
 "playlist_detail_empty_surahs" = "Belum ada surah dalam daftar ini.";
 "playlist_surah_row_format" = "Surah %d";
 "playlist_reorder_done_accessibility" = "Selesai mengurutkan";
+"bookmarks_title" = "Bookmark";
+"audio_title" = "Audio";
+"reading_title" = "Membaca";
+"no_surah_title" = "Tidak Ada Surah";
+"add_audio_bookmark" = "Tambahkan Audio ke Bookmark";
+"no_bookmarks_title" = "Tidak Ada Bookmark";
+"add_text_bookmark" = "Tambahkan Teks ke Bookmark";

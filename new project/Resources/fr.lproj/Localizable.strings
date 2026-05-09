@@ -175,3 +175,10 @@
 "playlist_detail_empty_surahs" = "Aucune sourate dans cette liste pour l’instant.";
 "playlist_surah_row_format" = "Sourate %d";
 "playlist_reorder_done_accessibility" = "Terminer la réorganisation";
+"bookmarks_title" = "Favoris";
+"audio_title" = "Audio";
+"reading_title" = "Lecture";
+"no_surah_title" = "Aucune sourate";
+"add_audio_bookmark" = "Ajouter l’audio aux favoris";
+"no_bookmarks_title" = "Aucun favori";
+"add_text_bookmark" = "Ajouter le texte aux favoris";

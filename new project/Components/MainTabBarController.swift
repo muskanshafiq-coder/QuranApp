@@ -20,6 +20,7 @@ private struct MainTab {
     enum Content {
         case player
         case sleep
+        case bookmarks
     }
 
     let titleKey: String
@@ -118,7 +119,7 @@ class MainTabBarController: UITabBarController {
             MainTab(titleKey: "tab_sleep",      icon: .asset("sleep"),                   content: .sleep),
             MainTab(titleKey: "tab_today",      icon: .asset("dabba"),                   content: .player),
             MainTab(titleKey: "tab_reader",     icon: .systemSymbol("book.pages.fill"),  content: .player),
-            MainTab(titleKey: "tab_bookmarks",  icon: .systemSymbol("bookmark.fill"),    content: .player)
+            MainTab(titleKey: "tab_bookmarks",  icon: .systemSymbol("bookmark.fill"),    content: .bookmarks)
         ]
 
         viewControllers = tabConfigs.enumerated().map { (index, tab) in
@@ -141,7 +142,9 @@ class MainTabBarController: UITabBarController {
     }
 
     private func makeHostingController(for content: MainTab.Content) -> UIHostingController<AnyView> {
+        
         switch content {
+            
         case .player:
             let root = PlayerView()
                 .environmentObject(languageManager)
@@ -149,16 +152,27 @@ class MainTabBarController: UITabBarController {
                 .environmentObject(selectedThemeColorManager)
                 .environmentObject(AuthManager.shared)
             return UIHostingController(rootView: AnyView(root))
+            
+            
         case .sleep:
             let root = SleepView()
                 .environmentObject(languageManager)
                 .environmentObject(themeManager)
                 .environmentObject(selectedThemeColorManager)
                 .environmentObject(sleepViewModel)
+            
+            return UIHostingController(rootView: AnyView(root))
+            
+            
+        case .bookmarks:
+            let root = BookmarksView()
+                .environmentObject(languageManager)
+                .environmentObject(themeManager)
+                .environmentObject(selectedThemeColorManager)
+            
             return UIHostingController(rootView: AnyView(root))
         }
     }
-
     private func image(for icon: MainTab.Icon) -> UIImage? {
         switch icon {
         case .asset(let name):

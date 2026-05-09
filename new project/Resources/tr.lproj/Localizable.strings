@@ -176,3 +176,10 @@
 "playlist_detail_empty_surahs" = "Bu listede henüz sure yok.";
 "playlist_surah_row_format" = "Sure %d";
 "playlist_reorder_done_accessibility" = "Sıralamayı bitir";
+"bookmarks_title" = "Yer İmleri";
+"audio_title" = "Ses";
+"reading_title" = "Okuma";
+"no_surah_title" = "Sure Yok";
+"add_audio_bookmark" = "Sesi Yer İmlerine Ekle";
+"no_bookmarks_title" = "Yer İmi Yok";
+"add_text_bookmark" = "Metni Yer İmlerine Ekle";

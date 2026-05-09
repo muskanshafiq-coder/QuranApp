@@ -176,3 +176,10 @@
 "playlist_detail_empty_surahs" = "Nog geen soera’s in deze lijst.";
 "playlist_surah_row_format" = "Soera %d";
 "playlist_reorder_done_accessibility" = "Klaar met herschikken";
+"bookmarks_title" = "Bladwijzers";
+"audio_title" = "Audio";
+"reading_title" = "Lezen";
+"no_surah_title" = "Geen soera";
+"add_audio_bookmark" = "Audio toevoegen aan bladwijzers";
+"no_bookmarks_title" = "Geen bladwijzers";
+"add_text_bookmark" = "Tekst toevoegen aan bladwijzers";

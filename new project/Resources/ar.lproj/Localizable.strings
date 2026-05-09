@@ -177,3 +177,10 @@
 "playlist_detail_empty_surahs" = "لا توجد سور في هذه القائمة بعد.";
 "playlist_surah_row_format" = "سورة %d";
 "playlist_reorder_done_accessibility" = "إنهاء إعادة الترتيب";
+"bookmarks_title" = "الإشارات المرجعية";
+"audio_title" = "الصوت";
+"reading_title" = "القراءة";
+"no_surah_title" = "لا توجد سورة";
+"add_audio_bookmark" = "أضف الصوت إلى الإشارات المرجعية";
+"no_bookmarks_title" = "لا توجد إشارات مرجعية";
+"add_text_bookmark" = "أضف النص إلى الإشارات المرجعية";

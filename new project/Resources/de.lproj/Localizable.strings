@@ -174,3 +174,10 @@
 "playlist_detail_empty_surahs" = "Noch keine Suren in dieser Liste.";
 "playlist_surah_row_format" = "Sure %d";
 "playlist_reorder_done_accessibility" = "Sortieren beenden";
+"bookmarks_title" = "Lesezeichen";
+"audio_title" = "Audio";
+"reading_title" = "Lesen";
+"no_surah_title" = "Keine Sure";
+"add_audio_bookmark" = "Audio zu Lesezeichen hinzufügen";
+"no_bookmarks_title" = "Keine Lesezeichen";
+"add_text_bookmark" = "Text zu Lesezeichen hinzufügen";
