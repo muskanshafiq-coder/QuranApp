@@ -84,6 +84,23 @@ final class QuranAPIClient {
         let ayahs = surahResponse.data.ayahs.map { $0.toAyahItem() }
         return (item, ayahs)
     }
+    /// Fetch full meta (surahs, hizbQuarters, sajdas)
+    func fetchMetaFull() async throws -> QuranMetaData {
+        let url = URL(string: "\(baseURL)/meta")!
+        let (data, response) = try await session.data(from: url)
+        try validateResponse(data: data, response: response)
+        let metaResponse = try decoder.decode(QuranMetaResponse.self, from: data)
+        return metaResponse.data
+    }
+    
+    /// Get verse text for (surah, ayah); surahName from surahs list
+    func getVerseText(surahNumber: Int, ayahNumber: Int, surahNameEnglish: String) async throws -> String {
+        let result = try await fetchSurah(number: surahNumber)
+        guard let ayah = result.ayahs.first(where: { $0.numberInSurah == ayahNumber }) else {
+            return ""
+        }
+        return ayah.text
+    }
     private func validateResponse(data: Data, response: URLResponse) throws {
         guard let http = response as? HTTPURLResponse else {
             throw QuranAPIError.invalidResponse

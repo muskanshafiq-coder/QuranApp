@@ -21,6 +21,7 @@ private struct MainTab {
         case player
         case sleep
         case bookmarks
+        case reader
     }
 
     let titleKey: String
@@ -118,7 +119,7 @@ class MainTabBarController: UITabBarController {
             MainTab(titleKey: "tab_player",     icon: .systemSymbol("headphones"),       content: .player),
             MainTab(titleKey: "tab_sleep",      icon: .asset("sleep"),                   content: .sleep),
             MainTab(titleKey: "tab_today",      icon: .asset("dabba"),                   content: .player),
-            MainTab(titleKey: "tab_reader",     icon: .systemSymbol("book.pages.fill"),  content: .player),
+            MainTab(titleKey: "tab_reader",     icon: .systemSymbol("book.pages.fill"),  content: .reader),
             MainTab(titleKey: "tab_bookmarks",  icon: .systemSymbol("bookmark.fill"),    content: .bookmarks)
         ]
 
@@ -166,6 +167,13 @@ class MainTabBarController: UITabBarController {
             
         case .bookmarks:
             let root = BookmarksView()
+                .environmentObject(languageManager)
+                .environmentObject(themeManager)
+                .environmentObject(selectedThemeColorManager)
+            
+            return UIHostingController(rootView: AnyView(root))
+        case .reader:
+            let root = ReaderTabRootView()
                 .environmentObject(languageManager)
                 .environmentObject(themeManager)
                 .environmentObject(selectedThemeColorManager)

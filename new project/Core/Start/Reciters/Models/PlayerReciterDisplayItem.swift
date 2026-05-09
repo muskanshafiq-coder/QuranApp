@@ -274,3 +274,11 @@ struct IslamicCloudRecitersPayload: Decodable {
         reciters = try c.decodeIfPresent([IslamicCloudReciterDTO].self, forKey: .reciters) ?? []
     }
 }
+extension SurahItem {
+    func displayName(translationEnabled: Bool) -> String {
+//        if translationEnabled, let meaning = SurahNameTranslation.translatedName(surahNumber: number) {
+//            return meaning
+//        }
+        return nameEnglish
+    }
+}
