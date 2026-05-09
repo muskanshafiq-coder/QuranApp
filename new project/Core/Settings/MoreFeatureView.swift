@@ -10,6 +10,7 @@ struct MoreFeaturesView: View {
     ]
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @AppStorage(UserDefaultsManager.Keys.hasCompletedOnboarding) private var hasCompletedOnboarding: Bool = false
     @State private var showMoreFeatures = false
     
     var body: some View {
@@ -56,7 +57,7 @@ struct MoreFeaturesView: View {
                 Spacer(minLength: 50)
                 
                 Button {
-                    print("Start App")
+                    hasCompletedOnboarding = true
                 } label: {
                     Text("start_button")
                         .fontWeight(.semibold)
@@ -72,8 +73,9 @@ struct MoreFeaturesView: View {
             .padding(.top, 40)
             .padding(.bottom, 20)
         }
+        .background(Color.app.ignoresSafeArea())
         .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(false)
+        .navigationBarBackButtonHidden()
     }
 }
 

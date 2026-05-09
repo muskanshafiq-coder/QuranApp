@@ -11,8 +11,13 @@ import SwiftUI
 import Combine
 
 private struct MainTab {
+    enum Icon {
+        case asset(String)
+        case systemSymbol(String)
+    }
+
     let titleKey: String
-    let imageName: String
+    let icon: Icon
 }
 
 class MainTabBarController: UITabBarController {
@@ -38,11 +43,8 @@ class MainTabBarController: UITabBarController {
     }
 
     /// SwiftUI environment does not flow into `UIViewController`; `updateUIViewController` calls this when objects change.
-    func applyEnvironment(
-        languageManager: AppLanguageManager,
-        themeManager: ThemeManager,
-        selectedThemeColorManager: SelectedThemeColorManager
-    ) {
+    func applyEnvironment( languageManager: AppLanguageManager, themeManager: ThemeManager,
+        selectedThemeColorManager: SelectedThemeColorManager ) {
         let colorManagerChanged = self.selectedThemeColorManager !== selectedThemeColorManager
         self.languageManager = languageManager
         self.themeManager = themeManager
@@ -61,7 +63,6 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         setupTabs()
         setupAppearance()
-        setupNotificationObservers()
 
         // iOS 26+ specific behavior
         if #available(iOS 26.0, *) {
@@ -69,29 +70,14 @@ class MainTabBarController: UITabBarController {
         }
 
     }
-
-    private func setupNotificationObservers() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(openHadithOfTheDayTab),
-            name: NSNotification.Name("NavigateToHadithOfTheDay"),
-            object: nil
-        )
-    }
     
-    @objc private func openHadithOfTheDayTab() {
-        selectedIndex = 3 // Today tab (index 0=Prayer, 1=Qibla, 2=Sleep, 3=Today, 4=More)
-    }
-    @objc private func handleThemeChange() {
-        updateThemeAppearance()
-    }
     private func setupTabs() {
         let tabConfigs: [MainTab] = [
-            MainTab(titleKey: "tab_player",     imageName: "prayer"),
-            MainTab(titleKey: "tab_sleep",      imageName: "sleep"),
-            MainTab(titleKey: "tab_today",      imageName: "dabba"),
-            MainTab(titleKey: "tab_reader",     imageName: "sleep"),
-            MainTab(titleKey: "tab_bookmarks",  imageName: "more")
+            MainTab(titleKey: "tab_player",     icon: .systemSymbol("headphones")),
+            MainTab(titleKey: "tab_sleep",      icon: .asset("sleep")),
+            MainTab(titleKey: "tab_today",      icon: .asset("dabba")),
+            MainTab(titleKey: "tab_reader",     icon: .systemSymbol("book.pages.fill")),
+            MainTab(titleKey: "tab_bookmarks",  icon: .systemSymbol("bookmark.fill"))
         ]
 
         func makeHostedPlayer() -> UIHostingController<AnyView> {
@@ -107,23 +93,33 @@ class MainTabBarController: UITabBarController {
 
             vc.tabBarItem = UITabBarItem(
                 title: NSLocalizedString(tab.titleKey, comment: "Main tab bar title"),
-                image: UIImage(named: tab.imageName)?
-                    .resized(to: CGSize(width: 32, height: 32))
-                    .withRenderingMode(.alwaysTemplate),
+                image: image(for: tab.icon),
                 tag: index
             )
-            
-            // Safe handling for iOS 15.6+
+
             if let hostingVC = vc as? UIHostingController<AnyView> {
                 hostingVC.view.backgroundColor = .clear
                 if #available(iOS 16.0, *) {
                     hostingVC.sizingOptions = .preferredContentSize
                 }
             }
-            
+
             return vc
         }
         self.delegate = self
+    }
+
+    private func image(for icon: MainTab.Icon) -> UIImage? {
+        switch icon {
+        case .asset(let name):
+            return UIImage(named: name)?
+                .resized(to: CGSize(width: 32, height: 32))
+                .withRenderingMode(.alwaysTemplate)
+        case .systemSymbol(let symbolName):
+            let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+            return UIImage(systemName: symbolName, withConfiguration: config)?
+                .withRenderingMode(.alwaysTemplate)
+        }
     }
     
     private func setupAppearance() {

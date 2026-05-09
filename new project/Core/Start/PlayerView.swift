@@ -116,7 +116,7 @@ struct PlayerView: View {
             .background(Color.app.ignoresSafeArea())   // ✅ FIXED HERE
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {}) {
+                    Button(action: shareApp) {
                         Text("share_title")
                     }
                 }
@@ -156,6 +156,11 @@ struct PlayerView: View {
                 .environmentObject(themeManager)
                 .environmentObject(selectedThemeColorManager)
         }
+    }
+
+    private func shareApp() {
+        let message = NSLocalizedString("share_message", comment: "Share app message")
+        ShareHelper.presentShareSheet(items: [message])
     }
 }
 
@@ -228,20 +233,41 @@ struct PlayerRow: View {
     let title: LocalizedStringKey
     let action: () -> Void
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
-    
+
     var body: some View {
         Button(action: action) {
-            HStack {
-                Text(title)
-                    .foregroundColor(selectedThemeColorManager.selectedColor)
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.gray)
-            }
-            .padding()
+            EmptyView()
         }
+        .buttonStyle(
+            PlayerRowButtonStyle(
+                title: title,
+                titleColor: selectedThemeColorManager.selectedColor,
+                highlightColor: selectedThemeColorManager.selectedColor
+            )
+        )
+    }
+}
+
+private struct PlayerRowButtonStyle: ButtonStyle {
+    let title: LocalizedStringKey
+    let titleColor: Color
+    let highlightColor: Color
+
+    func makeBody(configuration: Configuration) -> some View {
+        let isPressed = configuration.isPressed
+        return HStack {
+            Text(title)
+                .foregroundColor(isPressed ? .white : titleColor)
+
+            Spacer()
+
+            Image(systemName: "chevron.forward")
+                .foregroundColor(.gray)
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(isPressed ? highlightColor : Color.clear)
+        .contentShape(Rectangle())
     }
 }
 

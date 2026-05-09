@@ -8,7 +8,7 @@ struct MyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            QuranApp()
+            RootView()
                 .ignoresSafeArea()
                 .environmentObject(languageManager)
                 .environmentObject(themeManager)
