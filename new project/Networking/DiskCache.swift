@@ -1,13 +1,9 @@
-//
-//  DiskCache.swift
-//
-
 import Foundation
 
 final class DiskCache {
-    /// Default cache used by `ReciterRepository`. Other features can create
-    /// their own instance with a different namespace.
     static let shared = DiskCache(namespace: "APICache")
+
+    static let remoteImages = DiskCache(namespace: "RemoteImages")
 
     private let directoryURL: URL?
     private let fileManager = FileManager.default
@@ -39,7 +35,6 @@ final class DiskCache {
         directoryURL?.appendingPathComponent(sanitize(key))
     }
 
-    /// Strip path separators so keys can never escape the cache directory.
     private func sanitize(_ key: String) -> String {
         key.replacingOccurrences(of: "/", with: "_")
             .replacingOccurrences(of: "..", with: "_")

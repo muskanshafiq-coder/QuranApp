@@ -51,14 +51,9 @@ struct FeaturedReciterCard: View {
     @ViewBuilder
     private var artwork: some View {
         if let url = item.portraitURL {
-            AsyncImage(url: url) { phase in
-                switch phase {
-                case .success(let img):
-                    img.resizable().scaledToFill()
-                default:
-                    Color.gray.opacity(0.25)
-                }
-            }
+            CachedRemoteImage(url: url)
+                .aspectRatio(contentMode: .fill)
+                .background(Color.gray.opacity(0.25))
         } else {
             Color.gray.opacity(0.25)
         }

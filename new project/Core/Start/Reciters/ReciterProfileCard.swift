@@ -13,6 +13,8 @@ struct ReciterProfileCard: View {
     let isLoadingDetail: Bool
     @Binding var bioExpanded: Bool
 
+    @State private var portraitLoadFailed = false
+
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
 
     var body: some View {
@@ -81,16 +83,14 @@ struct ReciterProfileCard: View {
             ))
             .overlay {
                 if let url = portraitImageURL {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .success(let img):
-                            img.resizable().aspectRatio(contentMode: .fill)
-                        case .failure:
+                    ZStack {
+                        CachedRemoteImage(url: url, showsProgressWhileLoading: true, loadFailed: $portraitLoadFailed)
+                            .aspectRatio(contentMode: .fill)
+                        if portraitLoadFailed {
                             portraitFallback
-                        default:
-                            ProgressView().tint(.white.opacity(0.7))
                         }
                     }
+                    .onChange(of: portraitImageURL?.absoluteString) { _ in portraitLoadFailed = false }
                 } else if isLoadingDetail {
                     ProgressView().tint(.white.opacity(0.7))
                 } else {

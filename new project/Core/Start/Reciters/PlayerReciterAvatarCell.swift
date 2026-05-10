@@ -50,15 +50,10 @@ struct PlayerReciterAvatarCell: View {
 
                     // Portrait overlaid on top — covers initials when loaded
                     if let url = item.portraitURL {
-                        AsyncImage(url: url) { phase in
-                            if case .success(let img) = phase {
-                                img.resizable()
-                                   .aspectRatio(contentMode: .fill)
-                                   .frame(width: diameter, height: diameter)
-                                   .clipShape(Circle())
-                            }
-                        }
-                        .frame(width: diameter, height: diameter)
+                        CachedRemoteImage(url: url)
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: diameter, height: diameter)
+                            .clipShape(Circle())
                     }
 
                     if isSelected {
