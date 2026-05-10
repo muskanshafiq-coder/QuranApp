@@ -37,8 +37,6 @@ struct ContinueReadingCard: View {
                  Spacer()
                  Text(surah.nameArabic)
                      .font(.custom("A Thuluth", size: 16))
-                     .fontWeight(.medium)
-//                     .foregroundColor(ThemeColorManager.shared.currentThemeColor)
                      .environment(\.layoutDirection, .rightToLeft)
              }
              .padding(.horizontal)

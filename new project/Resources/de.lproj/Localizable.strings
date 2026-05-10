@@ -272,3 +272,10 @@
 "download_manager_remove_reciter" = "Downloads dieses Rezitators entfernen";
 "download_manager_delete_confirm_title" = "Alle Downloads löschen?";
 "download_manager_delete_confirm_message" = "Dadurch werden alle heruntergeladenen Suren und der Audio-Cache von diesem Gerät entfernt. Du kannst später jederzeit erneut herunterladen.";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "Quran Pro Inhalt herunterladen";
+"quran_pro_download_message" = "Der Quran-Pro-Inhalt muss heruntergeladen werden";
+"alert_download" = "Herunterladen";
+"reader_downloading_title" = "Koran wird zum Offline-Lesen heruntergeladen…";
+"reader_downloading_status" = "Download läuft";

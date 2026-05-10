@@ -272,3 +272,10 @@
 "download_manager_remove_reciter" = "Eliminar descargas de este recitador";
 "download_manager_delete_confirm_title" = "¿Borrar todas las descargas?";
 "download_manager_delete_confirm_message" = "Esto eliminará todas las suras descargadas y la caché de audio de este dispositivo. Puedes volver a descargar más tarde.";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "Descarga de contenido Quran Pro";
+"quran_pro_download_message" = "Es necesario descargar el contenido de Quran Pro";
+"alert_download" = "Descargar";
+"reader_downloading_title" = "Descargando el Corán para leer sin conexión…";
+"reader_downloading_status" = "Descarga en curso";

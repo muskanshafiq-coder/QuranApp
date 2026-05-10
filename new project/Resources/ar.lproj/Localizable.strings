@@ -275,3 +275,10 @@
 "download_manager_remove_reciter" = "إزالة تنزيلات هذا القارئ";
 "download_manager_delete_confirm_title" = "مسح جميع التنزيلات؟";
 "download_manager_delete_confirm_message" = "سيؤدي هذا إلى إزالة جميع السور المنزّلة وذاكرة الصوت المؤقتة من هذا الجهاز. يمكنك إعادة التنزيل لاحقًا.";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "تنزيل محتوى Quran Pro";
+"quran_pro_download_message" = "يجب تنزيل محتوى Quran Pro";
+"alert_download" = "تنزيل";
+"reader_downloading_title" = "جارٍ تنزيل القرآن للقراءة بدون اتصال…";
+"reader_downloading_status" = "التنزيل قيد التقدم";

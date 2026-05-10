@@ -34,7 +34,6 @@ struct SuraRowView: View {
 
             Text(surah.nameArabic)
                 .font(.custom("A Thuluth", size: 16))
-                .fontWeight(.medium)
                 .environment(\.layoutDirection, .rightToLeft)
         }
         .padding(8)

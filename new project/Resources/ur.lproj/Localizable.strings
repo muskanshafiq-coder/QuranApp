@@ -274,3 +274,10 @@
 "download_manager_remove_reciter" = "اس قاری کی ڈاؤن لوڈز ہٹائیں";
 "download_manager_delete_confirm_title" = "تمام ڈاؤن لوڈز صاف کریں؟";
 "download_manager_delete_confirm_message" = "اس سے آپ کے آلے سے ہر ڈاؤن لوڈ شدہ سورت اور آڈیو کیشے ہٹ جائے گا۔ آپ بعد میں دوبارہ ڈاؤن لوڈ کر سکتے ہیں۔";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "Quran Pro مواد ڈاؤن لوڈ";
+"quran_pro_download_message" = "Quran Pro کا مواد ڈاؤن لوڈ کرنا ضروری ہے";
+"alert_download" = "ڈاؤن لوڈ";
+"reader_downloading_title" = "آف لائن مطالعہ کے لیے قرآن ڈاؤن لوڈ ہو رہا ہے…";
+"reader_downloading_status" = "ڈاؤن لوڈ جاری ہے";

@@ -22,15 +22,15 @@ final class IslamicCloudAPIClient {
         self.decoder = JSONDecoder()
     }
 
-    /// Generic GET. When `cacheKey` is provided, the raw response bytes are
-    /// persisted to `DiskCache` after a successful decode so the caller (e.g.
-    /// `ReciterRepository`) can render instantly on the next launch.
+    /// When `cache` is true, the raw response is persisted under `cacheKey(for:)` so
+    /// repositories can read the same bytes back. Callers pass un-encoded paths.
     func get<T: Decodable>(
         path: String,
         queryItems: [URLQueryItem] = [],
-        cacheKey: String? = nil
+        cache: Bool = false
     ) async throws -> T {
-        guard var components = URLComponents(string: baseURL + path) else {
+        let encodedPath = path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? path
+        guard var components = URLComponents(string: baseURL + encodedPath) else {
             throw IslamicCloudAPIError.invalidURL
         }
         if !queryItems.isEmpty {
@@ -57,15 +57,26 @@ final class IslamicCloudAPIClient {
 
         do {
             let decoded = try decoder.decode(T.self, from: data)
-            if let cacheKey {
-                DiskCache.shared.setData(data, for: cacheKey)
+            if cache {
+                DiskCache.shared.setData(data, for: Self.cacheKey(for: path, queryItems: queryItems))
             }
             return decoded
         } catch {
             throw IslamicCloudAPIError.decodingError(error)
         }
     }
-    /// GET /stories/categories?lang=...
+
+    static func cacheKey(for path: String, queryItems: [URLQueryItem] = []) -> String {
+        var key = path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        if !queryItems.isEmpty {
+            let query = queryItems
+                .sorted { $0.name < $1.name }
+                .map { "\($0.name)=\($0.value ?? "")" }
+                .joined(separator: "&")
+            key += "?" + query
+        }
+        return key
+    }
     func fetchStoriesCategories(lang: String = "en") async throws -> [StoryCategoryDTO] {
         let response: StoriesCategoriesResponse = try await get(
             path: "/stories/categories",
@@ -73,7 +84,6 @@ final class IslamicCloudAPIClient {
         )
         return response.data.categories
     }
-    /// GET /stories/{categoryId}?lang=...
     func fetchStories(categoryId: String, lang: String = "en") async throws -> [StoryDTO] {
         let response: StoriesByCategoryResponse = try await get(
             path: "/stories/\(categoryId)",
@@ -81,7 +91,6 @@ final class IslamicCloudAPIClient {
         )
         return response.data.stories
     }
-    /// GET /stories/item/{storyId}
     func fetchStoryDetail(storyId: String) async throws -> StoryDetailDTO {
         let response: StoryDetailResponse = try await get(
             path: "/stories/item/\(storyId)",
@@ -89,32 +98,32 @@ final class IslamicCloudAPIClient {
         )
         return response.data.story
     }
-    /// Single reciter with `surahs[]` and audio URLs — `GET /reciters/{slug}`.
-    /// Pass `cacheKey` to persist the raw response for instant subsequent loads.
-    func fetchReciterDetail(slug: String, cacheKey: String? = nil) async throws -> IslamicCloudReciterDetailPayload {
+    func fetchReciterDetail(slug: String, cache: Bool = false) async throws -> IslamicCloudReciterDetailPayload {
         let segment = slug.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !segment.isEmpty else { throw IslamicCloudAPIError.invalidURL }
-        let encoded = segment.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? segment
-        let path = AppConfig.IslamicCloud.recitersPath + "/" + encoded
         let envelope: IslamicCloudReciterDetailEnvelope = try await get(
-            path: path,
-            queryItems: [],
-            cacheKey: cacheKey
+            path: AppConfig.IslamicCloud.recitersPath + "/" + segment,
+            cache: cache
         )
         guard let data = envelope.data else {
             throw IslamicCloudAPIError.noData
         }
         return data
     }
-    /// Fetches all Quran reciters (`/reciters`).
-    /// Pass `cacheKey` to persist the raw response for instant subsequent loads.
-    func fetchReciters(cacheKey: String? = nil) async throws -> [IslamicCloudReciterDTO] {
+    func fetchReciters(cache: Bool = false) async throws -> [IslamicCloudReciterDTO] {
         let envelope: IslamicCloudRecitersEnvelope = try await get(
             path: AppConfig.IslamicCloud.recitersPath,
-            queryItems: [],
-            cacheKey: cacheKey
+            cache: cache
         )
         return envelope.data?.reciters ?? []
+    }
+
+    func fetchQuranPDFs(cache: Bool = false) async throws -> [QuranPDFDTO] {
+        let envelope: QuranPDFListEnvelope = try await get(
+            path: AppConfig.IslamicCloud.quranPDFsPath,
+            cache: cache
+        )
+        return envelope.data ?? []
     }
 }
 

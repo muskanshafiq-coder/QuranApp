@@ -274,3 +274,10 @@
 "download_manager_remove_reciter" = "Downloads voor deze voordrager verwijderen";
 "download_manager_delete_confirm_title" = "Alle downloads wissen?";
 "download_manager_delete_confirm_message" = "Hierdoor worden alle gedownloade soera's en de audiocache van dit apparaat verwijderd. Je kunt ze later opnieuw downloaden.";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "Quran Pro-inhoud downloaden";
+"quran_pro_download_message" = "Quran Pro-inhoud moet worden gedownload";
+"alert_download" = "Downloaden";
+"reader_downloading_title" = "Koran downloaden om offline te lezen…";
+"reader_downloading_status" = "Download bezig";

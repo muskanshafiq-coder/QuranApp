@@ -281,3 +281,11 @@
 "download_manager_remove_reciter" = "Remove downloads for this reciter";
 "download_manager_delete_confirm_title" = "Clear all downloads?";
 "download_manager_delete_confirm_message" = "This will remove every downloaded surah and audio cache from this device. You can re-download anything later.";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "Quran Pro Content Download";
+"quran_pro_download_message" = "Quran Pro content needs to be downloaded";
+"alert_download" = "Download";
+"reader_downloading_title" = "Downloading Quran for reading offline…";
+"reader_downloading_status" = "Download in Progress";
+`

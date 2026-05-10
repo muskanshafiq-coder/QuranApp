@@ -274,3 +274,10 @@
 "download_manager_remove_reciter" = "Bu okuyucunun indirmelerini kaldır";
 "download_manager_delete_confirm_title" = "Tüm indirmeler silinsin mi?";
 "download_manager_delete_confirm_message" = "Bu işlem cihazdaki tüm indirilmiş sureleri ve ses önbelleğini siler. Daha sonra yeniden indirebilirsin.";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "Quran Pro İçeriğini İndir";
+"quran_pro_download_message" = "Quran Pro içeriğinin indirilmesi gerekiyor";
+"alert_download" = "İndir";
+"reader_downloading_title" = "Çevrimdışı okumak için Kur'an indiriliyor…";
+"reader_downloading_status" = "İndirme devam ediyor";

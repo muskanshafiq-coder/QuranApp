@@ -274,3 +274,10 @@
 "download_manager_remove_reciter" = "Удалить загрузки этого чтеца";
 "download_manager_delete_confirm_title" = "Удалить все загрузки?";
 "download_manager_delete_confirm_message" = "С устройства будут удалены все загруженные суры и аудиокэш. Вы сможете загрузить их снова в любое время.";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "Загрузка контента Quran Pro";
+"quran_pro_download_message" = "Контент Quran Pro необходимо загрузить";
+"alert_download" = "Загрузить";
+"reader_downloading_title" = "Загружается Коран для чтения офлайн…";
+"reader_downloading_status" = "Идёт загрузка";

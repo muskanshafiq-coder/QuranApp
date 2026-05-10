@@ -1,8 +1,5 @@
 //
-//  AppConfig.swift
-//  new project
-//
-//  Created by apple on 09/05/2026.
+//  AppConfig.swift 
 //
 
 import Foundation
@@ -13,8 +10,8 @@ enum AppConfig {
     enum IslamicCloud {
         static let baseURL = "https://app.islamicloud.com/api"
         static let bearerToken = AppSecrets.islamicCloudBearerToken
-        /// Quran reciter catalogue (profiles + portraits). GET `{base}/reciters`
         static let recitersPath = "/reciters"
+        static let quranPDFsPath = "/quran/pdf"
     }
     enum QuranCloud {
         static let baseURL = "https://api.alquran.cloud/v1"

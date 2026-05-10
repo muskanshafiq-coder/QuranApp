@@ -43,11 +43,11 @@ enum ReciterRepository {
     static func loadReciters(
         update: @MainActor @escaping ([IslamicCloudReciterDTO]) -> Void
     ) async -> Bool {
-        let key = "reciters"
+        let key = IslamicCloudAPIClient.cacheKey(for: AppConfig.IslamicCloud.recitersPath)
         return await load(
             cacheKey: key,
             decode: { (envelope: IslamicCloudRecitersEnvelope) in envelope.data?.reciters ?? [] },
-            fetch: { try await IslamicCloudAPIClient.shared.fetchReciters(cacheKey: key) },
+            fetch: { try await IslamicCloudAPIClient.shared.fetchReciters(cache: true) },
             isUsable: { !$0.isEmpty },
             update: update
         )
@@ -60,11 +60,13 @@ enum ReciterRepository {
     ) async -> Bool {
         let trimmed = slug.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return false }
-        let key = "reciters/\(trimmed)"
+        let key = IslamicCloudAPIClient.cacheKey(
+            for: AppConfig.IslamicCloud.recitersPath + "/" + trimmed
+        )
         return await load(
             cacheKey: key,
             decode: { (envelope: IslamicCloudReciterDetailEnvelope) in envelope.data },
-            fetch: { try await IslamicCloudAPIClient.shared.fetchReciterDetail(slug: trimmed, cacheKey: key) },
+            fetch: { try await IslamicCloudAPIClient.shared.fetchReciterDetail(slug: trimmed, cache: true) },
             isUsable: { _ in true },
             update: update
         )

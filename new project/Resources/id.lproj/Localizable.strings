@@ -275,3 +275,10 @@
 "download_manager_remove_reciter" = "Hapus unduhan untuk qari ini";
 "download_manager_delete_confirm_title" = "Hapus semua unduhan?";
 "download_manager_delete_confirm_message" = "Tindakan ini akan menghapus semua surah yang diunduh dan cache audio dari perangkat ini. Kamu dapat mengunduhnya lagi nanti.";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "Unduh Konten Quran Pro";
+"quran_pro_download_message" = "Konten Quran Pro perlu diunduh";
+"alert_download" = "Unduh";
+"reader_downloading_title" = "Mengunduh Al-Qur'an untuk dibaca offline…";
+"reader_downloading_status" = "Unduhan Berlangsung";

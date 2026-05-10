@@ -274,3 +274,10 @@
 "download_manager_remove_reciter" = "Buang muat turun untuk qari ini";
 "download_manager_delete_confirm_title" = "Padam semua muat turun?";
 "download_manager_delete_confirm_message" = "Ini akan membuang setiap surah yang dimuat turun dan cache audio daripada peranti ini. Anda boleh memuat turun semula bila-bila masa.";
+
+// MARK: - Reader PDF download alert
+"quran_pro_download_title" = "Muat Turun Kandungan Quran Pro";
+"quran_pro_download_message" = "Kandungan Quran Pro perlu dimuat turun";
+"alert_download" = "Muat Turun";
+"reader_downloading_title" = "Memuat turun Al-Quran untuk dibaca luar talian…";
+"reader_downloading_status" = "Muat Turun Sedang Berlangsung";
