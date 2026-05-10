@@ -11,6 +11,10 @@ final class ReciterSurahAudioPlayer: ObservableObject {
     @Published var duration: Double = 0
     @Published var isPlaying = false
     @Published var playbackRate: Float = 1
+    /// When advancing to the next surah, pick a random playable surah instead of the list order.
+    @Published var shuffleSurahsEnabled: Bool = false
+    /// 0 = off, 1 = repeat current surah, 2 = repeat / advance through all surahs (wrap).
+    @Published var surahRepeatMode: Int = 0
 
     private var player: AVPlayer?
     private var observedItem: AVPlayerItem?
@@ -74,6 +78,21 @@ final class ReciterSurahAudioPlayer: ObservableObject {
             p.play()
             p.rate = playbackRate
             isPlaying = true
+        }
+    }
+
+    /// Seek to the start of the current item and resume playback (used for repeat-one / repeat-all on end).
+    func restartFromBeginningAndPlay() {
+        guard let p = player else { return }
+        let t = CMTime(seconds: 0, preferredTimescale: 600)
+        p.seek(to: t, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
+            guard finished, let self else { return }
+            DispatchQueue.main.async {
+                self.currentTime = 0
+                p.play()
+                p.rate = self.playbackRate
+                self.isPlaying = true
+            }
         }
     }
 

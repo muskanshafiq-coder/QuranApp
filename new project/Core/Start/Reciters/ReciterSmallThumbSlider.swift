@@ -8,8 +8,12 @@ struct ReciterSmallThumbSlider: UIViewRepresentable {
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
     @Binding var value: Double
     let range: ClosedRange<Double>
+    /// `true` while the user is touching the thumb (scrubbing).
+    var onScrubbingChanged: ((Bool) -> Void)? = nil
 
-    func makeCoordinator() -> Coordinator { Coordinator(value: $value) }
+    func makeCoordinator() -> Coordinator {
+        Coordinator(value: $value, onScrubbingChanged: onScrubbingChanged)
+    }
 
     func makeUIView(context: Context) -> UISlider {
         let s = UISlider(frame: .zero)
@@ -22,10 +26,17 @@ struct ReciterSmallThumbSlider: UIViewRepresentable {
         s.setThumbImage(Self.thumbImage(color: .white, diameter: 11), for: .highlighted)
         s.setContentHuggingPriority(.required, for: .vertical)
         s.addTarget(context.coordinator, action: #selector(Coordinator.changed(_:)), for: .valueChanged)
+        s.addTarget(context.coordinator, action: #selector(Coordinator.touchDown(_:)), for: .touchDown)
+        s.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.touchUp(_:)),
+            for: [.touchUpInside, .touchUpOutside, .touchCancel]
+        )
         return s
     }
 
     func updateUIView(_ uiView: UISlider, context: Context) {
+        context.coordinator.onScrubbingChanged = onScrubbingChanged
         uiView.minimumValue = Float(range.lowerBound)
         uiView.maximumValue = Float(range.upperBound)
         if abs(Double(uiView.value) - value) > 0.0001 {
@@ -37,10 +48,23 @@ struct ReciterSmallThumbSlider: UIViewRepresentable {
 
     final class Coordinator: NSObject {
         var value: Binding<Double>
-        init(value: Binding<Double>) { self.value = value }
+        var onScrubbingChanged: ((Bool) -> Void)?
+
+        init(value: Binding<Double>, onScrubbingChanged: ((Bool) -> Void)?) {
+            self.value = value
+            self.onScrubbingChanged = onScrubbingChanged
+        }
 
         @objc func changed(_ sender: UISlider) {
             value.wrappedValue = Double(sender.value)
+        }
+
+        @objc func touchDown(_ sender: UISlider) {
+            onScrubbingChanged?(true)
+        }
+
+        @objc func touchUp(_ sender: UISlider) {
+            onScrubbingChanged?(false)
         }
     }
 

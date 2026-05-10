@@ -328,3 +328,7 @@
 "dummy_paywall_message" = "This feature is part of Quran Pro. Subscribe to continue listening with full access.";
 "dummy_paywall_subscribe" = "Subscribe";
 "dummy_paywall_later" = "Maybe later";
+
+/* Reciter now playing */
+"reciter_now_playing_surah_index_of_total" = "%1$d van %2$d";
+"general_ok" = "OK";

@@ -44,7 +44,7 @@ struct AyahTranslationSheet: View {
                             }
 
                             Text(context.arabicText)
-                                .font(.custom("A Thuluth", size: 24))
+                                .font(QuranAyahDisplayFont.uthmani(size: 24))
                                 .multilineTextAlignment(.trailing)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                                 .environment(\.layoutDirection, .rightToLeft)

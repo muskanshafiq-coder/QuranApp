@@ -5,6 +5,112 @@
 import SwiftUI
 import AVFoundation
 
+private enum ReciterTransportRingBlink: Equatable {
+    case previousSurah
+    case nextSurah
+    case playPause
+}
+
+private enum MarqueeTextUnitWidthKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}
+
+/// Single-line title: scrolls toward leading (LTR). Two copies spaced by `width + gap` so the loop is **mathematically seamless** — jerk was from `cycle` changing when measured width jumped from 0 → real width.
+private struct MarqueeSurahTitleView: View {
+    let text: String
+    let fontSize: CGFloat
+
+    @State private var stableTextWidth: CGFloat = 0
+    @State private var lastMeasuredRaw: CGFloat = 0
+
+    private var font: Font { .system(size: fontSize, weight: .semibold) }
+
+    private var segment: String {
+        let t = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        return t.isEmpty ? " " : t
+    }
+
+    var body: some View {
+        GeometryReader { geo in
+            let containerW = max(geo.size.width, 1)
+            let gap: CGFloat = 40
+            let speedPtsPerSec: CGFloat = 38
+            let rawW = lastMeasuredRaw
+            let needsMarquee = rawW > containerW + 2
+            let w = max(stableTextWidth, 1)
+            /// Period must equal distance between the **starts** of the two identical `Text` rows (only `[T][gap][T]` is periodic with this period).
+            let cycle = w + gap
+
+            ZStack(alignment: .leading) {
+                Text(segment)
+                    .font(font)
+                    .lineLimit(1)
+                    .fixedSize(horizontal: true, vertical: false)
+                    .hidden()
+                    .background(
+                        GeometryReader { g in
+                            Color.clear.preference(key: MarqueeTextUnitWidthKey.self, value: g.size.width)
+                        }
+                    )
+
+                if needsMarquee, stableTextWidth > 1 {
+                    TimelineView(.animation(minimumInterval: 1 / 60, paused: false)) { context in
+                        let t = context.date.timeIntervalSinceReferenceDate
+                        let dist = CGFloat(t) * speedPtsPerSec
+                        // Phase so the strip does not always start at the title's leading edge (reads more "from trailing" first) without changing loop length.
+                        let phase0 = containerW.truncatingRemainder(dividingBy: cycle)
+                        let mod = (dist + phase0).truncatingRemainder(dividingBy: cycle)
+                        let offsetX = -mod
+                        marqueeRow(gap: gap)
+                            .offset(x: offsetX)
+                    }
+                    .id(segment)
+                } else {
+                    Text(segment)
+                        .font(font)
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            .environment(\.layoutDirection, .leftToRight)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .clipped()
+            .onPreferenceChange(MarqueeTextUnitWidthKey.self) { newW in
+                guard newW.isFinite, newW > 0.5 else { return }
+                lastMeasuredRaw = newW
+                if stableTextWidth < 1 || abs(newW - stableTextWidth) > 3 {
+                    stableTextWidth = newW
+                }
+            }
+            .onChange(of: text) { _ in
+                stableTextWidth = 0
+                lastMeasuredRaw = 0
+            }
+        }
+        .frame(height: max(26, fontSize * 1.45))
+    }
+
+    @ViewBuilder
+    private func marqueeRow(gap: CGFloat) -> some View {
+        HStack(spacing: gap) {
+            Text(segment)
+                .font(font)
+                .foregroundColor(.white)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: false)
+            Text(segment)
+                .font(font)
+                .foregroundColor(.white)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: false)
+        }
+    }
+}
+
 struct ReciterSurahNowPlayingView: View {
     let detail: IslamicCloudReciterDetailPayload
     let surah: IslamicCloudReciterSurahItemDTO
@@ -29,9 +135,8 @@ struct ReciterSurahNowPlayingView: View {
     @State private var translationByAyah: [Int: String] = [:]
     @State private var loadFailed = false
     @State private var isLoadingAyahs = true
-    @State private var shuffleEnabled = false
-    @State private var repeatMode: Int = 0
     @ObservedObject private var audioBookmarksViewModel = AudioBookmarksViewModel.shared
+    @ObservedObject private var premiumManager = PremiumManager.shared
     @State private var translationSheetContext: AyahTranslationSheetContext?
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
     /// UIKit nav bar + SwiftUI toolbar — toggled from scroll *direction* (delta),
@@ -48,6 +153,13 @@ struct ReciterSurahNowPlayingView: View {
     /// Hysteresis state: only flip bars after enough travel in one direction.
     @State private var pendingScrollDirection: Int = 0 // -1 up, +1 down
     @State private var pendingScrollTravel: CGFloat = 0
+    /// Pauses auto-scroll-to-active-ayah while the user scrolls the list.
+    @State private var pauseAutoAyahScrollUntil: Date = .distantPast
+    /// True while the user is dragging the timeline slider (scrubbing).
+    @State private var isTimelineScrubbing = false
+    /// Brief white ring blink on transport controls.
+    @State private var transportRingBlink: ReciterTransportRingBlink?
+    @State private var showCarPlayPremiumInfo = false
 
     private var reciterTitle: String {
         let t = detail.nameEn.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -72,8 +184,26 @@ struct ReciterSurahNowPlayingView: View {
         return en.lowercased().hasPrefix("surah") ? en : "Surah \(en)"
     }
 
-    private var arabicHeaderTitle: String {
-        (surah.nameAr ?? surahMeta?.nameArabic ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+    /// Current surah position within this reciter’s surah list (e.g. “12 of 114”).
+    private var principalSurahIndexTitle: String {
+        let list = detail.surahs
+        let total: Int
+        let current: Int
+        if list.isEmpty {
+            total = 114
+            current = surah.number
+        } else if let idx = list.firstIndex(where: { $0.number == surah.number }) {
+            total = list.count
+            current = idx + 1
+        } else {
+            total = list.count
+            current = surah.number
+        }
+        return String(
+            format: NSLocalizedString("reciter_now_playing_surah_index_of_total", comment: ""),
+            locale: .current,
+            arguments: [current as CVarArg, total as CVarArg]
+        )
     }
 
     private var audioOutputLabel: String {
@@ -85,6 +215,85 @@ struct ReciterSurahNowPlayingView: View {
         if abs(r - 1) < 0.001 { return "1.0x" }
         let f = abs(r * 10 - Double(Int(r * 10))) < 0.01
         return f ? String(format: "%.1fx", r) : String(format: "%.2fx", r)
+    }
+
+    private func playableSurahsSorted() -> [IslamicCloudReciterSurahItemDTO] {
+        detail.playableSurahsSortedByNumber()
+    }
+
+    private func previousPlayableSurah() -> IslamicCloudReciterSurahItemDTO? {
+        let list = playableSurahsSorted()
+        guard let i = list.firstIndex(where: { $0.number == surah.number }), i > 0 else { return nil }
+        return list[i - 1]
+    }
+
+    private func nextPlayableSurah() -> IslamicCloudReciterSurahItemDTO? {
+        detail.nextPlayableSurah(after: surah.number, shuffle: player.shuffleSurahsEnabled, wrap: false)
+    }
+
+    private func presentPlayableSurah(_ dto: IslamicCloudReciterSurahItemDTO) {
+        let session = ReciterPlaybackSession(detail: detail, surah: dto)
+        ReciterPlaybackPopupCoordinator.shared.present(session: session, openFullScreen: true)
+    }
+
+    private func goToPreviousReciterAudio() {
+        if let prev = previousPlayableSurah() {
+            presentPlayableSurah(prev)
+        } else {
+            player.seek(to: 0)
+        }
+    }
+
+    private func goToNextReciterAudio() {
+        if let next = nextPlayableSurah() {
+            presentPlayableSurah(next)
+        } else {
+            player.seekToNextAyahSegment(
+                activeAyah: activeAyahNumber,
+                ayahCount: ayahCountForMapping
+            )
+        }
+    }
+
+    private var repeatIsActive: Bool { player.surahRepeatMode != 0 }
+
+    private var repeatSystemImageName: String {
+        player.surahRepeatMode == 1 ? "repeat.1" : "repeat"
+    }
+
+    @ViewBuilder
+    private func chromeTransportChip(active: Bool, accent: Color, @ViewBuilder label: () -> some View) -> some View {
+        label()
+            .foregroundColor(active ? Color.white : Color.white.opacity(0.55))
+            .frame(width: 40, height: 40)
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(active ? accent : Color.clear)
+            )
+    }
+
+    private func flashTransportRing(_ ring: ReciterTransportRingBlink) {
+        withAnimation(.easeOut(duration: 0.16)) {
+            transportRingBlink = ring
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.38) {
+            withAnimation(.easeOut(duration: 0.22)) {
+                if transportRingBlink == ring {
+                    transportRingBlink = nil
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func transportRingOverlay(_ ring: ReciterTransportRingBlink, diameter: CGFloat) -> some View {
+        let on = transportRingBlink == ring
+        Circle()
+            .stroke(Color.white.opacity(on ? 0.95 : 0), lineWidth: 2.25)
+            .frame(width: diameter, height: diameter)
+            .scaleEffect(on ? 1.1 : 1.0)
+            .animation(.easeOut(duration: 0.22), value: on)
+            .allowsHitTesting(false)
     }
 
     var body: some View {
@@ -115,19 +324,12 @@ struct ReciterSurahNowPlayingView: View {
                                         ForEach(ayahs) { ayah in
                                             ReciterPlayerAyahRow(
                                                 ayah: ayah,
-                                                isActive: ayah.numberInSurah == activeAyahNumber,
                                                 isAyahBookmarked: audioBookmarksViewModel.containsAyahBookmark(
                                                     reciterSlug: detail.slug,
                                                     surahNumber: surah.number,
                                                     ayahNumber: ayah.numberInSurah
                                                 ),
                                                 accentColor: selectedThemeColorManager.selectedColor,
-                                                onSeekToAyah: {
-                                                    player.seekToEstimatedStartOfAyah(
-                                                        ayahNumber: ayah.numberInSurah,
-                                                        ayahCount: ayahCountForMapping
-                                                    )
-                                                },
                                                 onToggleAyahBookmark: { toggleAyahBookmark(ayah) },
                                                 onShareAyah: { shareAyah(ayah) },
                                                 onPlayAyah: { DummyPaywallPresenter.shared.present() },
@@ -142,18 +344,20 @@ struct ReciterSurahNowPlayingView: View {
                                 .padding(.bottom, 220)
                             }
                             .coordinateSpace(name: ReciterNowPlayingScrollSpace.name)
-                            .onChange(of: activeAyahNumber) { newVal in
-                                withAnimation(.easeInOut(duration: 0.35)) {
-                                    proxy.scrollTo(newVal, anchor: .center)
+                            .simultaneousGesture(
+                                TapGesture().onEnded {
+                                    toggleChromeVisibility()
                                 }
+                            )
+                            .modifier(ReciterScrollUserInteractionPauseModifier(pauseUntil: $pauseAutoAyahScrollUntil))
+                            .onChange(of: activeAyahNumber) { newVal in
+                                scrollToActiveAyahIfAllowed(proxy: proxy, ayahNumber: newVal)
                             }
                             .onChange(of: ayahs.count) { count in
                                 guard count > 0 else { return }
                                 let n = activeAyahNumber
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                                    withAnimation(.easeInOut(duration: 0.35)) {
-                                        proxy.scrollTo(n, anchor: .center)
-                                    }
+                                    scrollToActiveAyahIfAllowed(proxy: proxy, ayahNumber: n)
                                 }
                             }
                         }
@@ -179,11 +383,9 @@ struct ReciterSurahNowPlayingView: View {
                         }
                     }
                     ToolbarItem(placement: .principal) {
-                        Text(arabicHeaderTitle)
-                            .font(.custom("A Thuluth", size: 22))
-                            .fontWeight(.bold)
-                            .foregroundColor(selectedThemeColorManager.selectedColor)
-
+                        Text(principalSurahIndexTitle)
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white)
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
@@ -208,6 +410,8 @@ struct ReciterSurahNowPlayingView: View {
                 suppressScrollUpdatesUntil = .distantPast
                 pendingScrollDirection = 0
                 pendingScrollTravel = 0
+                pauseAutoAyahScrollUntil = .distantPast
+                isTimelineScrubbing = false
             }
             .task {
                 await loadAyahContent()
@@ -215,6 +419,11 @@ struct ReciterSurahNowPlayingView: View {
             .sheet(item: $translationSheetContext) { context in
                 AyahTranslationSheet(context: context)
                     .environmentObject(selectedThemeColorManager)
+            }
+            .alert("feature_carplay_title", isPresented: $showCarPlayPremiumInfo) {
+                Button("general_ok", role: .cancel) {}
+            } message: {
+                Text("feature_carplay_desc")
             }
         }
     }
@@ -339,6 +548,25 @@ struct ReciterSurahNowPlayingView: View {
         pendingScrollTravel = 0
     }
 
+    private func toggleChromeVisibility() {
+        withAnimation(.easeInOut(duration: 0.28)) {
+            reciterNavBarUIKitHidden.toggle()
+        }
+        lastNavBarToggleAt = Date()
+        suppressScrollUpdatesUntil = Date().addingTimeInterval(0.35)
+        lastScrollContentMinY = .infinity
+        pendingScrollDirection = 0
+        pendingScrollTravel = 0
+    }
+
+    private func scrollToActiveAyahIfAllowed(proxy: ScrollViewProxy, ayahNumber: Int) {
+        guard !isTimelineScrubbing else { return }
+        guard Date() > pauseAutoAyahScrollUntil else { return }
+        withAnimation(.easeInOut(duration: 0.78)) {
+            proxy.scrollTo(ayahNumber, anchor: .bottom)
+        }
+    }
+
     private var istiadhBlock: some View {
         Text(Self.istiadhArabic)
             .font(.custom("A Thuluth", size: 22))
@@ -359,9 +587,14 @@ struct ReciterSurahNowPlayingView: View {
         return VStack(spacing: 12) {
             VStack(spacing: 6) {
                 HStack(spacing: 0) {
-                    compactControlButton("moon.zzz") { }
+                    compactControlButton("gauge") {
+                        DummyPaywallPresenter.shared.present()
+                    }
 
-                    Button { player.skip(seconds: -15) } label: {
+                    Button {
+                        guard player.isPlaying, player.duration > 0 else { return }
+                        player.skip(seconds: -15)
+                    } label: {
                         Image(systemName: "gobackward.15")
                             .font(.system(size: 20))
                             .foregroundColor(.white)
@@ -370,41 +603,53 @@ struct ReciterSurahNowPlayingView: View {
                     .frame(maxWidth: .infinity)
 
                     Button {
-                        player.seekToPreviousAyahSegment(
-                            activeAyah: activeAyahNumber,
-                            ayahCount: ayahCountForMapping
-                        )
+                        flashTransportRing(.previousSurah)
+                        goToPreviousReciterAudio()
                     } label: {
-                        Image(systemName: "backward.end.fill")
-                            .font(.system(size: 22))
-                            .foregroundColor(.white)
+                        ZStack {
+                            transportRingOverlay(.previousSurah, diameter: 44)
+                            Image(systemName: "backward.end.fill")
+                                .font(.system(size: 22))
+                                .foregroundColor(.white)
+                        }
                     }
                     .buttonStyle(.plain)
                     .frame(maxWidth: .infinity)
 
-                    Button { player.togglePlayPause() } label: {
-                        Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
-                            .font(.system(size: 26, weight: .medium))
-                            .foregroundColor(.white)
-                            .frame(width: 52, height: 52)
-                            .background(Circle().fill(Color.white.opacity(0.12)))
+                    Button {
+                        player.togglePlayPause()
+                        flashTransportRing(.playPause)
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(Color.white.opacity(0.12))
+                                .frame(width: 56, height: 56)
+                            transportRingOverlay(.playPause, diameter: 56)
+                            Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
+                                .font(.system(size: 26, weight: .medium))
+                                .foregroundColor(.white)
+                        }
                     }
                     .buttonStyle(.plain)
 
                     Button {
-                        player.seekToNextAyahSegment(
-                            activeAyah: activeAyahNumber,
-                            ayahCount: ayahCountForMapping
-                        )
+                        flashTransportRing(.nextSurah)
+                        goToNextReciterAudio()
                     } label: {
-                        Image(systemName: "forward.end.fill")
-                            .font(.system(size: 22))
-                            .foregroundColor(.white)
+                        ZStack {
+                            transportRingOverlay(.nextSurah, diameter: 44)
+                            Image(systemName: "forward.end.fill")
+                                .font(.system(size: 22))
+                                .foregroundColor(.white)
+                        }
                     }
                     .buttonStyle(.plain)
                     .frame(maxWidth: .infinity)
 
-                    Button { player.skip(seconds: 15) } label: {
+                    Button {
+                        guard player.duration > 0 else { return }
+                        player.skip(seconds: 15)
+                    } label: {
                         Image(systemName: "goforward.15")
                             .font(.system(size: 20))
                             .foregroundColor(.white)
@@ -438,6 +683,14 @@ struct ReciterSurahNowPlayingView: View {
                         set: { player.seek(to: $0) }
                     ),
                     range: 0 ... max(player.duration, 0.1),
+                    onScrubbingChanged: { scrubbing in
+                        isTimelineScrubbing = scrubbing
+                        if scrubbing {
+                            pauseAutoAyahScrollUntil = Date().addingTimeInterval(2.0)
+                        } else {
+                            pauseAutoAyahScrollUntil = Date().addingTimeInterval(0.6)
+                        }
+                    }
                 )
                 .frame(height: 28)
 
@@ -447,95 +700,104 @@ struct ReciterSurahNowPlayingView: View {
 
            
 
-            HStack(alignment: .top, spacing: 10) {
-                Text(displayTitleLine)
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundColor(.white)
-                    .lineLimit(2)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+            HStack(alignment: .top, spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    MarqueeSurahTitleView(text: displayTitleLine, fontSize: 18)
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
-                Button {
-                    shuffleEnabled.toggle()
-                } label: {
-                    Image(systemName: "shuffle")
-                        .font(.system(size: 18, weight: .medium))
-                }
-                .buttonStyle(.plain)
-
-                Button {
-                    repeatMode = (repeatMode + 1) % 3
-                    if repeatMode == 1 {
-                        player.seek(to: 0)
+                    if !reciterTitle.isEmpty {
+                        Text(reciterTitle)
+                            .font(.system(size: 14, weight: .regular))
+                            .foregroundColor(.white.opacity(0.55))
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                } label: {
-                    Image(systemName: repeatIcon)
-                        .font(.system(size: 18, weight: .medium))
                 }
-                .buttonStyle(.plain)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                HStack(spacing: 10) {
+                    Button {
+                        player.shuffleSurahsEnabled.toggle()
+                    } label: {
+                        chromeTransportChip(active: player.shuffleSurahsEnabled, accent: selectedThemeColorManager.selectedColor) {
+                            Image(systemName: "shuffle")
+                                .font(.system(size: 17, weight: .medium))
+                        }
+                    }
+                    .buttonStyle(.plain)
+
+                    Button {
+                        player.surahRepeatMode = (player.surahRepeatMode + 1) % 3
+                    } label: {
+                        chromeTransportChip(active: repeatIsActive, accent: selectedThemeColorManager.selectedColor) {
+                            Image(systemName: repeatSystemImageName)
+                                .font(.system(size: 17, weight: .medium))
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(.top, 1)
             }
             .padding(.horizontal, 16)
 
-            if !reciterTitle.isEmpty {
-                Text(reciterTitle)
-                    .font(.system(size: 14, weight: .regular))
-                    .foregroundColor(.white.opacity(0.55))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 16)
-                    .padding(.top, -6)
-            }
-
-            HStack(spacing: 0) {
-                Button { } label: {
-                    Image(systemName: "list.bullet")
-                        .font(.system(size: 18))
-                        .foregroundColor(.white.opacity(0.65))
-                }
-                .buttonStyle(.plain)
-                .frame(maxWidth: .infinity)
-
-                Button {
-                    player.cyclePlaybackRate()
-                } label: {
-                    Text(playbackRateLabel)
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundColor(.white.opacity(0.85))
-                }
-                .buttonStyle(.plain)
-                .frame(maxWidth: .infinity)
-
+            ZStack {
                 VStack(spacing: 2) {
                     ReciterAirPlayRoutePicker(tint: .white)
                         .frame(width: 34, height: 28)
                     if !audioOutputLabel.isEmpty {
                         Text(audioOutputLabel)
                             .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(.white.opacity(0.65))
+                            .multilineTextAlignment(.center)
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
+                            .frame(maxWidth: 160, alignment: .center)
                     }
                 }
-                .frame(maxWidth: .infinity)
 
-                Button { } label: {
-                    Image(systemName: "car.fill")
-                        .font(.system(size: 18))
-                        .foregroundColor(.white.opacity(0.65))
+                HStack(alignment: .center, spacing: 0) {
+                    HStack(spacing: 8) {
+                        Button {
+                            DummyPaywallPresenter.shared.present()
+                        } label: {
+                            Image(systemName: "list.bullet")
+                                .font(.system(size: 18))
+                                .foregroundColor(.white.opacity(0.65))
+                        }
+                        .buttonStyle(.plain)
+
+                        Button {
+                            player.cyclePlaybackRate()
+                        } label: {
+                            Text(playbackRateLabel)
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                .foregroundColor(.white.opacity(0.85))
+                        }
+                        .buttonStyle(.plain)
+                    }
+
+                    Spacer(minLength: 8)
+
+                    Button {
+                        if premiumManager.isPremium {
+                            showCarPlayPremiumInfo = true
+                        } else {
+                            DummyPaywallPresenter.shared.present()
+                        }
+                    } label: {
+                        Image(systemName: "car.fill")
+                            .font(.system(size: 18))
+                            .foregroundColor(.white.opacity(0.65))
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
                 .frame(maxWidth: .infinity)
             }
             .padding(.horizontal, 12)
             .padding(.bottom, 10)
         }
         .padding(.top, 10)
-        .background(.ultraThinMaterial.opacity(0.95))
-    }
-
-    private var repeatIcon: String {
-        switch repeatMode {
-        case 1: return "repeat.1"
-        case 2: return "repeat"
-        default: return "repeat"
-        }
+        .background(.app)
     }
 
     private func compactControlButton(_ systemName: String, action: @escaping () -> Void) -> some View {
@@ -569,6 +831,38 @@ struct ReciterSurahNowPlayingView: View {
         } catch {
             loadFailed = true
             isLoadingAyahs = false
+        }
+    }
+}
+
+/// Pauses follow-scroll during user-driven scrolling. Uses scroll phases on iOS 18+ (no conflict with `scrollTo`); earlier OS uses a drag end hint only.
+private struct ReciterScrollUserInteractionPauseModifier: ViewModifier {
+    @Binding var pauseUntil: Date
+
+    func body(content: Content) -> some View {
+        Group {
+            if #available(iOS 18.0, *) {
+                content.onScrollPhaseChange { _, newPhase in
+                    switch newPhase {
+                    case .idle:
+                        pauseUntil = Date().addingTimeInterval(0.28)
+                    case .interacting, .tracking, .decelerating:
+                        pauseUntil = Date().addingTimeInterval(2.5)
+                    case .animating:
+                        break
+                    @unknown default:
+                        break
+                    }
+                }
+            } else {
+                content
+                    .simultaneousGesture(
+                        DragGesture(minimumDistance: 30)
+                            .onEnded { _ in
+                                pauseUntil = Date().addingTimeInterval(0.9)
+                            }
+                    )
+            }
         }
     }
 }

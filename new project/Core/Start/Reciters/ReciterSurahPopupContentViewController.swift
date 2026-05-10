@@ -172,8 +172,24 @@ final class ReciterSurahPopupContentViewController: UIViewController {
     }
 
     private func handlePlaybackFinished() {
-        if let next = ReciterPlaybackQueueCoordinator.shared.dequeueNext() {
-            ReciterPlaybackPopupCoordinator.shared.present(session: next, openFullScreen: false)
+        switch player.surahRepeatMode {
+        case 1:
+            player.restartFromBeginningAndPlay()
+        case 2:
+            if let next = session.detail.nextPlayableSurah(
+                after: session.surah.number,
+                shuffle: player.shuffleSurahsEnabled,
+                wrap: true
+            ) {
+                let nextSession = ReciterPlaybackSession(detail: session.detail, surah: next)
+                ReciterPlaybackPopupCoordinator.shared.present(session: nextSession, openFullScreen: false)
+            } else {
+                player.restartFromBeginningAndPlay()
+            }
+        default:
+            if let next = ReciterPlaybackQueueCoordinator.shared.dequeueNext() {
+                ReciterPlaybackPopupCoordinator.shared.present(session: next, openFullScreen: false)
+            }
         }
     }
 

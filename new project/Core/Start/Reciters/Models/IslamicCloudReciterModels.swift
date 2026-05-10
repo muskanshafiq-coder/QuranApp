@@ -116,6 +116,29 @@ struct IslamicCloudReciterDetailPayload: Decodable {
     }
 }
 
+extension IslamicCloudReciterDetailPayload {
+    /// Surahs that have a non-empty `audio` URL, ordered by surah number.
+    func playableSurahsSortedByNumber() -> [IslamicCloudReciterSurahItemDTO] {
+        surahs
+            .filter { !($0.audio?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "").isEmpty }
+            .sorted { $0.number < $1.number }
+    }
+
+    /// Next surah after `currentNumber` in play order; optional shuffle and wrap for repeat-all.
+    func nextPlayableSurah(after currentNumber: Int, shuffle: Bool, wrap: Bool) -> IslamicCloudReciterSurahItemDTO? {
+        let list = playableSurahsSortedByNumber()
+        guard !list.isEmpty else { return nil }
+        if shuffle {
+            let others = list.filter { $0.number != currentNumber }
+            if let pick = others.randomElement() { return pick }
+            return list.first
+        }
+        guard let i = list.firstIndex(where: { $0.number == currentNumber }) else { return list.first }
+        if i + 1 < list.count { return list[i + 1] }
+        return wrap ? list.first : nil
+    }
+}
+
 struct IslamicCloudReciterSurahItemDTO: Decodable, Identifiable, Hashable {
     var id: Int { number }
     let number: Int

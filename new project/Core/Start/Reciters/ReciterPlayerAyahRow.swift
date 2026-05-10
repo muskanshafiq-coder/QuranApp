@@ -6,54 +6,33 @@ import SwiftUI
 
 struct ReciterPlayerAyahRow: View {
     let ayah: AyahItem
-    let isActive: Bool
     let isAyahBookmarked: Bool
     let accentColor: Color
-    let onSeekToAyah: () -> Void
     let onToggleAyahBookmark: () -> Void
     let onShareAyah: () -> Void
     let onPlayAyah: () -> Void
     let onShowTranslation: () -> Void
     let onRepeatOption: () -> Void
 
-    @AppStorage(UserDefaultsManager.Keys.quranFontFamily) private var quranFontFamily: String = "SF font"
     @AppStorage(UserDefaultsManager.Keys.quranFontSize) private var quranFontSize: Double = 20
 
-    private static let fontNameMap: [String: String] = [
-        "Me Quran": "me_quran",
-        "PDMS Saleem Quran Font": "PDMS Saleem QuranFont",
-        "Al Qalam Quran Majeed Web": "Al Qalam Quran Majeed",
-        "Droid Arabic Naskh": "Droid Arabic Naskh",
-        "Noto Kufi Arabic": "Noto Kufi Arabic",
-        "Noto Naskh Arabic": "Noto Naskh Arabic",
-        "Noto Nastaliq Urdu": "Noto Nastaliq Urdu",
-        "Scheherazade": "Scheherazade New"
-    ]
-
     private var ayahFont: Font {
-        let size = CGFloat(quranFontSize > 0 ? quranFontSize : 20)
-        if quranFontFamily == "SF font" {
-            return .system(size: size, weight: .regular)
-        }
-        let fontName = Self.fontNameMap[quranFontFamily] ?? quranFontFamily
-        return .custom(fontName, size: size)
+        let size = CGFloat(quranFontSize > 0 ? quranFontSize : 22)
+        return QuranAyahDisplayFont.uthmani(size: size)
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top, spacing: 12) {
                 diamondBadge
-                    .contentShape(Rectangle())
-                    .onTapGesture(perform: onSeekToAyah)
 
                 VStack(alignment: .leading, spacing: 10) {
                     Text(ayah.text)
                         .font(ayahFont)
+                        .foregroundStyle(.primary)
                         .multilineTextAlignment(.trailing)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .environment(\.layoutDirection, .rightToLeft)
-                        .contentShape(Rectangle())
-                        .onTapGesture(perform: onSeekToAyah)
 
                     HStack {
                         Spacer(minLength: 0)
@@ -63,7 +42,6 @@ struct ReciterPlayerAyahRow: View {
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 4)
-            .background(Color.white.opacity(isActive ? 0.08 : 0))
             .clipShape(RoundedRectangle(cornerRadius: 2, style: .continuous))
 
             Rectangle()

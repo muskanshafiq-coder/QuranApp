@@ -6,8 +6,17 @@
 	<string>$(ISLAMIC_CLOUD_TOKEN)</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>avenir-next-bold.ttf</string>
-		<string>A Thuluth Regular.ttf</string>
+		<string>Resources/avenir-next-bold.ttf</string>
+		<string>Resources/karu-bold.ttf</string>
+		<string>Resources/fonts/AlQalam.ttf</string>
+		<string>Resources/fonts/DroidArabic.ttf</string>
+		<string>Resources/fonts/KFGQPCUthmanic.otf</string>
+		<string>Resources/fonts/me_quran.ttf</string>
+		<string>Resources/fonts/NotoKufiArabic.ttf</string>
+		<string>Resources/fonts/NotoNaskhArabic.ttf</string>
+		<string>Resources/fonts/PDMS.ttf</string>
+		<string>Resources/fonts/Scheherazade.ttf</string>
+		<string>Resources/fonts/Thuluth.ttf</string>
 	</array>
 </dict>
 </plist>
