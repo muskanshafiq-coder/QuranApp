@@ -5,14 +5,34 @@
 import SwiftUI
 
 struct PlaylistsView: View {
+    /// How the screen behaves. `.manage` is the default tab usage; `.picker`
+    /// turns each row into a selection callback so callers can reuse this UI
+    /// inside a sheet (e.g. "Add surah to a playlist").
+    enum Mode: Equatable {
+        case manage
+        case picker
+    }
+
     @ObservedObject private var viewModel = PlaylistsViewModel.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @State private var showAddAlert: Bool = false
     @State private var newPlaylistName: String = ""
 
+    let mode: Mode
+    var onSelect: ((Playlist) -> Void)?
+
+    init(mode: Mode = .manage, onSelect: ((Playlist) -> Void)? = nil) {
+        self.mode = mode
+        self.onSelect = onSelect
+    }
+
     private var isIPad: Bool { horizontalSizeClass == .regular }
     private var contentMaxWidth: CGFloat { isIPad ? 700 : .infinity }
+
+    private var navigationTitleKey: LocalizedStringKey {
+        mode == .picker ? "playlist_picker_title" : "playlists_title"
+    }
 
     var body: some View {
         ZStack {
@@ -21,7 +41,7 @@ struct PlaylistsView: View {
                 .frame(maxWidth: contentMaxWidth)
                 .frame(maxWidth: .infinity)
         }
-        .navigationTitle("playlists_title")
+        .navigationTitle(navigationTitleKey)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -65,19 +85,42 @@ struct PlaylistsView: View {
     }
 
     private var playlistList: some View {
-        List {
+        let deleteAction: ((IndexSet) -> Void)? = mode == .manage
+            ? { offsets in viewModel.deletePlaylists(at: offsets) }
+            : nil
+        return List {
             ForEach(viewModel.playlists) { playlist in
-                NavigationLink {
-                    PlaylistDetailView(playlist: playlist)
-                } label: {
-                    PlaylistRow(playlist: playlist)
-                }
-                .listRowBackground(Color.card)
+                playlistRow(for: playlist)
+                    .listRowBackground(Color.card)
             }
-            .onDelete(perform: viewModel.deletePlaylists)
+            .onDelete(perform: deleteAction)
         }
-        .listStyle(.insetGrouped)
-        .scrollContentBackground(.hidden)
+    }
+
+    @ViewBuilder
+    private func playlistRow(for playlist: Playlist) -> some View {
+        switch mode {
+        case .manage:
+            NavigationLink {
+                PlaylistDetailView(playlist: playlist)
+            } label: {
+                PlaylistRow(playlist: playlist)
+            }
+        case .picker:
+            Button {
+                onSelect?(playlist)
+            } label: {
+                HStack {
+                    PlaylistRow(playlist: playlist)
+                    Spacer(minLength: 8)
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(.tertiary)
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+        }
     }
 
     private func presentAddAlert() {

@@ -78,6 +78,7 @@
 "lang_ru" = "Russisch";
 "player_title" = "Speler";
 "playlists_title" = "Afspeellijsten";
+"playlist_picker_title" = "Toevoegen aan afspeellijst";
 "dua_ruqia_title" = "Dua & Ruqia";
 "popular_favorites_title" = "Meest populair & favorieten";
 "salam_title" = "Salam Alaikum";
@@ -211,7 +212,7 @@
 
 "search_surah" = "Soera";
 
-// MARK: - Player home (Featured / All Reciters)
+// MARK: - Player home (Features / All Reciters)
 "player_features_section_title" = "Uitgelicht";
 "player_features_section_subtitle" = "Zorgvuldig samengestelde afspeellijsten met 's werelds beste stemmen van het moment";
 "player_all_reciters_title" = "Alle voordragers";

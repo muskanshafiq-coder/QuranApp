@@ -76,6 +76,7 @@
 "lang_ru" = "Ruso";
 "player_title" = "Reproductor";
 "playlists_title" = "Listas de reproducción";
+"playlist_picker_title" = "Añadir a una lista";
 "dua_ruqia_title" = "Dua y Ruqia";
 "popular_favorites_title" = "Más populares y favoritos";
 "salam_title" = "Salam Aleikum";
@@ -209,7 +210,7 @@
 
 "search_surah" = "Sura";
 
-// MARK: - Player home (Featured / All Reciters)
+// MARK: - Player home (Features / All Reciters)
 "player_features_section_title" = "Destacados";
 "player_features_section_subtitle" = "Listas de reproducción cuidadosamente seleccionadas con las mejores voces del mundo del momento";
 "player_all_reciters_title" = "Todos los recitadores";

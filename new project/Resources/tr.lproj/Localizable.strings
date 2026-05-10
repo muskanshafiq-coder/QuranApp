@@ -78,6 +78,7 @@
 "lang_ru" = "Rusça";
 "player_title" = "Oynatıcı";
 "playlists_title" = "Çalma Listeleri";
+"playlist_picker_title" = "Çalma Listesine Ekle";
 "dua_ruqia_title" = "Dua ve Ruqia";
 "popular_favorites_title" = "En Popüler ve Favoriler";
 "salam_title" = "Selamün Aleyküm";
@@ -211,7 +212,7 @@
 
 "search_surah" = "Sure";
 
-// MARK: - Player home (Featured / All Reciters)
+// MARK: - Player home (Features / All Reciters)
 "player_features_section_title" = "Öne Çıkanlar";
 "player_features_section_subtitle" = "Dünyanın en güzel seslerinden uzmanca derlenmiş çalma listeleri";
 "player_all_reciters_title" = "Tüm Okuyucular";

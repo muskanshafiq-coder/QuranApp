@@ -78,6 +78,7 @@
 "lang_ru" = "Rusia";
 "player_title" = "Pemain";
 "playlists_title" = "Senarai Main";
+"playlist_picker_title" = "Tambah ke Senarai Main";
 "dua_ruqia_title" = "Doa & Ruqia";
 "popular_favorites_title" = "Paling Popular & Kegemaran";
 "salam_title" = "Salam Alaikum";
@@ -211,7 +212,7 @@
 
 "search_surah" = "Surah";
 
-// MARK: - Player home (Featured / All Reciters)
+// MARK: - Player home (Features / All Reciters)
 "player_features_section_title" = "Pilihan";
 "player_features_section_subtitle" = "Senarai main pilihan pakar daripada suara terbaik dunia ketika ini";
 "player_all_reciters_title" = "Semua Qari";

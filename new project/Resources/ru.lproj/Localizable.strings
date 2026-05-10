@@ -78,6 +78,7 @@
 "lang_ru" = "Русский";
 "player_title" = "Плеер";
 "playlists_title" = "Плейлисты";
+"playlist_picker_title" = "Добавить в плейлист";
 "dua_ruqia_title" = "Дуа и Рукия";
 "popular_favorites_title" = "Популярное и избранное";
 "salam_title" = "Салам алейкум";
@@ -211,7 +212,7 @@
 
 "search_surah" = "Сура";
 
-// MARK: - Player home (Featured / All Reciters)
+// MARK: - Player home (Features / All Reciters)
 "player_features_section_title" = "Подборки";
 "player_features_section_subtitle" = "Тщательно подобранные плейлисты с лучшими голосами мира на сегодня";
 "player_all_reciters_title" = "Все чтецы";

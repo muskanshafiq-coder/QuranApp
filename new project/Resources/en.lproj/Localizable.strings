@@ -77,6 +77,7 @@
 "lang_ru" = "Russian";
 "player_title" = "Player";
 "playlists_title" = "Playlists";
+"playlist_picker_title" = "Add to a Playlist";
 "dua_ruqia_title" = "Dua & Ruqia";
 "popular_favorites_title" = "Most Popular & Favorites";
 "salam_title" = "Salam Alaykum";
@@ -212,8 +213,8 @@
 
 "search_surah" = "Surah";
 
-// MARK: - Player home (Featured / All Reciters)
-"player_features_section_title" = "Featured";
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "Features";
 "player_features_section_subtitle" = "Expertly curated playlists of the world's best voice of the moment";
 "player_all_reciters_title" = "All Reciters";
 "player_see_all" = "See All";

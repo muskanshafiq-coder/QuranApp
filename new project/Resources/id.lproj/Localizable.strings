@@ -78,6 +78,7 @@
 "lang_ru" = "Rusia";
 "player_title" = "Pemutar";
 "playlists_title" = "Daftar Putar";
+"playlist_picker_title" = "Tambahkan ke Daftar Putar";
 "dua_ruqia_title" = "Doa & Ruqia";
 "popular_favorites_title" = "Paling Populer & Favorit";
 "salam_title" = "Salam Alaikum";
@@ -211,7 +212,7 @@
 
 "search_surah" = "Surah";
 
-// MARK: - Player home (Featured / All Reciters)
+// MARK: - Player home (Features / All Reciters)
 "player_features_section_title" = "Unggulan";
 "player_features_section_subtitle" = "Daftar putar pilihan ahli dari suara-suara terbaik dunia saat ini";
 "player_all_reciters_title" = "Semua Qari";

@@ -78,6 +78,7 @@
 "lang_ru" = "الروسية";
 "player_title" = "المشغل";
 "playlists_title" = "قوائم التشغيل";
+"playlist_picker_title" = "أضف إلى قائمة تشغيل";
 "dua_ruqia_title" = "الدعاء والرقية";
 "popular_favorites_title" = "الأكثر شيوعًا والمفضلة";
 "salam_title" = "السلام عليكم";
@@ -211,8 +212,8 @@
 
 "search_surah" = "سورة";
 
-// MARK: - Player home (Featured / All Reciters)
-"player_features_section_title" = "المختارة";
+// MARK: - Player home (Features / All Reciters)
+"player_features_section_title" = "المميزات";
 "player_features_section_subtitle" = "قوائم تشغيل منسقة بعناية لأفضل الأصوات في العالم في الوقت الحالي";
 "player_all_reciters_title" = "جميع القراء";
 "player_see_all" = "عرض الكل";

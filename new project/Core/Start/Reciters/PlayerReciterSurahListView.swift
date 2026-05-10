@@ -37,8 +37,8 @@ struct PlayerReciterSurahListView: View {
     @State private var playbackSession: ReciterPlaybackSession?
     @State private var activeSlug: String
     @State private var surahOptionsRow: PlayerSurahRowModel?
+    @State private var pendingPlaylistRow: PlayerSurahRowModel?
     @State private var showDownloadManager = false
-
     private let horizontalInset: CGFloat = 16
     private let rowHPadding: CGFloat = 14
 
@@ -159,13 +159,16 @@ struct PlayerReciterSurahListView: View {
             SurahOptionsFlowSheet(
                 surahRow: row,
                 accentColor: selectedThemeColorManager.selectedColor,
+                onAddToPlaylistTapped: { handleAddToPlaylistTapped(for: row) },
                 onAddBookmark: { addAudioBookmark(for: row) },
                 onPlayNext: { playNextSurah(for: row) },
-                onShare: { shareSurah(row: row) },
-                onPlaylistChosen: { playlist in
-                    addSurahToPlaylist(row: row, playlist: playlist)
-                }
+                onShare: { shareSurah(row: row) }
             )
+        }
+        .sheet(item: $pendingPlaylistRow) { row in
+            PlaylistPickerSheet { playlist in
+                addSurahToPlaylist(row: row, playlist: playlist)
+            }
         }
         .sheet(isPresented: $showDownloadManager) {
             DownloadManagerSheet()
@@ -437,6 +440,16 @@ struct PlayerReciterSurahListView: View {
     }
 
     // MARK: - Surah row sheet actions
+
+    /// Bridges the surah-options sheet → playlist picker transition.
+    /// We have to wait for the first sheet's dismiss animation to finish
+    /// before presenting the second one (SwiftUI can't drive two `.sheet`
+    /// modifiers on the same view simultaneously).
+    private func handleAddToPlaylistTapped(for row: PlayerSurahRowModel) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            pendingPlaylistRow = row
+        }
+    }
 
     private func addSurahToPlaylist(row: PlayerSurahRowModel, playlist: Playlist) {
         if playlistsViewModel.addSurah(number: row.number, toPlaylistId: playlist.id) {
