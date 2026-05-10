@@ -4,11 +4,11 @@
 
 import Foundation
 
-public protocol ReciterRow {
+protocol ReciterRow {
     var type: String { get }
 }
 
-public enum ReciterFilter: Equatable, Sendable {
+enum ReciterFilter: Equatable, Sendable {
     case duaa
     case tilawats
     case featured
@@ -17,7 +17,7 @@ public enum ReciterFilter: Equatable, Sendable {
     case all
 }
 
-public extension Array where Element: ReciterRow {
+extension Array where Element: ReciterRow {
     func filtered(by option: ReciterFilter) -> [Element] {
         switch option {
         case .duaa:     return filter { $0.type == "duaa" }

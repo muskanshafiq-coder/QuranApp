@@ -35,12 +35,11 @@ struct ReciterPlayerAyahRow: View {
 
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
-            if isActive {
-            } else {
-                Color.clear
-                    .frame(width: 3)
-                    .padding(.trailing, 10)
-            }
+            Color.accentColor
+                .opacity(isActive ? 1 : 0)
+                .frame(width: 3)
+                .clipShape(Capsule())
+                .padding(.trailing, 10)
 
             VStack(alignment: .leading, spacing: 10) {
                 HStack(alignment: .top) {
@@ -73,15 +72,7 @@ struct ReciterPlayerAyahRow: View {
             }
             .padding(.vertical, 4)
             .padding(.horizontal, 4)
-            .background(
-                Group {
-                    if isActive {
-                       
-                    } else {
-                        Color.clear
-                    }
-                }
-            )
+            .background(Color.white.opacity(isActive ? 0.08 : 0))
             .clipShape(RoundedRectangle(cornerRadius: 2, style: .continuous))
         }
         .contentShape(Rectangle())

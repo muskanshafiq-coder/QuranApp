@@ -139,30 +139,3 @@ private struct SearchableIfNeeded: ViewModifier {
     }
 }
 
-// MARK: - iOS compatibility
-
-private extension View {
-    /// Dark blurred glass navigation bar.
-    /// `.toolbarBackground(.visible, ...)` forces the bar to always be visible (not just on scroll),
-    /// `.ultraThinMaterial` gives the blur you see in the reference.
-    @ViewBuilder
-    func glassNavigationBar() -> some View {
-        if #available(iOS 16.0, *) {
-            self
-                .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-                .toolbarBackground(.visible, for: .navigationBar)
-                .toolbarColorScheme(.dark, for: .navigationBar)
-        } else {
-            self
-        }
-    }
-
-    @ViewBuilder
-    func playerSearchable(text: Binding<String>, prompt: String) -> some View {
-        if #available(iOS 16.0, *) {
-            searchable(text: text, placement: .navigationBarDrawer(displayMode: .always), prompt: Text(prompt))
-        } else {
-            searchable(text: text, prompt: Text(prompt))
-        }
-    }
-}

@@ -357,7 +357,7 @@ struct ReciterSurahNowPlayingView: View {
                 .frame(maxWidth: .infinity)
 
                 VStack(spacing: 2) {
-                    ReciterAirPlayRoutePicker(tint: UIColor(.black))
+                    ReciterAirPlayRoutePicker(tint: .white)
                         .frame(width: 34, height: 28)
                     if !audioOutputLabel.isEmpty {
                         Text(audioOutputLabel)
@@ -415,17 +415,13 @@ struct ReciterSurahNowPlayingView: View {
         do {
             let result = try await QuranAPIClient.shared.fetchSurah(number: surah.number)
             let map = await ReciterPlaybackTranslation.loadMap(surahNumber: surah.number)
-            await MainActor.run {
-                ayahs = result.ayahs
-                surahMeta = result.surah
-                translationByAyah = map
-                isLoadingAyahs = false
-            }
+            ayahs = result.ayahs
+            surahMeta = result.surah
+            translationByAyah = map
+            isLoadingAyahs = false
         } catch {
-            await MainActor.run {
-                loadFailed = true
-                isLoadingAyahs = false
-            }
+            loadFailed = true
+            isLoadingAyahs = false
         }
     }
 }

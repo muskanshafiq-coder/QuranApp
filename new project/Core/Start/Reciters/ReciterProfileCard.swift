@@ -111,9 +111,7 @@ struct ReciterProfileCard: View {
 
     @ViewBuilder
     private var bioBlock: some View {
-        if isLoadingDetail || bioText.isEmpty {
-            EmptyView()
-        } else {
+        if !isLoadingDetail {
             bioTextBlock(full: bioText)
         }
     }
