@@ -72,6 +72,12 @@ struct PlayerReciterSurahListView: View {
         return n > 0 ? n : 114
     }
 
+    /// Matches `AudioSurahBookmark.reciterSlug` saved in `addAudioBookmark(for:)`.
+    private var bookmarkReciterSlug: String {
+        let s = detail?.slug.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        return s.isEmpty ? reciter.id : s
+    }
+
     private var bioText: String {
         detail?.bio?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     }
@@ -158,6 +164,7 @@ struct PlayerReciterSurahListView: View {
         .sheet(item: $surahOptionsRow) { row in
             SurahOptionsFlowSheet(
                 surahRow: row,
+                reciterSlug: bookmarkReciterSlug,
                 accentColor: selectedThemeColorManager.selectedColor,
                 onAddToPlaylistTapped: { handleAddToPlaylistTapped(for: row) },
                 onAddBookmark: { addAudioBookmark(for: row) },
@@ -418,11 +425,15 @@ struct PlayerReciterSurahListView: View {
 
     private func addSurahToPlaylist(row: PlayerSurahRowModel, playlist: Playlist) {
         guard let d = detail else { return }
+        let nameEn = d.nameEn.trimmingCharacters(in: .whitespacesAndNewlines)
+        let portrait = d.image?.trimmingCharacters(in: .whitespacesAndNewlines)
         let entry = PlaylistSurahEntry(
             surahNumber: row.number,
-            reciterSlug: d.slug,
+            reciterSlug: bookmarkReciterSlug,
             englishLine: row.englishLine,
-            arabicLine: row.arabicLine
+            arabicLine: row.arabicLine,
+            reciterNameEn: nameEn.isEmpty ? reciter.englishName : nameEn,
+            portraitURLString: portrait.flatMap { $0.isEmpty ? nil : $0 }
         )
         if playlistsViewModel.addSurahEntry(entry, toPlaylistId: playlist.id) {
             SurahRowActionFeedback.presentAddedToPlaylist(playlistName: playlist.name)
@@ -433,13 +444,12 @@ struct PlayerReciterSurahListView: View {
 
     private func addAudioBookmark(for row: PlayerSurahRowModel) {
         guard let d = detail else { return }
-        let slug = d.slug
         let nameEn = d.nameEn.trimmingCharacters(in: .whitespacesAndNewlines)
         let portrait = d.image?.trimmingCharacters(in: .whitespacesAndNewlines)
         let dto = d.surahs.first(where: { $0.number == row.number })
         let ar = dto?.nameAr?.trimmingCharacters(in: .whitespacesAndNewlines)
         let bookmark = AudioSurahBookmark(
-            reciterSlug: slug,
+            reciterSlug: bookmarkReciterSlug,
             reciterNameEn: nameEn.isEmpty ? reciter.englishName : nameEn,
             portraitURLString: portrait.flatMap { $0.isEmpty ? nil : $0 },
             surahNumber: row.number,

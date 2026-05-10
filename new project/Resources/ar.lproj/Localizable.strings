@@ -214,8 +214,8 @@
 
 "search_surah" = "سورة";
 
-// MARK: - Player home (Features / All Reciters)
-"player_features_section_title" = "المميزات";
+// MARK: - Player home (Featured / All Reciters)
+"player_features_section_title" = "المختارة";
 "player_features_section_subtitle" = "قوائم تشغيل منسقة بعناية لأفضل الأصوات في العالم في الوقت الحالي";
 "player_all_reciters_title" = "جميع القراء";
 "player_see_all" = "عرض الكل";
@@ -242,11 +242,13 @@
 "surah_options_media_placeholder" = " ";
 "surah_options_add_playlist" = "إضافة إلى قائمة تشغيل…";
 "surah_options_add_bookmark" = "إضافة إلى الإشارات المرجعية";
+"surah_options_remove_bookmark" = "إزالة من الإشارات المرجعية";
 "surah_options_play_next" = "تشغيل تالياً";
 "surah_options_share_surah" = "مشاركة السورة";
 "surah_alert_added_playlist_format" = "تمت الإضافة إلى %@";
 "surah_alert_already_in_playlist_format" = "موجود بالفعل في %@";
 "surah_alert_added_bookmark" = "تمت الإضافة إلى الإشارات المرجعية";
+"surah_alert_removed_bookmark" = "تمت الإزالة من الإشارات المرجعية";
 "surah_alert_added_queue" = "تمت الإضافة إلى قائمة الانتظار";
 "surah_share_body_format" = "%1$@ — %2$@\n%3$@";
 "surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";

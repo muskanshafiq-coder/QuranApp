@@ -6,14 +6,21 @@ import SwiftUI
 
 struct SurahOptionsFlowSheet: View {
     let surahRow: PlayerSurahRowModel
+    /// Must match `AudioSurahBookmark.reciterSlug` when saving from this reciter (detail slug).
+    let reciterSlug: String
     let accentColor: Color
 
     @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var audioBookmarksViewModel = AudioBookmarksViewModel.shared
 
     let onAddToPlaylistTapped: () -> Void
     let onAddBookmark: () -> Void
     let onPlayNext: () -> Void
     let onShare: () -> Void
+
+    private var isBookmarked: Bool {
+        audioBookmarksViewModel.containsBookmark(reciterSlug: reciterSlug, surahNumber: surahRow.number)
+    }
 
     var body: some View {
         NavigationStack {
@@ -47,10 +54,7 @@ struct SurahOptionsFlowSheet: View {
                     onAddToPlaylistTapped()
                 }
 
-                secondaryOptionButton(titleKey: "surah_options_add_bookmark", systemImage: "bookmark") {
-                    onAddBookmark()
-                    dismiss()
-                }
+                bookmarkOptionButton
 
                 secondaryOptionButton(titleKey: "surah_options_play_next", systemImage: "text.line.first.and.arrowtriangle.forward") {
                     dismiss()
@@ -108,5 +112,25 @@ struct SurahOptionsFlowSheet: View {
             .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Color.card))
         }
         .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    private var bookmarkOptionButton: some View {
+        if isBookmarked {
+            primaryOptionButton(
+                titleKey: "surah_options_remove_bookmark",
+                systemImage: "bookmark.fill",
+                background: accentColor
+            ) {
+                audioBookmarksViewModel.remove(reciterSlug: reciterSlug, surahNumber: surahRow.number)
+                SurahRowActionFeedback.presentRemovedFromBookmark()
+                dismiss()
+            }
+        } else {
+            secondaryOptionButton(titleKey: "surah_options_add_bookmark", systemImage: "bookmark") {
+                onAddBookmark()
+                dismiss()
+            }
+        }
     }
 }

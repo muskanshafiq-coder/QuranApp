@@ -37,4 +37,18 @@ final class AudioBookmarksViewModel: ObservableObject {
         bookmarks = bookmarks.filter { $0.id != id }
         store.save(bookmarks)
     }
+
+    func containsBookmark(reciterSlug: String, surahNumber: Int) -> Bool {
+        bookmarks.contains {
+            $0.reciterSlug == reciterSlug && $0.surahNumber == surahNumber
+        }
+    }
+
+    /// Removes every bookmark matching this reciter + surah (same identity used when saving).
+    func remove(reciterSlug: String, surahNumber: Int) {
+        let next = bookmarks.filter { !($0.reciterSlug == reciterSlug && $0.surahNumber == surahNumber) }
+        guard next.count != bookmarks.count else { return }
+        bookmarks = next
+        store.save(bookmarks)
+    }
 }

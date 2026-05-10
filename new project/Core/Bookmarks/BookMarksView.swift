@@ -56,16 +56,31 @@ struct BookmarksView: View {
 
                             VStack(spacing: 12) {
                                 ForEach(Array(audioBookmarksPreview.enumerated()), id: \.element.id) { idx, bookmark in
-                                    AudioBookmarkSurahRowView(
-                                        bookmark: bookmark,
+                                    AudioSurahListRow(
                                         listPosition: idx + 1,
+                                        surahTitleEn: bookmark.surahTitleEn,
+                                        surahTitleAr: bookmark.surahTitleAr,
+                                        reciterNameEn: bookmark.reciterNameEn,
+                                        portraitURLString: bookmark.portraitURLString,
                                         accentColor: selectedThemeColorManager.selectedColor,
                                         preferredReciterId: $preferredAudioReciterId,
-                                        onDownloadTap: { showDownloadManager = true },
-                                        onRemoveBookmark: {
-                                            audioBookmarksViewModel.remove(id: bookmark.id)
+                                        navigationReciter: bookmark.asPlayerReciterDisplayItem(),
+                                        onDownloadTap: { showDownloadManager = true }
+                                    ) {
+                                        Menu {
+                                            Button(role: .destructive, action: {
+                                                audioBookmarksViewModel.remove(id: bookmark.id)
+                                            }) {
+                                                Label("bookmarks_audio_remove", systemImage: "bookmark.slash")
+                                            }
+                                        } label: {
+                                            Image(systemName: "ellipsis")
+                                                .font(.system(size: 16, weight: .semibold))
+                                                .frame(width: 28)
+                                                .foregroundStyle(selectedThemeColorManager.selectedColor)
                                         }
-                                    )
+                                        .buttonStyle(.plain)
+                                    }
                                 }
                             }
                         }
@@ -120,16 +135,31 @@ private struct AudioBookmarksListScreen: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 12) {
                 ForEach(Array(audioBookmarksViewModel.bookmarks.enumerated()), id: \.element.id) { idx, bookmark in
-                    AudioBookmarkSurahRowView(
-                        bookmark: bookmark,
+                    AudioSurahListRow(
                         listPosition: idx + 1,
+                        surahTitleEn: bookmark.surahTitleEn,
+                        surahTitleAr: bookmark.surahTitleAr,
+                        reciterNameEn: bookmark.reciterNameEn,
+                        portraitURLString: bookmark.portraitURLString,
                         accentColor: selectedThemeColorManager.selectedColor,
                         preferredReciterId: $preferredAudioReciterId,
-                        onDownloadTap: { showDownloadManager = true },
-                        onRemoveBookmark: {
-                            audioBookmarksViewModel.remove(id: bookmark.id)
+                        navigationReciter: bookmark.asPlayerReciterDisplayItem(),
+                        onDownloadTap: { showDownloadManager = true }
+                    ) {
+                        Menu {
+                            Button(role: .destructive, action: {
+                                audioBookmarksViewModel.remove(id: bookmark.id)
+                            }) {
+                                Label("bookmarks_audio_remove", systemImage: "bookmark.slash")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .font(.system(size: 16, weight: .semibold))
+                                .frame(width: 28)
+                                .foregroundStyle(selectedThemeColorManager.selectedColor)
                         }
-                    )
+                        .buttonStyle(.plain)
+                    }
                 }
             }
             .padding(.horizontal, 20)
@@ -145,116 +175,6 @@ private struct AudioBookmarksListScreen: View {
         .sheet(isPresented: $showDownloadManager) {
             DownloadManagerSheet()
         }
-    }
-}
-
-// MARK: - Audio bookmark row (matches reciter surah list styling)
-
-private struct AudioBookmarkSurahRowView: View {
-    let bookmark: AudioSurahBookmark
-    /// 1-based row index in the current list (bookmark order).
-    let listPosition: Int
-    let accentColor: Color
-    @Binding var preferredReciterId: String
-    let onDownloadTap: () -> Void
-    let onRemoveBookmark: () -> Void
-
-    private let rowHPadding: CGFloat = 14
-
-    private var combinedTitle: String {
-        let en = bookmark.surahTitleEn.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let ar = bookmark.surahTitleAr?.trimmingCharacters(in: .whitespacesAndNewlines), !ar.isEmpty else {
-            return en
-        }
-        return "\(en) \(ar)"
-    }
-
-    private var portraitURL: URL? {
-        bookmark.portraitURLString.flatMap { URL(string: $0) }
-    }
-
-    var body: some View {
-        HStack(alignment: .center, spacing: 0) {
-            Text("\(listPosition)")
-                .font(.system(size: 14, weight: .medium, design: .rounded))
-                .foregroundStyle(.secondary)
-                .frame(width: 28, alignment: .leading)
-
-            avatar
-                .padding(.leading, 2)
-
-            NavigationLink {
-                PlayerReciterSurahListView(
-                    reciter: bookmark.asPlayerReciterDisplayItem(),
-                    preferredReciterId: $preferredReciterId
-                )
-            } label: {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(combinedTitle)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.85)
-                    Text(bookmark.reciterNameEn)
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .padding(.leading, 8)
-
-            Button(action: onDownloadTap) {
-                Image(systemName: "icloud.and.arrow.down")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundStyle(accentColor)
-            }
-            .buttonStyle(.plain)
-            .padding(.trailing, 10)
-
-            Menu {
-                Button(role: .destructive, action: onRemoveBookmark) {
-                    Label("bookmarks_audio_remove", systemImage: "bookmark.slash")
-                }
-            } label: {
-                Image(systemName: "ellipsis")
-                    .font(.system(size: 16, weight: .semibold))
-                    .frame(width: 28)
-                    .foregroundStyle(accentColor)
-            }
-            .buttonStyle(.plain)
-        }
-        .padding(.horizontal, rowHPadding)
-        .padding(.vertical, 12)
-        .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.card)
-        )
-    }
-
-    @ViewBuilder
-    private var avatar: some View {
-        Group {
-            if let url = portraitURL {
-                CachedRemoteImage(url: url)
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 48, height: 48)
-                    .clipShape(Circle())
-            } else {
-                Circle()
-                    .fill(Color.primary.opacity(0.08))
-                    .frame(width: 48, height: 48)
-                    .overlay {
-                        Image(systemName: "person.fill")
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundStyle(.secondary)
-                    }
-            }
-        }
-        .accessibilityHidden(true)
     }
 }
 

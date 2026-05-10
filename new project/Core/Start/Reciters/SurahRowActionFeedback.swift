@@ -40,6 +40,16 @@ enum SurahRowActionFeedback {
         )
     }
 
+    static func presentRemovedFromBookmark() {
+        AlertKitAPI.present(
+            title: NSLocalizedString("surah_alert_removed_bookmark", comment: ""),
+            subtitle: nil,
+            icon: bookmarkSlashIcon(),
+            style: .iOS16AppleMusic,
+            haptic: .success
+        )
+    }
+
     static func presentAddedToQueue() {
         AlertKitAPI.present(
             title: NSLocalizedString("surah_alert_added_queue", comment: ""),
@@ -52,6 +62,13 @@ enum SurahRowActionFeedback {
 
     private static func bookmarkIcon() -> AlertIcon {
         if let img = UIImage(systemName: "bookmark.fill") {
+            return .custom(img)
+        }
+        return .done
+    }
+
+    private static func bookmarkSlashIcon() -> AlertIcon {
+        if let img = UIImage(systemName: "bookmark.slash.fill") {
             return .custom(img)
         }
         return .done

@@ -214,7 +214,7 @@
 
 "search_surah" = "Soera";
 
-// MARK: - Player home (Features / All Reciters)
+// MARK: - Player home (Featured / All Reciters)
 "player_features_section_title" = "Uitgelicht";
 "player_features_section_subtitle" = "Zorgvuldig samengestelde afspeellijsten met 's werelds beste stemmen van het moment";
 "player_all_reciters_title" = "Alle voordragers";
@@ -242,11 +242,13 @@
 "surah_options_media_placeholder" = " ";
 "surah_options_add_playlist" = "Toevoegen aan afspeellijst…";
 "surah_options_add_bookmark" = "Toevoegen aan bladwijzers";
+"surah_options_remove_bookmark" = "Verwijderen uit bladwijzers";
 "surah_options_play_next" = "Daarna afspelen";
 "surah_options_share_surah" = "Soera delen";
 "surah_alert_added_playlist_format" = "Toegevoegd aan %@";
 "surah_alert_already_in_playlist_format" = "Staat al in %@";
 "surah_alert_added_bookmark" = "Toegevoegd aan bladwijzers";
+"surah_alert_removed_bookmark" = "Verwijderd uit bladwijzers";
 "surah_alert_added_queue" = "Toegevoegd aan wachtrij";
 "surah_share_body_format" = "%1$@ — %2$@\n%3$@";
 "surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";

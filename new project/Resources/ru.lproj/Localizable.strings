@@ -214,7 +214,7 @@
 
 "search_surah" = "Сура";
 
-// MARK: - Player home (Features / All Reciters)
+// MARK: - Player home (Featured / All Reciters)
 "player_features_section_title" = "Подборки";
 "player_features_section_subtitle" = "Тщательно подобранные плейлисты с лучшими голосами мира на сегодня";
 "player_all_reciters_title" = "Все чтецы";
@@ -242,11 +242,13 @@
 "surah_options_media_placeholder" = " ";
 "surah_options_add_playlist" = "Добавить в плейлист…";
 "surah_options_add_bookmark" = "Добавить в закладки";
+"surah_options_remove_bookmark" = "Удалить из закладок";
 "surah_options_play_next" = "Играть следующей";
 "surah_options_share_surah" = "Поделиться сурой";
 "surah_alert_added_playlist_format" = "Добавлено в %@";
 "surah_alert_already_in_playlist_format" = "Уже в %@";
 "surah_alert_added_bookmark" = "Добавлено в закладки";
+"surah_alert_removed_bookmark" = "Удалено из закладок";
 "surah_alert_added_queue" = "Добавлено в очередь";
 "surah_share_body_format" = "%1$@ — %2$@\n%3$@";
 "surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";

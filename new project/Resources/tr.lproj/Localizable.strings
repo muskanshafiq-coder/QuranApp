@@ -214,7 +214,7 @@
 
 "search_surah" = "Sure";
 
-// MARK: - Player home (Features / All Reciters)
+// MARK: - Player home (Featured / All Reciters)
 "player_features_section_title" = "Öne Çıkanlar";
 "player_features_section_subtitle" = "Dünyanın en güzel seslerinden uzmanca derlenmiş çalma listeleri";
 "player_all_reciters_title" = "Tüm Okuyucular";
@@ -242,11 +242,13 @@
 "surah_options_media_placeholder" = " ";
 "surah_options_add_playlist" = "Çalma Listesine Ekle…";
 "surah_options_add_bookmark" = "Yer İmine Ekle";
+"surah_options_remove_bookmark" = "Yer İminden Çıkar";
 "surah_options_play_next" = "Sırada Çal";
 "surah_options_share_surah" = "Sureyi Paylaş";
 "surah_alert_added_playlist_format" = "%@ listesine eklendi";
 "surah_alert_already_in_playlist_format" = "Zaten %@ içinde";
 "surah_alert_added_bookmark" = "Yer imine eklendi";
+"surah_alert_removed_bookmark" = "Yer iminden çıkarıldı";
 "surah_alert_added_queue" = "Kuyruğa eklendi";
 "surah_share_body_format" = "%1$@ — %2$@\n%3$@";
 "surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";

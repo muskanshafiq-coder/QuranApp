@@ -214,7 +214,7 @@
 
 "search_surah" = "Surah";
 
-// MARK: - Player home (Features / All Reciters)
+// MARK: - Player home (Featured / All Reciters)
 "player_features_section_title" = "Unggulan";
 "player_features_section_subtitle" = "Daftar putar pilihan ahli dari suara-suara terbaik dunia saat ini";
 "player_all_reciters_title" = "Semua Qari";
@@ -242,11 +242,13 @@
 "surah_options_media_placeholder" = " ";
 "surah_options_add_playlist" = "Tambahkan ke Daftar Putar…";
 "surah_options_add_bookmark" = "Tambahkan ke Bookmark";
+"surah_options_remove_bookmark" = "Hapus dari Bookmark";
 "surah_options_play_next" = "Putar Berikutnya";
 "surah_options_share_surah" = "Bagikan Surah";
 "surah_alert_added_playlist_format" = "Ditambahkan ke %@";
 "surah_alert_already_in_playlist_format" = "Sudah ada di %@";
 "surah_alert_added_bookmark" = "Ditambahkan ke Bookmark";
+"surah_alert_removed_bookmark" = "Dihapus dari Bookmark";
 "surah_alert_added_queue" = "Ditambahkan ke Antrean";
 "surah_share_body_format" = "%1$@ — %2$@\n%3$@";
 "surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";

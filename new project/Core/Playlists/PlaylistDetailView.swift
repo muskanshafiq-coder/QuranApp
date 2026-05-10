@@ -17,7 +17,7 @@ struct PlaylistDetailView: View {
     @State private var editMode: EditMode = .inactive
     @State private var showRenameAlert = false
     @State private var renameFieldText = ""
-    @State private var playbackSession: ReciterPlaybackSession?
+    @State private var showDownloadManager = false
 
     @AppStorage(UserDefaultsManager.Keys.quranPreferredAudioReciterEdition) private var preferredAudioReciterId: String = ""
 
@@ -121,17 +121,8 @@ struct PlaylistDetailView: View {
         } message: {
             Text("playlist_rename_alert_message")
         }
-        .fullScreenCover(item: $playbackSession) { session in
-            ReciterSurahNowPlayingView(
-                detail: session.detail,
-                surah: session.surah,
-                onDismiss: { playbackSession = nil },
-                onFinishedCurrentTrack: {
-                    if let next = ReciterPlaybackQueueCoordinator.shared.dequeueNext() {
-                        playbackSession = next
-                    }
-                }
-            )
+        .sheet(isPresented: $showDownloadManager) {
+            DownloadManagerSheet()
         }
     }
 
@@ -152,82 +143,106 @@ struct PlaylistDetailView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: action)
     }
 
-    private func play(entry: PlaylistSurahEntry) {
-        let stored = entry.reciterSlug.trimmingCharacters(in: .whitespacesAndNewlines)
-        let fallback = preferredAudioReciterId.trimmingCharacters(in: .whitespacesAndNewlines)
-        let slug = stored.isEmpty ? fallback : stored
-        guard !slug.isEmpty else { return }
-        Task {
-            var latest: IslamicCloudReciterDetailPayload?
-            _ = await ReciterRepository.loadReciterDetail(slug: slug) { d in
-                latest = d
-            }
-            guard let detail = latest,
-                  let dto = detail.surahs.first(where: { $0.number == entry.surahNumber })
-            else { return }
-            let audio = dto.audio?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            guard !audio.isEmpty else { return }
-            await MainActor.run {
-                ReciterPlaybackQueueCoordinator.shared.cancelQueued()
-                playbackSession = ReciterPlaybackSession(detail: detail, surah: dto)
-            }
-        }
-    }
-
     private func removeSurah(_ entry: PlaylistSurahEntry) {
         guard let idx = resolvedPlaylist.entries.firstIndex(where: { $0.surahNumber == entry.surahNumber }) else { return }
         playlistsViewModel.removeSurah(at: idx, fromPlaylistId: resolvedPlaylist.id)
     }
 
     @ViewBuilder
-    private func entryRow(_ entry: PlaylistSurahEntry) -> some View {
-        SurahListingRow(
-            number: entry.surahNumber,
-            englishLine: entry.englishLine,
-            arabicLine: entry.arabicLine,
+    private func entryRow(_ entry: PlaylistSurahEntry, listPosition: Int) -> some View {
+        AudioSurahListRow(
+            listPosition: listPosition,
+            surahTitleEn: entry.englishLine,
+            surahTitleAr: entry.arabicLine.isEmpty ? nil : entry.arabicLine,
+            reciterNameEn: entry.reciterNameEn,
+            portraitURLString: entry.portraitURLString,
             accentColor: selectedThemeColorManager.selectedColor,
-            onTapContent: { play(entry: entry) },
-            onDownload: {},
-            moreAccessory: {
-                Menu {
-                    Button(role: .destructive) {
-                        removeSurah(entry)
-                    } label: {
-                        Label("playlist_remove_surah", systemImage: "trash")
-                    }
+            preferredReciterId: $preferredAudioReciterId,
+            navigationReciter: entry.navigationReciter(preferredSlugFallback: preferredAudioReciterId),
+            onDownloadTap: { showDownloadManager = true }
+        ) {
+            Menu {
+                Button(role: .destructive) {
+                    removeSurah(entry)
                 } label: {
-                    Image(systemName: "ellipsis")
-                        .font(.system(size: 16, weight: .semibold))
-                        .frame(width: 28)
-                        .foregroundColor(selectedThemeColorManager.selectedColor)
+                    Label("playlist_remove_surah", systemImage: "trash")
                 }
+            } label: {
+                Image(systemName: "ellipsis")
+                    .font(.system(size: 16, weight: .semibold))
+                    .frame(width: 28)
+                    .foregroundStyle(selectedThemeColorManager.selectedColor)
             }
-        )
+            .buttonStyle(.plain)
+        }
     }
 
     private var headerCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(resolvedPlaylist.name)
-                .font(.system(size: 32, weight: .bold))
-                .foregroundStyle(.primary)
+        HStack(alignment: .center, spacing: 16) {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(resolvedPlaylist.name)
+                    .font(.system(size: 32, weight: .bold))
+                    .foregroundStyle(.primary)
 
-            if resolvedPlaylist.isDownloaded {
-                HStack(spacing: 6) {
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 11, weight: .semibold))
-                    Text("playlist_downloaded_badge")
-                        .font(.system(size: 11, weight: .semibold))
-                        .tracking(1)
+                HStack(alignment: .center, spacing: 10) {
+                    headerSurahCountLabel
+                        .font(.system(size: 17, weight: .regular))
+                        .foregroundStyle(.secondary)
+
+                    if resolvedPlaylist.isDownloaded {
+                        HStack(spacing: 6) {
+                            Image(systemName: "checkmark")
+                                .font(.system(size: 11, weight: .semibold))
+                            Text("playlist_downloaded_badge")
+                                .font(.system(size: 11, weight: .semibold))
+                                .tracking(1)
+                        }
+                        .foregroundStyle(.secondary)
+                    }
                 }
-                .foregroundStyle(.secondary)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            PlaylistDetailHeaderReciterStack(items: headerDistinctReciters)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.card)
         )
+    }
+
+    /// Unique reciters in playlist order (for stacked portraits on the header card).
+    private var headerDistinctReciters: [PlayerReciterDisplayItem] {
+        var seen = Set<String>()
+        var items: [PlayerReciterDisplayItem] = []
+        for entry in resolvedPlaylist.entries {
+            let key = playlistEntryReciterDedupeKey(entry)
+            guard seen.insert(key).inserted else { continue }
+            items.append(entry.navigationReciter(preferredSlugFallback: preferredAudioReciterId))
+        }
+        return items
+    }
+
+    private func playlistEntryReciterDedupeKey(_ entry: PlaylistSurahEntry) -> String {
+        let slug = entry.reciterSlug.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !slug.isEmpty { return "slug:\(slug)" }
+        let name = entry.reciterNameEn.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !name.isEmpty { return "name:\(name)" }
+        return "surah:\(entry.surahNumber)"
+    }
+
+    private var headerSurahCountLabel: Text {
+        let n = resolvedPlaylist.surahCount
+        switch n {
+        case 0:
+            return Text("playlist_surah_count_zero")
+        case 1:
+            return Text("playlist_surah_count_one")
+        default:
+            let format = NSLocalizedString("playlist_surah_count_other", comment: "")
+            return Text(String(format: format, n))
+        }
     }
 
     private var actionButtons: some View {
@@ -278,8 +293,8 @@ struct PlaylistDetailView: View {
                 .background(RoundedRectangle(cornerRadius: 12).fill(Color.card))
         } else if isReordering {
             List {
-                ForEach(resolvedPlaylist.entries, id: \.surahNumber) { entry in
-                    entryRow(entry)
+                ForEach(Array(resolvedPlaylist.entries.enumerated()), id: \.element.surahNumber) { index, entry in
+                    entryRow(entry, listPosition: index + 1)
                         .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
@@ -295,25 +310,73 @@ struct PlaylistDetailView: View {
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .environment(\.editMode, $editMode)
-            .background(Color.card)
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         } else {
             ScrollView {
-                VStack(spacing: 0) {
+                VStack(spacing: 12) {
                     ForEach(Array(resolvedPlaylist.entries.enumerated()), id: \.element.surahNumber) { index, entry in
-                        entryRow(entry)
-                        if index < resolvedPlaylist.entries.count - 1 {
-                            Divider()
-                                .background(Color(.separator))
-                                .padding(.horizontal, 14)
-                        }
+                        entryRow(entry, listPosition: index + 1)
                     }
                 }
-                .padding(.vertical, 6)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.card)
-                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             }
+        }
+    }
+}
+
+// MARK: - Header reciter stack
+
+private struct PlaylistDetailHeaderReciterStack: View {
+    let items: [PlayerReciterDisplayItem]
+    private let diameter: CGFloat = 44
+    private let overlap: CGFloat = 18
+
+    var body: some View {
+        let shown = Array(items.prefix(3))
+        Group {
+            if shown.isEmpty {
+                EmptyView()
+            } else {
+                HStack(spacing: -overlap) {
+                    ForEach(Array(shown.enumerated()), id: \.element.id) { index, item in
+                        PlaylistDetailHeaderReciterAvatar(item: item, diameter: diameter)
+                            .zIndex(Double(index))
+                    }
+                }
+                .accessibilityHidden(true)
+            }
+        }
+    }
+}
+
+private struct PlaylistDetailHeaderReciterAvatar: View {
+    let item: PlayerReciterDisplayItem
+    let diameter: CGFloat
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(
+                    LinearGradient(
+                        colors: PlayerReciterAvatarPalette.gradient(for: item.id),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+
+            Text(PlayerReciterAvatarPalette.initials(for: item.englishName, idFallback: item.id))
+                .font(.system(size: diameter * 0.27, weight: .bold, design: .rounded))
+                .foregroundStyle(.white)
+
+            if let url = item.portraitURL {
+                CachedRemoteImage(url: url)
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: diameter, height: diameter)
+                    .clipShape(Circle())
+            }
+        }
+        .frame(width: diameter, height: diameter)
+        .overlay {
+            Circle()
+                .strokeBorder(Color.card, lineWidth: 2)
         }
     }
 }

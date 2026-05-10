@@ -216,8 +216,8 @@
 
 "search_surah" = "Surah";
 
-// MARK: - Player home (Features / All Reciters)
-"player_features_section_title" = "Features";
+// MARK: - Player home (Featured / All Reciters)
+"player_features_section_title" = "Featured";
 "player_features_section_subtitle" = "Expertly curated playlists of the world's best voice of the moment";
 "player_all_reciters_title" = "All Reciters";
 "player_see_all" = "See All";
@@ -244,11 +244,13 @@
 "surah_options_media_placeholder" = " ";
 "surah_options_add_playlist" = "Add to a Playlist…";
 "surah_options_add_bookmark" = "Add to Bookmark";
+"surah_options_remove_bookmark" = "Remove from Bookmark";
 "surah_options_play_next" = "Play Next";
 "surah_options_share_surah" = "Share Surah";
 "surah_alert_added_playlist_format" = "Added to %@";
 "surah_alert_already_in_playlist_format" = "Already in %@";
 "surah_alert_added_bookmark" = "Added to Bookmark";
+"surah_alert_removed_bookmark" = "Removed from Bookmark";
 "surah_alert_added_queue" = "Added to Queue";
 "surah_share_body_format" = "%1$@ — %2$@\n%3$@";
 "surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
