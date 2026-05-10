@@ -1,8 +1,5 @@
 //
 //  BookMarksView.swift
-//  new project
-//
-//  Created by Muhammad Ahsan on 09/05/2026.
 //
 
 import SwiftUI

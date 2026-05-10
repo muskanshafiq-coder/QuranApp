@@ -1,7 +1,5 @@
 //
-//  new project
-//
-//  Created by Muhammad Ahsan on 26/04/2026.
+//  ColorSelectionView.swift
 //
 
 import SwiftUI

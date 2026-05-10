@@ -1,9 +1,5 @@
 //
 //  StoriesCacheStore.swift
-//  Quran App
-//
-//  Caches Islamic Cloud Stories API data (categories + stories per category) to disk
-//  so the Sleep tab loads instantly and doesn't hit the API every time.
 //
 
 import Foundation

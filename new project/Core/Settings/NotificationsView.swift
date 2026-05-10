@@ -1,3 +1,7 @@
+//
+//  NotificationsView.swift
+//
+
 import SwiftUI
 
 struct NotificationsView: View {

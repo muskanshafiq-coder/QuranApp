@@ -1,10 +1,5 @@
 //
 //  PlaylistDetailView.swift
-//  new project
-//
-//  Detail screen for a single playlist: name header, "downloaded" badge,
-//  Play / Shuffle actions, overflow sheet (reorder / share / rename / delete),
-//  and surah list with reorder mode toggled from the toolbar.
 //
 
 import SwiftUI

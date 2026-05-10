@@ -1,9 +1,5 @@
 //
 //  SurahRowSheets.swift
-//  new project
-//
-//  Bottom sheet: surah actions (playlist / bookmark / play next / share) and
-//  nested playlist picker. Styling follows the reference (dark card, red primary).
 //
 
 import SwiftUI

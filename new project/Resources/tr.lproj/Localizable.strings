@@ -26,7 +26,6 @@
 "feature_carplay_title" = "CarPlay";
 "feature_carplay_desc" = "Tüm favori okuyucularınıza ve çalma listenize doğrudan arabanızın kontrol panelinden erişmeye hazır olun.";
 "start_button" = "Uygulamayı Başlat";
-"app_description" = "Uygulamanızın açıklaması buraya gelecek";
 "terms_prefix" = "Giriş yaparak kabul etmiş olursunuz";
 "terms_of_service" = "Hizmet Şartları";
 "terms_and" = " ve ";
@@ -139,6 +138,7 @@
 "sign_in_google" = "Google ile giriş yap";
 "alert_cancel" = "İptal";
 "alert_sign_in" = "Giriş yap";
+"close_button" = "Kapat";
 "auth_registered_users_title" = "Yalnızca kayıtlı kullanıcılar";
 "auth_registered_users_message" = "Çalma listeleri ve yer imleri yalnızca kayıtlı kullanıcılar içindir. Çalma listenizi oluşturmak için lütfen giriş yapın.";
 
@@ -203,6 +203,12 @@
 "reciters_segment_favorites" = "Favoriler";
 "reciters_favorites_empty_title" = "Favori Listesi Boş";
 "reciters_favorites_empty_subtitle" = "Favori okuyucu yok";
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "Dua";
+"reciters_segment_tilawats" = "Rukye ve Tilavet";
+"reciters_dua_ruqia_empty_title" = "Okuyucu yok";
+"reciters_dua_ruqia_empty_subtitle" = "Burada henüz bir şey yok";
+
 "search_surah" = "Sure";
 
 // MARK: - Player home (Features / All Reciters)
@@ -255,6 +261,12 @@
 "quran_ayas_count" = "%d ayet";
 "quran_juz_hizb_ayah" = "Cüz %1$d • Hizb %2$d • Ayet %3$d";
 "loading" = "Yükleniyor…";
+
+"error" = "Bir sorun oluştu";
+"retry" = "Yeniden dene";
+"general_share" = "Paylaş";
+"quran_sura_ayah" = "Sure · Ayet";
+
 
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "Kur'an-ı Kerim";

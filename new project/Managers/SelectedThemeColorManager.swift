@@ -1,3 +1,7 @@
+//
+//  SelectedThemeColorManager.swift
+//
+
 import SwiftUI
 import Combine
 final class SelectedThemeColorManager: ObservableObject {

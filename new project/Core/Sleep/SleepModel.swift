@@ -1,8 +1,5 @@
 //
 //  SleepModel.swift
-//  Quran App
-//
-//  Created by Muhammad Adnan on 07/01/2026.
 //
 
 import Foundation

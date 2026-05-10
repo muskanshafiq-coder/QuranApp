@@ -1,5 +1,5 @@
 //
-//  PlayerReciterSurahListView.swift 
+//  PlayerReciterSurahListView.swift
 //
 
 import SwiftUI
@@ -259,7 +259,7 @@ struct PlayerReciterSurahListView: View {
     private var reciterOptionsMenu: some View {
         Menu {
             Button {
-                handleFavoriteToggle()
+                ReciterPlayerActions.toggleFavorite(reciter: reciter, favorites: favoritesViewModel)
             } label: {
                 Label(
                     isFavorite ? "reciter_menu_remove_favorite" : "reciter_menu_add_favorite",
@@ -268,7 +268,7 @@ struct PlayerReciterSurahListView: View {
             }
 
             Button {
-                // TODO: Wire to Follow flow when available.
+                ReciterPlayerActions.openFollow(fromDetailURL: detail?.url, deepLinkSlug: activeSlug)
             } label: {
                 Label("reciter_menu_follow", systemImage: "link")
             }
@@ -280,36 +280,17 @@ struct PlayerReciterSurahListView: View {
             }
 
             Button {
-                handleShare()
+                ReciterPlayerActions.shareReciterProfile(
+                    displayTitle: displayTitle,
+                    fallbackEnglishName: reciter.englishName,
+                    deepLinkSlug: reciter.id
+                )
             } label: {
                 Label("reciter_menu_share", systemImage: "square.and.arrow.up")
             }
         } label: {
             Image(systemName: "ellipsis")
                 .font(.system(size: 22, weight: .regular))
-        }
-    }
-
-    private func handleFavoriteToggle() {
-        let added = favoritesViewModel.toggle(reciter)
-        if added {
-            ReciterActionFeedback.presentAddedToFavorite()
-        } else {
-            ReciterActionFeedback.presentRemovedFromFavorite()
-        }
-    }
-
-    private func handleShare() {
-        let displayName = displayTitle.trimmingCharacters(in: .whitespacesAndNewlines)
-        let nonEmptyName = displayName.isEmpty ? reciter.englishName : displayName
-
-        let template = NSLocalizedString("reciter_share_message_format", comment: "")
-        let urlTemplate = NSLocalizedString("reciter_share_link_format", comment: "")
-        let url = String(format: urlTemplate, reciter.id)
-        let message = String(format: template, nonEmptyName, url)
-
-        ShareHelper.presentShareSheet(items: [message]) {
-            ReciterActionFeedback.presentShareCompleted()
         }
     }
 
@@ -501,13 +482,13 @@ struct PlayerReciterSurahListView: View {
     }
 
     private func shareSurah(row: PlayerSurahRowModel) {
-        let reciterName = displayTitle.trimmingCharacters(in: .whitespacesAndNewlines)
-        let nonEmptyReciter = reciterName.isEmpty ? reciter.englishName : reciterName
-        let bodyFmt = NSLocalizedString("surah_share_body_format", comment: "")
-        let urlFmt = NSLocalizedString("surah_share_link_format", comment: "")
-        let url = String(format: urlFmt, reciter.id, row.number)
-        let message = String(format: bodyFmt, nonEmptyReciter, row.englishLine, url)
-        ShareHelper.presentShareSheet(items: [message])
+        ReciterPlayerActions.shareSurahRow(
+            reciterDisplayTitle: displayTitle,
+            fallbackReciterEnglishName: reciter.englishName,
+            deepLinkSlug: reciter.id,
+            surahNumber: row.number,
+            surahEnglishLine: row.englishLine
+        )
     }
 
     // MARK: - Glass background

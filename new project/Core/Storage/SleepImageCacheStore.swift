@@ -1,8 +1,5 @@
 //
 //  SleepImageCacheStore.swift
-//  Quran App
-//
-//  Manages persistence of Sleep Screen images in Core Data for fast and reliable loading.
 //
 
 import Foundation

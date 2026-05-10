@@ -24,7 +24,6 @@
 "feature_carplay_title" = "CarPlay";
 "feature_carplay_desc" = "Greifen Sie direkt von Ihrem Armaturenbrett auf alle Ihre Lieblingsrezitatoren und Wiedergabelisten zu.";
 "start_button" = "App starten";
-"app_description" = "Hier kommt die Beschreibung Ihrer App";
 "terms_prefix" = "Indem Sie sich anmelden, stimmen Sie unseren";
 "terms_of_service" = "Nutzungsbedingungen";
 "terms_and" = " und ";
@@ -137,6 +136,7 @@
 "sign_in_google" = "Mit Google anmelden";
 "alert_cancel" = "Abbrechen";
 "alert_sign_in" = "Anmelden";
+"close_button" = "Schließen";
 "auth_registered_users_title" = "Nur für registrierte Nutzer";
 "auth_registered_users_message" = "Wiedergabelisten und Lesezeichen sind nur für registrierte Nutzer verfügbar. Bitte melde dich an, um deine Wiedergabeliste zu erstellen.";
 
@@ -201,6 +201,12 @@
 "reciters_segment_favorites" = "Favoriten";
 "reciters_favorites_empty_title" = "Favoritenliste leer";
 "reciters_favorites_empty_subtitle" = "Kein favorisierter Rezitator";
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "Dua";
+"reciters_segment_tilawats" = "Ruqya & Tilawat";
+"reciters_dua_ruqia_empty_title" = "Keine Vorleser";
+"reciters_dua_ruqia_empty_subtitle" = "Hier gibt es noch nichts";
+
 "search_surah" = "Sure";
 
 // MARK: - Player home (Features / All Reciters)
@@ -253,6 +259,12 @@
 "quran_ayas_count" = "%d Verse";
 "quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Vers %3$d";
 "loading" = "Wird geladen…";
+
+"error" = "Es ist ein Fehler aufgetreten";
+"retry" = "Erneut versuchen";
+"general_share" = "Teilen";
+"quran_sura_ayah" = "Sure · Vers";
+
 
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "Heiliger Koran";

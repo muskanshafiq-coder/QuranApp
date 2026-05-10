@@ -1,9 +1,5 @@
 //
 //  ReciterActionFeedback.swift
-//  new project
-//
-//  AlertKit "toast" confirmations + haptics for reciter-list actions
-//  (favorite added/removed, share completed). Localized via Localizable.strings.
 //
 
 import AlertKit

@@ -1,8 +1,5 @@
 //
 //  SurahRowActionFeedback.swift
-//  new project
-//
-//  AlertKit confirmations for surah row actions (playlist, bookmark, queue).
 //
 
 import AlertKit

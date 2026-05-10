@@ -26,7 +26,6 @@
 "feature_carplay_title" = "CarPlay";
 "feature_carplay_desc" = "Get ready to access all your favorite reciters and your playlist right from your car’s dashboard.";
 "start_button" = "Start App";
-"app_description" = "Your app description goes here";
 "terms_prefix" = "By signing in you accept our";
 "terms_of_service" = "Terms of Service";
 "terms_and" = " and ";
@@ -139,6 +138,7 @@
 "sign_in_google" = "Sign in with Google";
 "alert_cancel" = "Cancel";
 "alert_sign_in" = "Sign In";
+"close_button" = "Close";
 "auth_registered_users_title" = "Registered users only";
 "auth_registered_users_message" = "Playlist & Bookmark are only allowed for registered users. Please, sign in order to create your playlist.";
 
@@ -263,6 +263,12 @@
 "quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Ayah %3$d";
 "loading" = "Loading…";
 
+"error" = "Something went wrong";
+"retry" = "Retry";
+"general_share" = "Share";
+"quran_sura_ayah" = "Surah · Ayah";
+
+
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "Holy Quran";
 "reader_book_madinah" = "Madinah";
@@ -288,4 +294,4 @@
 "alert_download" = "Download";
 "reader_downloading_title" = "Downloading Quran for reading offline…";
 "reader_downloading_status" = "Download in Progress";
-`
+

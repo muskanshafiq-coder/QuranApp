@@ -1,8 +1,5 @@
 //
 //  PersistenceController.swift
-//  Quran App
-//
-//  Core Data stack for the app. Used by Today cache and other persistence.
 //
 
 import CoreData

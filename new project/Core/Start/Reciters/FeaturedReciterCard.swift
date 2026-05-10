@@ -1,6 +1,6 @@
 //
-//  FeaturedReciterCard.swift 
-// 
+//  FeaturedReciterCard.swift
+//
 
 import SwiftUI
 

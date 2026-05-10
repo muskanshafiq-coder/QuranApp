@@ -1,6 +1,5 @@
 //
 //  SleepAudioCard.swift
-//  Quran App
 //
 
 import SwiftUI

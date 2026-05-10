@@ -1,3 +1,7 @@
+//
+//  PlayerView.swift
+//
+
 struct Reciter: Identifiable {
     let id = UUID()
     let name: String
@@ -30,9 +34,8 @@ struct PlayerView: View {
     @AppStorage(UserDefaultsManager.Keys.quranPreferredAudioReciterEdition) private var preferredAudioReciterId: String = ""
 
     // MARK: - All Reciters grid layout
-    /// Intrinsic minimum height per row to fit `PlayerReciterCircleItem`
-    /// (112pt circle + 6pt spacing + ~32pt for a 2-line caption).
-    private let allRecitersRowMinHeight: CGFloat = 150
+    /// Minimum row height for `PlayerReciterAvatarCell` (112pt + label stack).
+    private let allRecitersRowMinHeight: CGFloat = 154
 
     /// Two flexible rows: each can grow with available space but never
     /// collapses below the cell's intrinsic content height.
@@ -167,7 +170,12 @@ struct PlayerView: View {
                                             preferredReciterId: $preferredAudioReciterId
                                         )
                                     } label: {
-                                        PlayerReciterCircleItem(item: item)
+                                        PlayerReciterAvatarCell(
+                                            item: item,
+                                            diameter: 112,
+                                            isSelected: preferredAudioReciterId == item.id,
+                                            onSelect: nil
+                                        )
                                     }
                                     .buttonStyle(.plain)
                                 }

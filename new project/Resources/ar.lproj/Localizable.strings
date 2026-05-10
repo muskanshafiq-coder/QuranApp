@@ -25,8 +25,6 @@
 "feature_audio_sync_desc" = "آيات القرآن متزامنة مع الصوت بطريقة سحرية. متاحة لبعض القراء فقط.";
 "feature_carplay_title" = "كار بلاي";
 "feature_carplay_desc" = "استعد للوصول إلى جميع القراء المفضلين لديك وقائمة التشغيل مباشرة من لوحة سيارتك.";
-"more_features_title" = "ابدأ";
-"app_description" = "هنا تذهب وصف التطبيق الخاص بك";
 "start_button" = "ابدأ التطبيق";
 "terms_prefix" = "بتسجيل الدخول أنت توافق على";
 "terms_of_service" = "شروط الخدمة";
@@ -140,6 +138,7 @@
 "sign_in_google" = "تسجيل الدخول باستخدام جوجل";
 "alert_cancel" = "إلغاء";
 "alert_sign_in" = "تسجيل الدخول";
+"close_button" = "إغلاق";
 "auth_registered_users_title" = "للمستخدمين المسجلين فقط";
 "auth_registered_users_message" = "قوائم التشغيل والإشارات المرجعية متاحة للمستخدمين المسجلين فقط. يرجى تسجيل الدخول لإنشاء قائمة التشغيل الخاصة بك.";
 
@@ -204,6 +203,12 @@
 "reciters_segment_favorites" = "المفضلة";
 "reciters_favorites_empty_title" = "قائمة المفضلة فارغة";
 "reciters_favorites_empty_subtitle" = "لا يوجد قارئ مفضل";
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "الدعاء";
+"reciters_segment_tilawats" = "الرقية والتلاوات";
+"reciters_dua_ruqia_empty_title" = "لا يوجد قراء";
+"reciters_dua_ruqia_empty_subtitle" = "لا يوجد شيء بعد";
+
 "search_surah" = "سورة";
 
 // MARK: - Player home (Features / All Reciters)
@@ -256,6 +261,12 @@
 "quran_ayas_count" = "%d آية";
 "quran_juz_hizb_ayah" = "الجزء %1$d • الحزب %2$d • الآية %3$d";
 "loading" = "جارٍ التحميل…";
+
+"error" = "حدث خطأ ما";
+"retry" = "إعادة المحاولة";
+"general_share" = "مشاركة";
+"quran_sura_ayah" = "السورة · الآية";
+
 
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "القرآن الكريم";

@@ -1,3 +1,7 @@
+//
+//  MoreFeatureView.swift
+//
+
 import SwiftUI
 
 struct MoreFeaturesView: View {

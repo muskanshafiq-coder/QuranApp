@@ -1,6 +1,5 @@
 //
 //  SleepItemOptionsSheet.swift
-//  Quran App
 //
 
 import SwiftUI

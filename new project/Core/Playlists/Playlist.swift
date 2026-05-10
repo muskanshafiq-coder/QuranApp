@@ -1,8 +1,5 @@
 //
 //  Playlist.swift
-//  new project
-//
-//  User-created playlist of surahs.
 //
 
 import Foundation

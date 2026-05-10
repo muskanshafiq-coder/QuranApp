@@ -1,6 +1,5 @@
 //
 //  SleepPlayContentViewController.swift
-//  Quran App
 //
 
 import UIKit

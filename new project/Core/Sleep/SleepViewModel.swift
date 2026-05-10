@@ -1,8 +1,5 @@
 //
 //  SleepViewModel.swift
-//  new project
-//
-//  Created by apple on 09/05/2026.
 //
 
 import Foundation
@@ -415,7 +412,7 @@ class SleepViewModel: ObservableObject {
     }
 
     func shareItem(_ item: SleepAudioItem) {
-        // TODO: Implement share
+        // TODO: See repo root TODO.txt (Sleep stories — share).
     }
 }
 

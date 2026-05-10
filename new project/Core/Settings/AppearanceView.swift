@@ -1,3 +1,7 @@
+//
+//  AppearanceView.swift
+//
+
 import SwiftUI
 
 struct AppearanceView: View {

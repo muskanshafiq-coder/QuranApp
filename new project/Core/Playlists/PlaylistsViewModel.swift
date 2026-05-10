@@ -1,9 +1,5 @@
 //
 //  PlaylistsViewModel.swift
-//  new project
-//
-//  MVVM view-model for the Playlists feature.
-//  Responsible for read/add/delete; persistence is delegated to `PlaylistsStoring`.
 //
 
 import Foundation

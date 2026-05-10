@@ -26,7 +26,6 @@
 "feature_carplay_title" = "کار پلے";
 "feature_carplay_desc" = "اپنے پسندیدہ قاریوں اور پلے لسٹ تک براہ راست گاڑی کے ڈیش بورڈ سے رسائی کے لیے تیار رہیں۔";
 "start_button" = "ایپ شروع کریں";
-"app_description" = "آپ کی ایپ کا بیان یہاں آئے گا";
 "terms_prefix" = "سائن ان کر کے آپ ہماری";
 "terms_of_service" = "خدمات کی شرائط";
 "terms_and" = " اور ";
@@ -139,6 +138,7 @@
 "sign_in_google" = "گوگل سے سائن ان کریں";
 "alert_cancel" = "منسوخ کریں";
 "alert_sign_in" = "سائن ان";
+"close_button" = "بند کریں";
 "auth_registered_users_title" = "صرف رجسٹرڈ صارفین کے لیے";
 "auth_registered_users_message" = "پلے لسٹ اور بک مارک صرف رجسٹرڈ صارفین کے لیے دستیاب ہیں۔ اپنی پلے لسٹ بنانے کے لیے براہ کرم سائن ان کریں۔";
 
@@ -203,6 +203,12 @@
 "reciters_segment_favorites" = "پسندیدہ";
 "reciters_favorites_empty_title" = "پسندیدہ فہرست خالی ہے";
 "reciters_favorites_empty_subtitle" = "کوئی پسندیدہ قاری نہیں";
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "دُعاء";
+"reciters_segment_tilawats" = "رقیہ و تلاوت";
+"reciters_dua_ruqia_empty_title" = "کوئی قاری نہیں";
+"reciters_dua_ruqia_empty_subtitle" = "ابھی یہاں کچھ نہیں";
+
 "search_surah" = "سورۃ";
 
 // MARK: - Player home (Features / All Reciters)
@@ -255,6 +261,12 @@
 "quran_ayas_count" = "%d آیات";
 "quran_juz_hizb_ayah" = "پارہ %1$d • حزب %2$d • آیت %3$d";
 "loading" = "لوڈ ہو رہا ہے…";
+
+"error" = "کچھ غلط ہو گیا";
+"retry" = "دوبارہ کوشش کریں";
+"general_share" = "بانٹیں";
+"quran_sura_ayah" = "سورہ · آیت";
+
 
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "قرآن مجید";

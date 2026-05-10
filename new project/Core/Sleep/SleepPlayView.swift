@@ -1,6 +1,5 @@
 //
 //  SleepPlayView.swift
-//  Quran App
 //
 
 import SwiftUI

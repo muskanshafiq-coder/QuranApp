@@ -1,3 +1,7 @@
+//
+//  SettingView.swift
+//
+
 import SwiftUI
 
 struct SettingsView: View {

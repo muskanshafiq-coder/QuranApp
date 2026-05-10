@@ -26,7 +26,6 @@
 "feature_carplay_title" = "CarPlay";
 "feature_carplay_desc" = "Bersedia untuk mengakses semua pembaca kegemaran anda dan senarai main terus dari papan pemuka kereta anda.";
 "start_button" = "Mula Aplikasi";
-"app_description" = "Deskripsi aplikasi anda di sini";
 "terms_prefix" = "Dengan log masuk, anda bersetuju dengan";
 "terms_of_service" = "Terma Perkhidmatan";
 "terms_and" = " dan ";
@@ -139,6 +138,7 @@
 "sign_in_google" = "Log masuk dengan Google";
 "alert_cancel" = "Batal";
 "alert_sign_in" = "Log masuk";
+"close_button" = "Tutup";
 "auth_registered_users_title" = "Hanya pengguna berdaftar";
 "auth_registered_users_message" = "Senarai main & penanda buku hanya tersedia untuk pengguna berdaftar. Sila log masuk untuk mencipta senarai main anda.";
 
@@ -203,6 +203,12 @@
 "reciters_segment_favorites" = "Kegemaran";
 "reciters_favorites_empty_title" = "Senarai Kegemaran Kosong";
 "reciters_favorites_empty_subtitle" = "Tiada qari kegemaran";
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "Doa";
+"reciters_segment_tilawats" = "Ruqyah & Tilawah";
+"reciters_dua_ruqia_empty_title" = "Tiada qari";
+"reciters_dua_ruqia_empty_subtitle" = "Masih kosong di sini";
+
 "search_surah" = "Surah";
 
 // MARK: - Player home (Features / All Reciters)
@@ -255,6 +261,12 @@
 "quran_ayas_count" = "%d ayat";
 "quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Ayat %3$d";
 "loading" = "Memuatkan…";
+
+"error" = "Ralat telah berlaku";
+"retry" = "Cuba lagi";
+"general_share" = "Kongsi";
+"quran_sura_ayah" = "Surah · Ayat";
+
 
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "Al-Quran";

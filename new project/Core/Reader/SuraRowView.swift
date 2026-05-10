@@ -1,8 +1,5 @@
 //
 //  SuraRowView.swift
-//  Quran App
-//
-//  Created by apple on 05/02/2026.
 //
 
 import SwiftUI

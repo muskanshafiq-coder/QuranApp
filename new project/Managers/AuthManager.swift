@@ -1,9 +1,5 @@
 //
 //  AuthManager.swift
-//  new project
-//
-//  Single source of truth for user sign-in state across the app.
-//  Persists the signed-in flag in UserDefaults so the state survives launches.
 //
 
 import Foundation

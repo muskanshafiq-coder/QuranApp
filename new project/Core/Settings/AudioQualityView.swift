@@ -1,9 +1,7 @@
 //
 //  AudioQualityView.swift
-//  new project
 //
-//  Created by Muhammad Ahsan on 05/05/2026.
-//
+
 import SwiftUI
 
 

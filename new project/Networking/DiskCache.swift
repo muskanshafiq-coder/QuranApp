@@ -1,11 +1,5 @@
 //
 //  DiskCache.swift
-//  Quran App
-//
-//  Tiny generic key/value cache that stores raw bytes under
-//  `Caches/<namespace>/`. Use for any API response we want to render instantly
-//  on the next launch (reciters, stories, etc.) without forcing the underlying
-//  models to be `Encodable`.
 //
 
 import Foundation

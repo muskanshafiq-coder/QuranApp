@@ -1,8 +1,5 @@
 //
 //  QuranViewModel.swift
-//  Quran App
-//
-//  Loads surahs, Juz/Hizb/Rubu, and Sajdas from Al-Quran Cloud API.
 //
 
 import Combine

@@ -1,5 +1,5 @@
 //
-//  ReaderPDFViewerView.swift 
+//  ReaderPDFViewerView.swift
 //
 
 import SwiftUI

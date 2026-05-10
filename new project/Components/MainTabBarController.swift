@@ -1,8 +1,5 @@
 //
 //  MainTabBarController.swift
-//  new project
-//
-//  Created by apple on 07/05/2026.
 //
 
 import Foundation

@@ -1,6 +1,5 @@
 //
 //  SleepPopupBarViewController.swift
-//  Quran App
 //
 
 import UIKit

@@ -1,9 +1,5 @@
 //
 //  PlaylistsStore.swift
-//  new project
-//
-//  Persists user playlists in UserDefaults as JSON.
-//  Keeps persistence concerns out of the view-model (Single Responsibility).
 //
 
 import Foundation

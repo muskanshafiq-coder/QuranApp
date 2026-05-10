@@ -1,6 +1,5 @@
 //
 //  ReciterProfileCard.swift
-//  new project
 //
 
 import SwiftUI

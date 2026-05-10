@@ -1,8 +1,5 @@
 //
 //  FeaturedStoryCard.swift
-//  Quran App
-//
-//  Created by apple on 17/01/2026.
 //
 
 import SwiftUI

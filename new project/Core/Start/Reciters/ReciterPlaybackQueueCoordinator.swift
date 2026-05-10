@@ -1,10 +1,5 @@
 //
 //  ReciterPlaybackQueueCoordinator.swift
-//  new project
-//
-//  Holds at most one "play next" session while the full-screen reciter player
-//  is active. When the current track ends, `ReciterSurahNowPlayingView` asks
-//  for the queued session so the parent can swap `playbackSession`.
 //
 
 import Foundation

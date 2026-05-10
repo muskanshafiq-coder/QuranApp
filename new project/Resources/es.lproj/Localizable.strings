@@ -24,7 +24,6 @@
 "feature_carplay_title" = "CarPlay";
 "feature_carplay_desc" = "Accede a todos tus recitadores favoritos y tus listas de reproducción directamente desde el tablero de tu coche.";
 "start_button" = "Iniciar app";
-"app_description" = "Aquí va la descripción de tu aplicación";
 "terms_prefix" = "Al iniciar sesión aceptas nuestros";
 "terms_of_service" = "Términos de servicio";
 "terms_and" = " y ";
@@ -137,6 +136,7 @@
 "sign_in_google" = "Iniciar sesión con Google";
 "alert_cancel" = "Cancelar";
 "alert_sign_in" = "Iniciar sesión";
+"close_button" = "Cerrar";
 "auth_registered_users_title" = "Solo usuarios registrados";
 "auth_registered_users_message" = "Las listas de reproducción y los marcadores solo están disponibles para usuarios registrados. Inicia sesión para crear tu lista de reproducción.";
 
@@ -201,6 +201,12 @@
 "reciters_segment_favorites" = "Favoritos";
 "reciters_favorites_empty_title" = "Lista de favoritos vacía";
 "reciters_favorites_empty_subtitle" = "Sin recitador favorito";
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "Dua";
+"reciters_segment_tilawats" = "Ruqya y tilawa";
+"reciters_dua_ruqia_empty_title" = "Sin recitadores";
+"reciters_dua_ruqia_empty_subtitle" = "Todavía no hay nada aquí";
+
 "search_surah" = "Sura";
 
 // MARK: - Player home (Features / All Reciters)
@@ -253,6 +259,12 @@
 "quran_ayas_count" = "%d aleyas";
 "quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Aleya %3$d";
 "loading" = "Cargando…";
+
+"error" = "Algo salió mal";
+"retry" = "Reintentar";
+"general_share" = "Compartir";
+"quran_sura_ayah" = "Sura · Aleya";
+
 
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "Sagrado Corán";

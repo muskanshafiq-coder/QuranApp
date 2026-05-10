@@ -1,10 +1,5 @@
 //
 //  DownloadManagerSheet.swift
-//  new project
-//
-//  Sheet shown from the reciter "…" menu. Lets the user inspect total
-//  downloaded data, clear the audio cache, and remove downloaded suras
-//  per-reciter. Backed by `DownloadManagerViewModel` (MVVM).
 //
 
 import SwiftUI

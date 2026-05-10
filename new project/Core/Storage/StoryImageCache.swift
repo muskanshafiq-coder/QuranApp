@@ -1,7 +1,5 @@
-//  StoryImageCache.swift
-//  Quran App
 //
-//  Caches story thumbnail images to disk so they load from disk when offline or on next open.
+//  StoryImageCache.swift
 //
 
 import Foundation

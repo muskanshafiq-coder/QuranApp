@@ -26,7 +26,6 @@
 "feature_carplay_title" = "CarPlay";
 "feature_carplay_desc" = "Toegang tot al je favoriete reciters en je afspeellijst direct vanaf het dashboard van je auto.";
 "start_button" = "Start App";
-"app_description" = "Uw app-beschrijving gaat hier";
 "terms_prefix" = "Door in te loggen accepteert u onze";
 "terms_of_service" = "Gebruiksvoorwaarden";
 "terms_and" = " en ";
@@ -139,6 +138,7 @@
 "sign_in_google" = "Aanmelden met Google";
 "alert_cancel" = "Annuleer";
 "alert_sign_in" = "Aanmelden";
+"close_button" = "Sluiten";
 "auth_registered_users_title" = "Alleen geregistreerde gebruikers";
 "auth_registered_users_message" = "Afspeellijsten en bladwijzers zijn alleen beschikbaar voor geregistreerde gebruikers. Meld je aan om je afspeellijst te maken.";
 
@@ -203,6 +203,12 @@
 "reciters_segment_favorites" = "Favorieten";
 "reciters_favorites_empty_title" = "Favorietenlijst leeg";
 "reciters_favorites_empty_subtitle" = "Geen favoriete voordrager";
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "Doea";
+"reciters_segment_tilawats" = "Ruqya & tilawat";
+"reciters_dua_ruqia_empty_title" = "Geen voordragers";
+"reciters_dua_ruqia_empty_subtitle" = "Nog niets hier";
+
 "search_surah" = "Soera";
 
 // MARK: - Player home (Features / All Reciters)
@@ -255,6 +261,12 @@
 "quran_ayas_count" = "%d verzen";
 "quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Vers %3$d";
 "loading" = "Laden…";
+
+"error" = "Er ging iets mis";
+"retry" = "Opnieuw";
+"general_share" = "Deel";
+"quran_sura_ayah" = "Soera · Vers";
+
 
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "Heilige Koran";

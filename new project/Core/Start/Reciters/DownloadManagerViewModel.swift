@@ -1,11 +1,5 @@
 //
 //  DownloadManagerViewModel.swift
-//  new project
-//
-//  Aggregates download usage across reciters and exposes "clear" actions.
-//  Today nothing actually gets persisted to disk yet, so the view shows
-//  "Zero KB" / "No downloads"; once a real downloads store is added,
-//  inject it here and the UI keeps working as-is.
 //
 
 import Foundation
@@ -47,13 +41,13 @@ final class DownloadManagerViewModel: ObservableObject {
 
     /// Wipes everything and refreshes the published state.
     func clearAllDownloads() {
-        // TODO: Wire to the real download store (audio cache + downloaded suras).
+        // TODO: See repo root TODO.txt (Download Manager section).
         refresh()
     }
 
     /// Removes downloads for a single reciter and refreshes.
     func removeDownloads(forReciterId id: String) {
-        // TODO: Wire to the real per-reciter download store.
+        // TODO: See repo root TODO.txt (Download Manager section).
         perReciter.removeAll { $0.id == id }
         recomputeTotal()
     }

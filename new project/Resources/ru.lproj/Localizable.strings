@@ -26,7 +26,6 @@
 "feature_carplay_title" = "CarPlay";
 "feature_carplay_desc" = "Готовьтесь получить доступ ко всем вашим любимым чтецам и плейлисту прямо с панели управления в машине.";
 "start_button" = "Запустить приложение";
-"app_description" = "Описание вашего приложения здесь";
 "terms_prefix" = "Входя в систему, вы соглашаетесь с нашими";
 "terms_of_service" = "Условиями использования";
 "terms_and" = " и ";
@@ -139,6 +138,7 @@
 "sign_in_google" = "Войти через Google";
 "alert_cancel" = "Отмена";
 "alert_sign_in" = "Войти";
+"close_button" = "Закрыть";
 "auth_registered_users_title" = "Только для зарегистрированных пользователей";
 "auth_registered_users_message" = "Плейлисты и закладки доступны только зарегистрированным пользователям. Пожалуйста, войдите, чтобы создать свой плейлист.";
 
@@ -203,6 +203,12 @@
 "reciters_segment_favorites" = "Избранное";
 "reciters_favorites_empty_title" = "Список избранного пуст";
 "reciters_favorites_empty_subtitle" = "Нет избранного чтеца";
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "Дуа";
+"reciters_segment_tilawats" = "Рукья и тилават";
+"reciters_dua_ruqia_empty_title" = "Нет чтецов";
+"reciters_dua_ruqia_empty_subtitle" = "Пока здесь ничего нет";
+
 "search_surah" = "Сура";
 
 // MARK: - Player home (Features / All Reciters)
@@ -255,6 +261,12 @@
 "quran_ayas_count" = "%d аятов";
 "quran_juz_hizb_ayah" = "Джуз %1$d • Хизб %2$d • Аят %3$d";
 "loading" = "Загрузка…";
+
+"error" = "Что-то пошло не так";
+"retry" = "Повторить";
+"general_share" = "Поделиться";
+"quran_sura_ayah" = "Сура · Аят";
+
 
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "Священный Коран";

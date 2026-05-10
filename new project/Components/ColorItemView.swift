@@ -1,8 +1,7 @@
 //
-//  new project
+//  ColorItemView.swift
 //
-//  Created by Muhammad Ahsan on 26/04/2026.
-//
+
 import SwiftUI
 struct ColorItemView: View {
     

@@ -1,5 +1,5 @@
 //
-//  AppConfig.swift 
+//  AppConfig.swift
 //
 
 import Foundation

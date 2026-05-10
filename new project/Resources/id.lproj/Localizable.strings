@@ -26,7 +26,6 @@
 "feature_carplay_title" = "CarPlay";
 "feature_carplay_desc" = "Siap untuk mengakses semua pembaca favorit Anda dan daftar putar langsung dari dashboard mobil Anda.";
 "start_button" = "Mulai Aplikasi";
-"app_description" = "Deskripsi aplikasi Anda di sini";
 "terms_prefix" = "Dengan masuk, Anda menyetujui";
 "terms_of_service" = "Syarat & Ketentuan";
 "terms_and" = " dan ";
@@ -204,6 +203,12 @@
 "reciters_segment_favorites" = "Favorit";
 "reciters_favorites_empty_title" = "Daftar Favorit Kosong";
 "reciters_favorites_empty_subtitle" = "Tidak ada qari favorit";
+// MARK: - Dua & Ruqia segments
+"reciters_segment_duaa" = "Doa";
+"reciters_segment_tilawats" = "Ruqyah & Tilawah";
+"reciters_dua_ruqia_empty_title" = "Tidak ada qari";
+"reciters_dua_ruqia_empty_subtitle" = "Belum ada apa pun di sini";
+
 "search_surah" = "Surah";
 
 // MARK: - Player home (Features / All Reciters)
@@ -256,6 +261,12 @@
 "quran_ayas_count" = "%d ayat";
 "quran_juz_hizb_ayah" = "Juz %1$d • Hizb %2$d • Ayat %3$d";
 "loading" = "Memuat…";
+
+"error" = "Terjadi kesalahan";
+"retry" = "Coba lagi";
+"general_share" = "Bagikan";
+"quran_sura_ayah" = "Surah · Ayat";
+
 
 // MARK: - Reader books strip
 "reader_book_holy_quran" = "Al-Qur'an";

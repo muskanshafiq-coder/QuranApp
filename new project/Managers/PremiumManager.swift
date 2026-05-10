@@ -1,6 +1,5 @@
 //
 //  PremiumManager.swift
-//  Quran App
 //
 
 import Foundation

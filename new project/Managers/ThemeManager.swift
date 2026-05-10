@@ -1,8 +1,5 @@
 //
 //  ThemeManager.swift
-//  new project
-//
-//  Created by Muhammad Ahsan on 17/04/2026.
 //
 
 import Combine

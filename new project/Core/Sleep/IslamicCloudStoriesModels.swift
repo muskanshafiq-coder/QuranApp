@@ -1,8 +1,5 @@
 //
 //  IslamicCloudStoriesModels.swift
-//  Quran App
-//
-//  Codable DTOs for app.islamicloud.com/api/stories (categories, stories by category, story detail).
 //
 
 import Foundation

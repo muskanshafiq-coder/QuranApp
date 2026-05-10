@@ -1,8 +1,5 @@
 //
 //  AudioSurahBookmark.swift
-//  new project
-//
-//  A user-saved audio bookmark (reciter + surah) shown under Bookmarks → Audio.
 //
 
 import Foundation

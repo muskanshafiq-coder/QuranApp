@@ -1,3 +1,7 @@
+//
+//  AppLanguageManager.swift
+//
+
 import SwiftUI
 import Combine
 

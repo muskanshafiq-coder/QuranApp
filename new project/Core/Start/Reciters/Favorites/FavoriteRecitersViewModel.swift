@@ -1,9 +1,5 @@
 //
 //  FavoriteRecitersViewModel.swift
-//  new project
-//
-//  MVVM view-model for the user's favorite reciters.
-//  Read/add/remove; persistence is delegated to `FavoriteRecitersStoring`.
 //
 
 import Foundation

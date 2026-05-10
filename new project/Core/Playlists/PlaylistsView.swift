@@ -1,9 +1,5 @@
 //
 //  PlaylistsView.swift
-//  new project
-//
-//  Lists user-created playlists. Supports empty state, swipe-to-delete,
-//  and an alert-based "create playlist" flow.
 //
 
 import SwiftUI

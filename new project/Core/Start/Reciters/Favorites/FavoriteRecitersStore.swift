@@ -1,9 +1,5 @@
 //
 //  FavoriteRecitersStore.swift
-//  new project
-//
-//  Persists favorite reciters in UserDefaults as JSON.
-//  Keeps persistence concerns out of the view-model (Single Responsibility).
 //
 
 import Foundation

@@ -1,8 +1,5 @@
 //
 //  RootView.swift
-//  new project
-//
-//  Created by apple on 09/05/2026.
 //
 
 import SwiftUI

@@ -1,0 +1,36 @@
+# QuranApp — backlog / TODO checklist
+# Add dated items below. Checked items: prefix with [x] or DONE.
+
+------------------------------------------------------------------------------
+Download Manager (offline audio / cache)
+------------------------------------------------------------------------------
+File: new project/Core/Start/Reciters/DownloadManagerViewModel.swift
+
+[ ] Wire clearAllDownloads() to the real download store (audio cache + downloaded surahs), then refresh published state.
+
+[ ] Wire removeDownloads(forReciterId:) to the real per-reciter download store; keep perReciter + totalBytes in sync.
+
+[ ] Implement refresh() to read disk usage / download index from persistence instead of always returning empty.
+
+------------------------------------------------------------------------------
+Player — Reciter detail (follow reciter)
+------------------------------------------------------------------------------
+File: new project/Core/Start/Reciters/PlayerReciterSurahListView.swift
+(Context: reciter options menu — “Follow the Reciter”.)
+
+[x] Opens `detail.url` in Safari when the API sends http(s); otherwise opens the same reciter deep link as share (`activeSlug`).
+
+[ ] Optional later: authenticated “follow” (server + local subscribed list) if product adds it.
+
+------------------------------------------------------------------------------
+Sleep stories — share
+------------------------------------------------------------------------------
+File: new project/Core/Sleep/SleepViewModel.swift
+(Method: shareItem(_ item: SleepAudioItem).)
+
+[ ] Implement sharing (e.g. UIActivityController / ShareLink) using the sleep story metadata and canonical URL.
+
+------------------------------------------------------------------------------
+Other
+------------------------------------------------------------------------------
+[ ] (add items here)

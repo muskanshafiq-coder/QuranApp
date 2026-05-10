@@ -1,5 +1,5 @@
 //
-//  ReaderQuranBooksStrip.swift 
+//  ReaderQuranBooksStrip.swift
 //
 
 import SwiftUI
