@@ -12,6 +12,7 @@ struct ReciterPlayerAyahRow: View {
 
     @AppStorage(UserDefaultsManager.Keys.quranFontFamily) private var quranFontFamily: String = "SF font"
     @AppStorage(UserDefaultsManager.Keys.quranFontSize) private var quranFontSize: Double = 20
+    @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
 
     private static let fontNameMap: [String: String] = [
         "Me Quran": "me_quran",
@@ -35,12 +36,6 @@ struct ReciterPlayerAyahRow: View {
 
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
-            Color.accentColor
-                .opacity(isActive ? 1 : 0)
-                .frame(width: 3)
-                .clipShape(Capsule())
-                .padding(.trailing, 10)
-
             VStack(alignment: .leading, spacing: 10) {
                 HStack(alignment: .top) {
                     diamondBadge
@@ -57,7 +52,6 @@ struct ReciterPlayerAyahRow: View {
 
                 Text(ayah.text)
                     .font(ayahFont)
-                    .foregroundColor(.white)
                     .multilineTextAlignment(.trailing)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .environment(\.layoutDirection, .rightToLeft)
@@ -65,7 +59,6 @@ struct ReciterPlayerAyahRow: View {
                 if let t = translation?.trimmingCharacters(in: .whitespacesAndNewlines), !t.isEmpty {
                     Text(t)
                         .font(.system(size: max(15, quranFontSize - 5), weight: .regular))
-                        .foregroundColor(.white.opacity(0.72))
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -82,11 +75,12 @@ struct ReciterPlayerAyahRow: View {
     private var diamondBadge: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 3)
+                .strokeBorder(selectedThemeColorManager.selectedColor, lineWidth: 1.25)
+                .background(selectedThemeColorManager.selectedColor.opacity(0.1))
                 .frame(width: 22, height: 22)
                 .rotationEffect(.degrees(45))
             Text("\(ayah.numberInSurah)")
                 .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(.white)
         }
         .frame(width: 32, height: 32)
     }

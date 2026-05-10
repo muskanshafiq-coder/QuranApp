@@ -8,9 +8,6 @@ import AVFoundation
 struct ReciterSurahNowPlayingView: View {
     let detail: IslamicCloudReciterDetailPayload
     let surah: IslamicCloudReciterSurahItemDTO
-    /// Called when the user taps the chevron-down. Hosts that present this
-    /// view inside an LNPopupController should minimize the popup;
-    /// stand-alone presenters (full-screen cover) should dismiss the screen.
     let onMinimize: () -> Void
 
     @ObservedObject private var player: ReciterSurahAudioPlayer
@@ -34,6 +31,15 @@ struct ReciterSurahNowPlayingView: View {
     @State private var isLoadingAyahs = true
     @State private var shuffleEnabled = false
     @State private var repeatMode: Int = 0
+    @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
+    /// UIKit nav bar + SwiftUI toolbar — toggled from scroll *direction* (delta),
+    /// not scroll position, so show/hide happens immediately on each reversal.
+    @State private var reciterNavBarUIKitHidden = false
+    /// Previous `ScrollTopMinYForNavBarPreferenceKey` sample for delta-based bar toggling.
+    @State private var lastScrollContentMinY: CGFloat = .infinity
+    /// Last time we flipped `reciterNavBarUIKitHidden`, used to suppress chatter
+    /// while the visual transform animation is still in flight.
+    @State private var lastNavBarToggleAt: Date = .distantPast
 
     private var reciterTitle: String {
         let t = detail.nameEn.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -74,122 +80,154 @@ struct ReciterSurahNowPlayingView: View {
     }
 
     var body: some View {
-        ZStack {
-            Color.app.ignoresSafeArea()
+        AppNavigationContainer{
+            ZStack {
+                Color.app.ignoresSafeArea()
+                
+                VStack(spacing: 0) {
+                    if loadFailed {
+                        Text("error")
+                            .foregroundColor(.white.opacity(0.7))
+                            .padding()
+                        Spacer()
+                    } else if isLoadingAyahs, ayahs.isEmpty {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    } else {
+                        ScrollViewReader { proxy in
+                            ScrollView {
+                                VStack(alignment: .leading, spacing: 0) {
+                                    istiadhBlock
+                                        .padding(.horizontal, 16)
+                                        .padding(.bottom, 16)
+                                        .reportScrollTopMinYForNavigationBar()
 
-            VStack(spacing: 0) {
-                headerBar
-
-                if loadFailed {
-                    Text("error")
-                        .foregroundColor(.white.opacity(0.7))
-                        .padding()
-                    Spacer()
-                } else if isLoadingAyahs, ayahs.isEmpty {
-                    Spacer()
-                    ProgressView()
-                    Spacer()
-                } else {
-                    ScrollViewReader { proxy in
-                        ScrollView {
-                            VStack(alignment: .leading, spacing: 0) {
-                                istiadhBlock
-                                    .padding(.horizontal, 16)
-                                    .padding(.bottom, 16)
-
-                                LazyVStack(alignment: .leading, spacing: 22) {
-                                    ForEach(ayahs) { ayah in
-                                        ReciterPlayerAyahRow(
-                                            ayah: ayah,
-                                            translation: translationByAyah[ayah.numberInSurah],
-                                            isActive: ayah.numberInSurah == activeAyahNumber,
-                                            onSeekToAyah: {
-                                                player.seekToEstimatedStartOfAyah(
-                                                    ayahNumber: ayah.numberInSurah,
-                                                    ayahCount: ayahCountForMapping
-                                                )
-                                            }
-                                        )
-                                        .id(ayah.numberInSurah)
+                                    LazyVStack(alignment: .leading, spacing: 22) {
+                                        ForEach(ayahs) { ayah in
+                                            ReciterPlayerAyahRow(
+                                                ayah: ayah,
+                                                translation: translationByAyah[ayah.numberInSurah],
+                                                isActive: ayah.numberInSurah == activeAyahNumber,
+                                                onSeekToAyah: {
+                                                    player.seekToEstimatedStartOfAyah(
+                                                        ayahNumber: ayah.numberInSurah,
+                                                        ayahCount: ayahCountForMapping
+                                                    )
+                                                }
+                                            )
+                                            .id(ayah.numberInSurah)
+                                        }
                                     }
+                                    .padding(.horizontal, 16)
                                 }
-                                .padding(.horizontal, 16)
+                                .padding(.bottom, 12)
                             }
-                            .padding(.bottom, 12)
-                        }
-                        .onChange(of: activeAyahNumber) { newVal in
-                            withAnimation(.easeInOut(duration: 0.35)) {
-                                proxy.scrollTo(newVal, anchor: .center)
-                            }
-                        }
-                        .onChange(of: ayahs.count) { count in
-                            guard count > 0 else { return }
-                            let n = activeAyahNumber
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                            .coordinateSpace(name: ReciterNowPlayingScrollSpace.name)
+                            .onChange(of: activeAyahNumber) { newVal in
                                 withAnimation(.easeInOut(duration: 0.35)) {
-                                    proxy.scrollTo(n, anchor: .center)
+                                    proxy.scrollTo(newVal, anchor: .center)
+                                }
+                            }
+                            .onChange(of: ayahs.count) { count in
+                                guard count > 0 else { return }
+                                let n = activeAyahNumber
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                                    withAnimation(.easeInOut(duration: 0.35)) {
+                                        proxy.scrollTo(n, anchor: .center)
+                                    }
                                 }
                             }
                         }
                     }
+                    
+                    bottomChrome
                 }
+                .onPreferenceChange(ScrollTopMinYForNavBarPreferenceKey.self) { minY in
+                    updateNavBarVisibilityFromScroll(minY: minY)
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            onMinimize()
+                        } label: {
+                            Image(systemName: "chevron.down")
+                        }
+                    }
+                    ToolbarItem(placement: .principal) {
+                        Text(arabicHeaderTitle)
+                            .font(.custom("A Thuluth", size: 22))
+                            .fontWeight(.bold)
+                            .foregroundColor(selectedThemeColorManager.selectedColor)
 
-                bottomChrome
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            // TODO: Wire favourite toggle for the surah.
+                        } label: {
+                            Image(systemName: "star.fill")
+                        }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Menu {
+                            Button("general_share") {}
+                        } label: {
+                            Image(systemName: "ellipsis")
+                        }
+                    }
+                }
             }
-        }
-        .task {
-            await loadAyahContent()
+            .navigationBarUIKitHidden(reciterNavBarUIKitHidden)
+            .onChange(of: surah.number) { _ in
+                lastScrollContentMinY = .infinity
+                reciterNavBarUIKitHidden = false
+            }
+            .task {
+                await loadAyahContent()
+            }
         }
     }
 
-    // MARK: - Header (reference: red title, istiʿādh, star + more)
+    /// Hides the nav bar when the user scrolls **down** the list (content `minY`
+    /// decreases) and shows it again on the next **up** scroll — independent of
+    /// how far from the top they are. The visual change is a transform/alpha
+    /// animation on `UINavigationBar` (no safe-area reflow), and a minimum
+    /// dwell time stops the state from chattering during a single gesture.
+    private func updateNavBarVisibilityFromScroll(minY: CGFloat) {
+        guard minY.isFinite else { return }
 
-    private var headerBar: some View {
-        ZStack {
-            HStack {
-                Button {
-                    onMinimize()
-                } label: {
-                    Image(systemName: "chevron.down")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(width: 44, height: 44)
-                }
-                .buttonStyle(.plain)
-
-                Spacer(minLength: 0)
-
-                HStack(spacing: 16) {
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 18, weight: .regular))
-
-                    Menu {
-                        Button("general_share") {}
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .font(.system(size: 18, weight: .semibold))
-                            .frame(width: 36, height: 36)
-                    }
-                }
-            }
-            .padding(.horizontal, 4)
-
-            Text(arabicHeaderTitle)
-                .font(.system(size: 20, weight: .medium))
-                .lineLimit(1)
-                .minimumScaleFactor(0.55)
-                .padding(.horizontal, 72)
+        let prev = lastScrollContentMinY
+        if !prev.isFinite {
+            lastScrollContentMinY = minY
+            return
         }
-        .padding(.top, 4)
-        .padding(.bottom, 8)
+
+        let delta = minY - prev
+        lastScrollContentMinY = minY
+
+        // Ignore sub-point noise and big jumps (auto scroll-to-ayah, relayout).
+        let noise: CGFloat = 4
+        let jump: CGFloat = 140
+        if abs(delta) < noise { return }
+        if abs(delta) > jump { return }
+
+        let desiredHidden = delta < 0
+        guard desiredHidden != reciterNavBarUIKitHidden else { return }
+
+        // Don't flip again until the previous bar animation has settled.
+        let minDwell: TimeInterval = 0.30
+        guard Date().timeIntervalSince(lastNavBarToggleAt) > minDwell else { return }
+        lastNavBarToggleAt = Date()
+        reciterNavBarUIKitHidden = desiredHidden
     }
 
     private var istiadhBlock: some View {
         Text(Self.istiadhArabic)
-            .font(.system(size: 16, weight: .regular))
-            .foregroundColor(.white.opacity(0.92))
-            .multilineTextAlignment(.trailing)
-            .frame(maxWidth: .infinity, alignment: .trailing)
+            .font(.custom("A Thuluth", size: 22))
+            .multilineTextAlignment(.center)
+            .fontWeight(.bold)
+            .foregroundColor(selectedThemeColorManager.selectedColor)
+            .frame(maxWidth: .infinity, alignment: .center)
             .environment(\.layoutDirection, .rightToLeft)
     }
 

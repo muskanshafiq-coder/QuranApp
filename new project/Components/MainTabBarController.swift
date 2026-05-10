@@ -133,6 +133,7 @@ class MainTabBarController: UITabBarController {
         if popupBar.customBarViewController !== reciterPopupBar {
             popupBar.customBarViewController = reciterPopupBar
         }
+        popupContentView.popupCloseButtonStyle = .none
         let contentVC = ReciterSurahPopupContentViewController(session: session)
         let openFull = ReciterPlaybackPopupCoordinator.shared.openFullScreenOnPresent
         ReciterPlaybackPopupCoordinator.shared.openFullScreenOnPresent = true
