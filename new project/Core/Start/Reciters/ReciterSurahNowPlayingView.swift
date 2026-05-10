@@ -8,24 +8,25 @@ import AVFoundation
 struct ReciterSurahNowPlayingView: View {
     let detail: IslamicCloudReciterDetailPayload
     let surah: IslamicCloudReciterSurahItemDTO
-    let onDismiss: () -> Void
-    /// Invoked on the main queue when the current surah audio reaches the end
-    /// (used by the parent to advance the "Play Next" queue).
-    let onFinishedCurrentTrack: (() -> Void)?
+    /// Called when the user taps the chevron-down. Hosts that present this
+    /// view inside an LNPopupController should minimize the popup;
+    /// stand-alone presenters (full-screen cover) should dismiss the screen.
+    let onMinimize: () -> Void
+
+    @ObservedObject private var player: ReciterSurahAudioPlayer
 
     init(
         detail: IslamicCloudReciterDetailPayload,
         surah: IslamicCloudReciterSurahItemDTO,
-        onDismiss: @escaping () -> Void,
-        onFinishedCurrentTrack: (() -> Void)? = nil
+        player: ReciterSurahAudioPlayer,
+        onMinimize: @escaping () -> Void
     ) {
         self.detail = detail
         self.surah = surah
-        self.onDismiss = onDismiss
-        self.onFinishedCurrentTrack = onFinishedCurrentTrack
+        self.onMinimize = onMinimize
+        self._player = ObservedObject(wrappedValue: player)
     }
 
-    @StateObject private var player = ReciterSurahAudioPlayer()
     @State private var ayahs: [AyahItem] = []
     @State private var surahMeta: SurahItem?
     @State private var translationByAyah: [Int: String] = [:]
@@ -74,7 +75,7 @@ struct ReciterSurahNowPlayingView: View {
 
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color.app.ignoresSafeArea()
 
             VStack(spacing: 0) {
                 headerBar
@@ -136,19 +137,8 @@ struct ReciterSurahNowPlayingView: View {
                 bottomChrome
             }
         }
-        .preferredColorScheme(.dark)
         .task {
             await loadAyahContent()
-        }
-        .onAppear {
-            player.onDidPlayToEnd = onFinishedCurrentTrack
-            if let url = surah.audio.flatMap({ URL(string: $0) }) {
-                player.load(url: url)
-            }
-        }
-        .onDisappear {
-            player.onDidPlayToEnd = nil
-            player.stop()
         }
     }
 
@@ -158,7 +148,7 @@ struct ReciterSurahNowPlayingView: View {
         ZStack {
             HStack {
                 Button {
-                    onDismiss()
+                    onMinimize()
                 } label: {
                     Image(systemName: "chevron.down")
                         .font(.system(size: 20, weight: .semibold))

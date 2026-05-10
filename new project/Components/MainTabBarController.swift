@@ -45,7 +45,9 @@ class MainTabBarController: UITabBarController {
         bindThemeColorChanges(to: selectedThemeColorManager)
     }
     private var selectedPlayItemCancellable: AnyCancellable?
+    private var reciterPlayItemCancellable: AnyCancellable?
     private lazy var sleepPopupBar = SleepPopupBarViewController()
+    private lazy var reciterPopupBar = ReciterSurahPopupBarViewController()
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -73,6 +75,7 @@ class MainTabBarController: UITabBarController {
         setupTabs()
         setupAppearance()
         observeSleepPlayItem()
+        observeReciterPlayItem()
         popupBar.customBarViewController = sleepPopupBar
 
         // iOS 26+ specific behavior
@@ -97,7 +100,22 @@ class MainTabBarController: UITabBarController {
             }
     }
 
+    private func observeReciterPlayItem() {
+        reciterPlayItemCancellable = ReciterPlaybackPopupCoordinator.shared.$requestedSession
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] session in
+                guard let self, let session else { return }
+                self.presentReciterSurahPlayer(session: session)
+                ReciterPlaybackPopupCoordinator.shared.didConsumeRequest()
+            }
+    }
+
     private func presentSleepPlayer(item: SleepAudioItem) {
+        // Sleep popup uses its own custom bar; swap if the reciter bar was active.
+        if popupBar.customBarViewController !== sleepPopupBar {
+            popupBar.customBarViewController = sleepPopupBar
+        }
         let contentVC = SleepPlayContentViewController(
             item: item,
             playback: sleepViewModel.sharedPlayback,
@@ -109,6 +127,17 @@ class MainTabBarController: UITabBarController {
         if !openFull {
             DispatchQueue.main.async { contentVC.refreshBarContent() }
         }
+    }
+
+    private func presentReciterSurahPlayer(session: ReciterPlaybackSession) {
+        if popupBar.customBarViewController !== reciterPopupBar {
+            popupBar.customBarViewController = reciterPopupBar
+        }
+        let contentVC = ReciterSurahPopupContentViewController(session: session)
+        let openFull = ReciterPlaybackPopupCoordinator.shared.openFullScreenOnPresent
+        ReciterPlaybackPopupCoordinator.shared.openFullScreenOnPresent = true
+        presentPopupBar(with: contentVC, openPopup: openFull, animated: true)
+        ReciterPlaybackPopupCoordinator.shared.setPopupActive(true)
     }
     
     private func setupTabs() {

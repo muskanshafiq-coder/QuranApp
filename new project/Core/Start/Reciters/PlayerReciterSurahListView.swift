@@ -34,8 +34,8 @@ struct PlayerReciterSurahListView: View {
     @State private var detail: IslamicCloudReciterDetailPayload?
     @State private var isLoadingDetail = true
     @State private var detailLoadFailed = false
-    @State private var playbackSession: ReciterPlaybackSession?
     @State private var activeSlug: String
+    @ObservedObject private var playbackPopupCoordinator = ReciterPlaybackPopupCoordinator.shared
     @State private var surahOptionsRow: PlayerSurahRowModel?
     @State private var pendingPlaylistRow: PlayerSurahRowModel?
     @State private var showDownloadManager = false
@@ -148,18 +148,6 @@ struct PlayerReciterSurahListView: View {
         .onChange(of: activeSlug) { _ in
             surahSearch = ""
             bioExpanded = false
-        }
-        .fullScreenCover(item: $playbackSession) { session in
-            ReciterSurahNowPlayingView(
-                detail: session.detail,
-                surah: session.surah,
-                onDismiss: { playbackSession = nil },
-                onFinishedCurrentTrack: {
-                    if let next = ReciterPlaybackQueueCoordinator.shared.dequeueNext() {
-                        playbackSession = next
-                    }
-                }
-            )
         }
         .sheet(item: $surahOptionsRow) { row in
             SurahOptionsFlowSheet(
@@ -314,8 +302,7 @@ struct PlayerReciterSurahListView: View {
                 enabled: hasPlayableSurah && !isLoadingDetail
             ) {
                 guard let d = detail, let s = firstPlayableSurah() else { return }
-                ReciterPlaybackQueueCoordinator.shared.cancelQueued()
-                playbackSession = ReciterPlaybackSession(detail: d, surah: s)
+                startPlayback(detail: d, surah: s)
             }
             primaryPillButton(
                 title: "player_reciter_shuffle",
@@ -323,8 +310,7 @@ struct PlayerReciterSurahListView: View {
                 enabled: hasPlayableSurah && !isLoadingDetail
             ) {
                 guard let d = detail, let s = randomPlayableSurah() else { return }
-                ReciterPlaybackQueueCoordinator.shared.cancelQueued()
-                playbackSession = ReciterPlaybackSession(detail: d, surah: s)
+                startPlayback(detail: d, surah: s)
             }
         }
     }
@@ -403,8 +389,7 @@ struct PlayerReciterSurahListView: View {
                       let dto = d.surahs.first(where: { $0.number == row.number }),
                       row.audioURL != nil
                 else { return }
-                ReciterPlaybackQueueCoordinator.shared.cancelQueued()
-                playbackSession = ReciterPlaybackSession(detail: d, surah: dto)
+                startPlayback(detail: d, surah: dto)
             },
             onDownload: {},
             onMore: { surahOptionsRow = row }
@@ -466,14 +451,25 @@ struct PlayerReciterSurahListView: View {
               row.audioURL != nil
         else { return }
         let session = ReciterPlaybackSession(detail: d, surah: dto)
-        let coordinator = ReciterPlaybackQueueCoordinator.shared
-        if playbackSession != nil {
-            coordinator.enqueuePlayNext(session)
+        let queue = ReciterPlaybackQueueCoordinator.shared
+        if playbackPopupCoordinator.isPopupActive {
+            queue.enqueuePlayNext(session)
         } else {
-            coordinator.cancelQueued()
-            playbackSession = session
+            queue.cancelQueued()
+            ReciterPlaybackPopupCoordinator.shared.present(session: session)
         }
         SurahRowActionFeedback.presentAddedToQueue()
+    }
+
+    /// Single entry point for "start playing this surah now" — cancels any
+    /// queued auto-advance and routes through the popup coordinator.
+    private func startPlayback(
+        detail: IslamicCloudReciterDetailPayload,
+        surah: IslamicCloudReciterSurahItemDTO
+    ) {
+        ReciterPlaybackQueueCoordinator.shared.cancelQueued()
+        let session = ReciterPlaybackSession(detail: detail, surah: surah)
+        ReciterPlaybackPopupCoordinator.shared.present(session: session)
     }
 
     private func shareSurah(row: PlayerSurahRowModel) {
