@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PlayerReciterDisplayItem: Identifiable, Hashable {
+struct PlayerReciterDisplayItem: Identifiable, Hashable, Codable {
     let id: String
     let englishName: String
     let arabicDisplayName: String?

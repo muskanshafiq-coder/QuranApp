@@ -12,6 +12,21 @@ struct ReciterSurahNowPlayingView: View {
     let detail: IslamicCloudReciterDetailPayload
     let surah: IslamicCloudReciterSurahItemDTO
     let onDismiss: () -> Void
+    /// Invoked on the main queue when the current surah audio reaches the end
+    /// (used by the parent to advance the "Play Next" queue).
+    let onFinishedCurrentTrack: (() -> Void)?
+
+    init(
+        detail: IslamicCloudReciterDetailPayload,
+        surah: IslamicCloudReciterSurahItemDTO,
+        onDismiss: @escaping () -> Void,
+        onFinishedCurrentTrack: (() -> Void)? = nil
+    ) {
+        self.detail = detail
+        self.surah = surah
+        self.onDismiss = onDismiss
+        self.onFinishedCurrentTrack = onFinishedCurrentTrack
+    }
 
     @StateObject private var player = ReciterSurahAudioPlayer()
     @State private var ayahs: [AyahItem] = []
@@ -129,11 +144,13 @@ struct ReciterSurahNowPlayingView: View {
             await loadAyahContent()
         }
         .onAppear {
+            player.onDidPlayToEnd = onFinishedCurrentTrack
             if let url = surah.audio.flatMap({ URL(string: $0) }) {
                 player.load(url: url)
             }
         }
         .onDisappear {
+            player.onDidPlayToEnd = nil
             player.stop()
         }
     }

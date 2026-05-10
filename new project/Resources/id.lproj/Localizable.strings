@@ -213,6 +213,36 @@
 "player_see_all" = "Lihat semua";
 "featured_reciter_editors_pick" = "Pilihan Editor";
 
+// MARK: - Reciter options menu
+"reciter_menu_add_favorite" = "Tambahkan ke Favorit";
+"reciter_menu_remove_favorite" = "Hapus dari Favorit";
+"reciter_menu_follow" = "Ikuti Qari";
+"reciter_menu_download_manager" = "Pengelola Unduhan";
+"reciter_menu_share" = "Bagikan";
+
+// MARK: - Reciter action feedback
+"reciter_alert_added_favorite" = "Ditambahkan ke Favorit";
+"reciter_alert_removed_favorite" = "Dihapus dari Favorit";
+"reciter_alert_share_done" = "Dibagikan";
+
+// MARK: - Reciter share
+"reciter_share_message_format" = "Temukan %1$@ di Quran Pro\n%2$@";
+"reciter_share_link_format" = "https://open.quranpro.co/play?reciter=%@";
+
+// MARK: - Surah row options (reciter surah list)
+"surah_options_nav_title" = "Surah";
+"surah_options_media_placeholder" = " ";
+"surah_options_add_playlist" = "Tambahkan ke Daftar Putar…";
+"surah_options_add_bookmark" = "Tambahkan ke Bookmark";
+"surah_options_play_next" = "Putar Berikutnya";
+"surah_options_share_surah" = "Bagikan Surah";
+"surah_alert_added_playlist_format" = "Ditambahkan ke %@";
+"surah_alert_already_in_playlist_format" = "Sudah ada di %@";
+"surah_alert_added_bookmark" = "Ditambahkan ke Bookmark";
+"surah_alert_added_queue" = "Ditambahkan ke Antrean";
+"surah_share_body_format" = "%1$@ — %2$@\n%3$@";
+"surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
+
 // MARK: - Reader / Quran tab
 "quran_title" = "Al-Qur'an";
 "quran_continue_reading" = "Lanjutkan membaca";
@@ -231,3 +261,17 @@
 "reader_book_holy_quran" = "Al-Qur'an";
 "reader_book_madinah" = "Mushaf Madinah";
 "reader_book_tajweed" = "Mushaf Tajwid";
+
+// MARK: - Download Manager
+"download_manager_title" = "Pengelola Unduhan";
+"download_manager_section_overall" = "Pengelola Unduhan";
+"download_manager_downloaded_data" = "Data Terunduh";
+"download_manager_zero_kb" = "Nol KB";
+"download_manager_delete_now" = "Hapus Sekarang";
+"download_manager_overall_footnote" = "Setelah dikonfirmasi, kami akan menghapus semua data yang diunduh seperti surah terunduh dan cache audio.";
+"download_manager_section_by_reciter" = "Hapus per Qari";
+"download_manager_no_downloads" = "Tidak ada unduhan";
+"download_manager_by_reciter_footnote" = "Di sini kamu dapat menghapus surah yang diunduh per qari, sehingga hanya menyisakan yang biasa kamu dengarkan.";
+"download_manager_remove_reciter" = "Hapus unduhan untuk qari ini";
+"download_manager_delete_confirm_title" = "Hapus semua unduhan?";
+"download_manager_delete_confirm_message" = "Tindakan ini akan menghapus semua surah yang diunduh dan cache audio dari perangkat ini. Kamu dapat mengunduhnya lagi nanti.";

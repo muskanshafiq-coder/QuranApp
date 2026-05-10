@@ -212,6 +212,36 @@
 "player_see_all" = "Tümünü gör";
 "featured_reciter_editors_pick" = "Editörün Seçimi";
 
+// MARK: - Reciter options menu
+"reciter_menu_add_favorite" = "Favorilere Ekle";
+"reciter_menu_remove_favorite" = "Favorilerden Çıkar";
+"reciter_menu_follow" = "Okuyucuyu Takip Et";
+"reciter_menu_download_manager" = "İndirme Yöneticisi";
+"reciter_menu_share" = "Paylaş";
+
+// MARK: - Reciter action feedback
+"reciter_alert_added_favorite" = "Favorilere Eklendi";
+"reciter_alert_removed_favorite" = "Favorilerden Çıkarıldı";
+"reciter_alert_share_done" = "Paylaşıldı";
+
+// MARK: - Reciter share
+"reciter_share_message_format" = "%1$@ adlı okuyucuyu Quran Pro'da keşfet\n%2$@";
+"reciter_share_link_format" = "https://open.quranpro.co/play?reciter=%@";
+
+// MARK: - Surah row options (reciter surah list)
+"surah_options_nav_title" = "Sure";
+"surah_options_media_placeholder" = " ";
+"surah_options_add_playlist" = "Çalma Listesine Ekle…";
+"surah_options_add_bookmark" = "Yer İmine Ekle";
+"surah_options_play_next" = "Sırada Çal";
+"surah_options_share_surah" = "Sureyi Paylaş";
+"surah_alert_added_playlist_format" = "%@ listesine eklendi";
+"surah_alert_already_in_playlist_format" = "Zaten %@ içinde";
+"surah_alert_added_bookmark" = "Yer imine eklendi";
+"surah_alert_added_queue" = "Kuyruğa eklendi";
+"surah_share_body_format" = "%1$@ — %2$@\n%3$@";
+"surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
+
 // MARK: - Reader / Quran tab
 "quran_title" = "Kur'an";
 "quran_continue_reading" = "Okumaya devam et";
@@ -230,3 +260,17 @@
 "reader_book_holy_quran" = "Kur'an-ı Kerim";
 "reader_book_madinah" = "Medine Mushafı";
 "reader_book_tajweed" = "Tecvidli Mushaf";
+
+// MARK: - Download Manager
+"download_manager_title" = "İndirme Yöneticisi";
+"download_manager_section_overall" = "İndirme Yöneticisi";
+"download_manager_downloaded_data" = "İndirilen Veri";
+"download_manager_zero_kb" = "Sıfır KB";
+"download_manager_delete_now" = "Şimdi Sil";
+"download_manager_overall_footnote" = "Onayladıktan sonra indirilen tüm veriler, indirilmiş sureler ve ses önbelleği dahil temizlenecektir.";
+"download_manager_section_by_reciter" = "Okuyucuya Göre Sil";
+"download_manager_no_downloads" = "İndirme yok";
+"download_manager_by_reciter_footnote" = "Burada okuyucu bazında indirilen sureleri kaldırabilir, yalnızca düzenli dinlediğin okuyucuları bırakabilirsin.";
+"download_manager_remove_reciter" = "Bu okuyucunun indirmelerini kaldır";
+"download_manager_delete_confirm_title" = "Tüm indirmeler silinsin mi?";
+"download_manager_delete_confirm_message" = "Bu işlem cihazdaki tüm indirilmiş sureleri ve ses önbelleğini siler. Daha sonra yeniden indirebilirsin.";

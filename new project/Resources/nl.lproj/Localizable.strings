@@ -212,6 +212,36 @@
 "player_see_all" = "Toon alles";
 "featured_reciter_editors_pick" = "Keuze van de redactie";
 
+// MARK: - Reciter options menu
+"reciter_menu_add_favorite" = "Toevoegen aan favorieten";
+"reciter_menu_remove_favorite" = "Verwijderen uit favorieten";
+"reciter_menu_follow" = "Volg de voordrager";
+"reciter_menu_download_manager" = "Downloadbeheer";
+"reciter_menu_share" = "Delen";
+
+// MARK: - Reciter action feedback
+"reciter_alert_added_favorite" = "Toegevoegd aan favorieten";
+"reciter_alert_removed_favorite" = "Verwijderd uit favorieten";
+"reciter_alert_share_done" = "Gedeeld";
+
+// MARK: - Reciter share
+"reciter_share_message_format" = "Ontdek %1$@ op Quran Pro\n%2$@";
+"reciter_share_link_format" = "https://open.quranpro.co/play?reciter=%@";
+
+// MARK: - Surah row options (reciter surah list)
+"surah_options_nav_title" = "Soera";
+"surah_options_media_placeholder" = " ";
+"surah_options_add_playlist" = "Toevoegen aan afspeellijst…";
+"surah_options_add_bookmark" = "Toevoegen aan bladwijzers";
+"surah_options_play_next" = "Daarna afspelen";
+"surah_options_share_surah" = "Soera delen";
+"surah_alert_added_playlist_format" = "Toegevoegd aan %@";
+"surah_alert_already_in_playlist_format" = "Staat al in %@";
+"surah_alert_added_bookmark" = "Toegevoegd aan bladwijzers";
+"surah_alert_added_queue" = "Toegevoegd aan wachtrij";
+"surah_share_body_format" = "%1$@ — %2$@\n%3$@";
+"surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
+
 // MARK: - Reader / Quran tab
 "quran_title" = "Koran";
 "quran_continue_reading" = "Doorgaan met lezen";
@@ -230,3 +260,17 @@
 "reader_book_holy_quran" = "Heilige Koran";
 "reader_book_madinah" = "Medina";
 "reader_book_tajweed" = "Tajwid";
+
+// MARK: - Download Manager
+"download_manager_title" = "Downloadbeheer";
+"download_manager_section_overall" = "Downloadbeheer";
+"download_manager_downloaded_data" = "Gedownloade data";
+"download_manager_zero_kb" = "Nul KB";
+"download_manager_delete_now" = "Nu verwijderen";
+"download_manager_overall_footnote" = "Na bevestiging verwijderen we alle gedownloade gegevens, zoals gedownloade soera's en de audiocache.";
+"download_manager_section_by_reciter" = "Verwijderen per voordrager";
+"download_manager_no_downloads" = "Geen downloads";
+"download_manager_by_reciter_footnote" = "Hier kun je gedownloade soera's per voordrager verwijderen, zodat alleen degenen die je regelmatig beluistert overblijven.";
+"download_manager_remove_reciter" = "Downloads voor deze voordrager verwijderen";
+"download_manager_delete_confirm_title" = "Alle downloads wissen?";
+"download_manager_delete_confirm_message" = "Hierdoor worden alle gedownloade soera's en de audiocache van dit apparaat verwijderd. Je kunt ze later opnieuw downloaden.";

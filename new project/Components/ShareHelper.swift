@@ -12,12 +12,26 @@ enum ShareHelper {
     private static let popoverDelegate = TopAnchoredPopoverDelegate()
 
     static func presentShareSheet(items: [Any]) {
+        presentShareSheet(items: items, onCompleted: nil)
+    }
+
+    /// Presents the share sheet anchored to the top of the screen and forwards the
+    /// system completion result via `onCompleted` (only when the share actually
+    /// succeeded — cancels are ignored).
+    static func presentShareSheet(items: [Any], onCompleted: (() -> Void)?) {
         guard let topVC = topMostViewController() else { return }
 
         let activityVC = TopAnchoredActivityViewController(
             activityItems: items,
             applicationActivities: nil
         )
+
+        if let onCompleted {
+            activityVC.completionWithItemsHandler = { _, completed, _, _ in
+                guard completed else { return }
+                DispatchQueue.main.async(execute: onCompleted)
+            }
+        }
 
         if let popover = activityVC.popoverPresentationController {
             popover.delegate = popoverDelegate

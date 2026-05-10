@@ -21,6 +21,9 @@ enum PlayerReciterSegment: String, CaseIterable, Identifiable, Hashable {
 
 struct PlayerReciterSurahListView: View {
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
+    @ObservedObject private var favoritesViewModel = FavoriteRecitersViewModel.shared
+    @ObservedObject private var playlistsViewModel = PlaylistsViewModel.shared
+    @ObservedObject private var audioBookmarksViewModel = AudioBookmarksViewModel.shared
 
     let reciter: PlayerReciterDisplayItem
     @Binding var preferredReciterId: String
@@ -33,6 +36,8 @@ struct PlayerReciterSurahListView: View {
     @State private var detailLoadFailed = false
     @State private var playbackSession: ReciterPlaybackSession?
     @State private var activeSlug: String
+    @State private var surahOptionsRow: PlayerSurahRowModel?
+    @State private var showDownloadManager = false
 
     private let horizontalInset: CGFloat = 16
     private let rowHPadding: CGFloat = 14
@@ -121,12 +126,7 @@ struct PlayerReciterSurahListView: View {
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .font(.system(size: 22, weight: .regular))
-                }
+                reciterOptionsMenu
             }
         }
         .pinnedSearchable(text: $surahSearch, promptKey: "search_surah")
@@ -147,8 +147,28 @@ struct PlayerReciterSurahListView: View {
             ReciterSurahNowPlayingView(
                 detail: session.detail,
                 surah: session.surah,
-                onDismiss: { playbackSession = nil }
+                onDismiss: { playbackSession = nil },
+                onFinishedCurrentTrack: {
+                    if let next = ReciterPlaybackQueueCoordinator.shared.dequeueNext() {
+                        playbackSession = next
+                    }
+                }
             )
+        }
+        .sheet(item: $surahOptionsRow) { row in
+            SurahOptionsFlowSheet(
+                surahRow: row,
+                accentColor: selectedThemeColorManager.selectedColor,
+                onAddBookmark: { addAudioBookmark(for: row) },
+                onPlayNext: { playNextSurah(for: row) },
+                onShare: { shareSurah(row: row) },
+                onPlaylistChosen: { playlist in
+                    addSurahToPlaylist(row: row, playlist: playlist)
+                }
+            )
+        }
+        .sheet(isPresented: $showDownloadManager) {
+            DownloadManagerSheet()
         }
     }
 
@@ -226,6 +246,73 @@ struct PlayerReciterSurahListView: View {
         }
     }
 
+    // MARK: - Options menu (heart / link / download / share)
+
+    /// Whether the currently displayed reciter is in the user's favorites.
+    /// Reads from the shared `FavoriteRecitersViewModel` so toggles update
+    /// automatically across screens.
+    private var isFavorite: Bool {
+        favoritesViewModel.isFavorite(id: reciter.id)
+    }
+
+    @ViewBuilder
+    private var reciterOptionsMenu: some View {
+        Menu {
+            Button {
+                handleFavoriteToggle()
+            } label: {
+                Label(
+                    isFavorite ? "reciter_menu_remove_favorite" : "reciter_menu_add_favorite",
+                    systemImage: isFavorite ? "heart.fill" : "heart"
+                )
+            }
+
+            Button {
+                // TODO: Wire to Follow flow when available.
+            } label: {
+                Label("reciter_menu_follow", systemImage: "link")
+            }
+
+            Button {
+                showDownloadManager = true
+            } label: {
+                Label("reciter_menu_download_manager", systemImage: "arrow.down.to.line")
+            }
+
+            Button {
+                handleShare()
+            } label: {
+                Label("reciter_menu_share", systemImage: "square.and.arrow.up")
+            }
+        } label: {
+            Image(systemName: "ellipsis")
+                .font(.system(size: 22, weight: .regular))
+        }
+    }
+
+    private func handleFavoriteToggle() {
+        let added = favoritesViewModel.toggle(reciter)
+        if added {
+            ReciterActionFeedback.presentAddedToFavorite()
+        } else {
+            ReciterActionFeedback.presentRemovedFromFavorite()
+        }
+    }
+
+    private func handleShare() {
+        let displayName = displayTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        let nonEmptyName = displayName.isEmpty ? reciter.englishName : displayName
+
+        let template = NSLocalizedString("reciter_share_message_format", comment: "")
+        let urlTemplate = NSLocalizedString("reciter_share_link_format", comment: "")
+        let url = String(format: urlTemplate, reciter.id)
+        let message = String(format: template, nonEmptyName, url)
+
+        ShareHelper.presentShareSheet(items: [message]) {
+            ReciterActionFeedback.presentShareCompleted()
+        }
+    }
+
     // MARK: - Play / Shuffle
 
     private var playShuffleRow: some View {
@@ -236,6 +323,7 @@ struct PlayerReciterSurahListView: View {
                 enabled: hasPlayableSurah && !isLoadingDetail
             ) {
                 guard let d = detail, let s = firstPlayableSurah() else { return }
+                ReciterPlaybackQueueCoordinator.shared.cancelQueued()
                 playbackSession = ReciterPlaybackSession(detail: d, surah: s)
             }
             primaryPillButton(
@@ -244,6 +332,7 @@ struct PlayerReciterSurahListView: View {
                 enabled: hasPlayableSurah && !isLoadingDetail
             ) {
                 guard let d = detail, let s = randomPlayableSurah() else { return }
+                ReciterPlaybackQueueCoordinator.shared.cancelQueued()
                 playbackSession = ReciterPlaybackSession(detail: d, surah: s)
             }
         }
@@ -340,6 +429,7 @@ struct PlayerReciterSurahListView: View {
                       let dto = d.surahs.first(where: { $0.number == row.number }),
                       row.audioURL != nil
                 else { return }
+                ReciterPlaybackQueueCoordinator.shared.cancelQueued()
                 playbackSession = ReciterPlaybackSession(detail: d, surah: dto)
             }
 
@@ -351,17 +441,73 @@ struct PlayerReciterSurahListView: View {
             .buttonStyle(.plain)
             .padding(.trailing, 10)
 
-            Button {} label: {
+            Button {
+                surahOptionsRow = row
+            } label: {
                 Image(systemName: "ellipsis")
                     .font(.system(size: 16, weight: .semibold))
                     .frame(width: 28)
                     .foregroundColor(selectedThemeColorManager.selectedColor)
-
             }
             .buttonStyle(.plain)
         }
         .padding(.horizontal, rowHPadding)
         .padding(.vertical, 12)
+    }
+
+    // MARK: - Surah row sheet actions
+
+    private func addSurahToPlaylist(row: PlayerSurahRowModel, playlist: Playlist) {
+        if playlistsViewModel.addSurah(number: row.number, toPlaylistId: playlist.id) {
+            SurahRowActionFeedback.presentAddedToPlaylist(playlistName: playlist.name)
+        } else {
+            SurahRowActionFeedback.presentAlreadyInPlaylist(playlistName: playlist.name)
+        }
+    }
+
+    private func addAudioBookmark(for row: PlayerSurahRowModel) {
+        guard let d = detail else { return }
+        let slug = d.slug
+        let nameEn = d.nameEn.trimmingCharacters(in: .whitespacesAndNewlines)
+        let portrait = d.image?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let dto = d.surahs.first(where: { $0.number == row.number })
+        let ar = dto?.nameAr?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let bookmark = AudioSurahBookmark(
+            reciterSlug: slug,
+            reciterNameEn: nameEn.isEmpty ? reciter.englishName : nameEn,
+            portraitURLString: portrait.flatMap { $0.isEmpty ? nil : $0 },
+            surahNumber: row.number,
+            surahTitleEn: row.englishLine,
+            surahTitleAr: ar.flatMap { $0.isEmpty ? nil : $0 }
+        )
+        audioBookmarksViewModel.add(bookmark)
+        SurahRowActionFeedback.presentAddedToBookmark()
+    }
+
+    private func playNextSurah(for row: PlayerSurahRowModel) {
+        guard let d = detail,
+              let dto = d.surahs.first(where: { $0.number == row.number }),
+              row.audioURL != nil
+        else { return }
+        let session = ReciterPlaybackSession(detail: d, surah: dto)
+        let coordinator = ReciterPlaybackQueueCoordinator.shared
+        if playbackSession != nil {
+            coordinator.enqueuePlayNext(session)
+        } else {
+            coordinator.cancelQueued()
+            playbackSession = session
+        }
+        SurahRowActionFeedback.presentAddedToQueue()
+    }
+
+    private func shareSurah(row: PlayerSurahRowModel) {
+        let reciterName = displayTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        let nonEmptyReciter = reciterName.isEmpty ? reciter.englishName : reciterName
+        let bodyFmt = NSLocalizedString("surah_share_body_format", comment: "")
+        let urlFmt = NSLocalizedString("surah_share_link_format", comment: "")
+        let url = String(format: urlFmt, reciter.id, row.number)
+        let message = String(format: bodyFmt, nonEmptyReciter, row.englishLine, url)
+        ShareHelper.presentShareSheet(items: [message])
     }
 
     // MARK: - Glass background

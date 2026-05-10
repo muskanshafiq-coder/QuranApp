@@ -17,6 +17,8 @@ final class UserDefaultsManager {
         static let quranLastAyahNumber = "quran_last_ayah_number"
         static let quranLastJuz = "quran_last_juz"
         static let quranLastHizbQuarter = "quran_last_hizb_quarter"
+        static let favoriteRecitersData = "favorite_reciters_data"
+        static let audioBookmarksData = "audio_bookmarks_data"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -72,5 +74,25 @@ final class UserDefaultsManager {
 
     func saveQuranSelectedTranslationIds(_ ids: [String]) {
         defaults.set(ids, forKey: Keys.quranSelectedTranslationIds)
+    }
+
+    // MARK: - Favorite reciters
+
+    func favoriteRecitersData() -> Data? {
+        defaults.data(forKey: Keys.favoriteRecitersData)
+    }
+
+    func saveFavoriteRecitersData(_ data: Data) {
+        defaults.set(data, forKey: Keys.favoriteRecitersData)
+    }
+
+    // MARK: - Audio bookmarks (surah under reciter)
+
+    func audioBookmarksData() -> Data? {
+        defaults.data(forKey: Keys.audioBookmarksData)
+    }
+
+    func saveAudioBookmarksData(_ data: Data) {
+        defaults.set(data, forKey: Keys.audioBookmarksData)
     }
 }

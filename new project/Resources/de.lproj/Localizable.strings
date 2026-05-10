@@ -210,6 +210,36 @@
 "player_see_all" = "Alle ansehen";
 "featured_reciter_editors_pick" = "Empfehlung der Redaktion";
 
+// MARK: - Reciter options menu
+"reciter_menu_add_favorite" = "Zu Favoriten hinzufügen";
+"reciter_menu_remove_favorite" = "Aus Favoriten entfernen";
+"reciter_menu_follow" = "Rezitator folgen";
+"reciter_menu_download_manager" = "Download-Manager";
+"reciter_menu_share" = "Teilen";
+
+// MARK: - Reciter action feedback
+"reciter_alert_added_favorite" = "Zu Favoriten hinzugefügt";
+"reciter_alert_removed_favorite" = "Aus Favoriten entfernt";
+"reciter_alert_share_done" = "Geteilt";
+
+// MARK: - Reciter share
+"reciter_share_message_format" = "Entdecke %1$@ auf Quran Pro\n%2$@";
+"reciter_share_link_format" = "https://open.quranpro.co/play?reciter=%@";
+
+// MARK: - Surah row options (reciter surah list)
+"surah_options_nav_title" = "Sure";
+"surah_options_media_placeholder" = " ";
+"surah_options_add_playlist" = "Zur Wiedergabeliste hinzufügen…";
+"surah_options_add_bookmark" = "Zu Lesezeichen hinzufügen";
+"surah_options_play_next" = "Als Nächstes wiedergeben";
+"surah_options_share_surah" = "Sure teilen";
+"surah_alert_added_playlist_format" = "Zu %@ hinzugefügt";
+"surah_alert_already_in_playlist_format" = "Bereits in %@";
+"surah_alert_added_bookmark" = "Zu Lesezeichen hinzugefügt";
+"surah_alert_added_queue" = "Zur Warteschlange hinzugefügt";
+"surah_share_body_format" = "%1$@ — %2$@\n%3$@";
+"surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
+
 // MARK: - Reader / Quran tab
 "quran_title" = "Koran";
 "quran_continue_reading" = "Lesen fortsetzen";
@@ -228,3 +258,17 @@
 "reader_book_holy_quran" = "Heiliger Koran";
 "reader_book_madinah" = "Medina";
 "reader_book_tajweed" = "Tadschwid";
+
+// MARK: - Download Manager
+"download_manager_title" = "Download-Manager";
+"download_manager_section_overall" = "Download-Manager";
+"download_manager_downloaded_data" = "Heruntergeladene Daten";
+"download_manager_zero_kb" = "Null KB";
+"download_manager_delete_now" = "Jetzt löschen";
+"download_manager_overall_footnote" = "Nach Bestätigung werden alle heruntergeladenen Daten wie Suren und Audio-Cache entfernt.";
+"download_manager_section_by_reciter" = "Nach Rezitator löschen";
+"download_manager_no_downloads" = "Keine Downloads";
+"download_manager_by_reciter_footnote" = "Hier kannst du heruntergeladene Suren pro Rezitator entfernen, sodass nur die bleiben, die du regelmäßig hörst.";
+"download_manager_remove_reciter" = "Downloads dieses Rezitators entfernen";
+"download_manager_delete_confirm_title" = "Alle Downloads löschen?";
+"download_manager_delete_confirm_message" = "Dadurch werden alle heruntergeladenen Suren und der Audio-Cache von diesem Gerät entfernt. Du kannst später jederzeit erneut herunterladen.";

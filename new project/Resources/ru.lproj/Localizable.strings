@@ -212,6 +212,36 @@
 "player_see_all" = "Смотреть все";
 "featured_reciter_editors_pick" = "Выбор редакции";
 
+// MARK: - Reciter options menu
+"reciter_menu_add_favorite" = "Добавить в избранное";
+"reciter_menu_remove_favorite" = "Удалить из избранного";
+"reciter_menu_follow" = "Подписаться на чтеца";
+"reciter_menu_download_manager" = "Менеджер загрузок";
+"reciter_menu_share" = "Поделиться";
+
+// MARK: - Reciter action feedback
+"reciter_alert_added_favorite" = "Добавлено в избранное";
+"reciter_alert_removed_favorite" = "Удалено из избранного";
+"reciter_alert_share_done" = "Отправлено";
+
+// MARK: - Reciter share
+"reciter_share_message_format" = "Откройте для себя чтеца %1$@ в Quran Pro\n%2$@";
+"reciter_share_link_format" = "https://open.quranpro.co/play?reciter=%@";
+
+// MARK: - Surah row options (reciter surah list)
+"surah_options_nav_title" = "Сура";
+"surah_options_media_placeholder" = " ";
+"surah_options_add_playlist" = "Добавить в плейлист…";
+"surah_options_add_bookmark" = "Добавить в закладки";
+"surah_options_play_next" = "Играть следующей";
+"surah_options_share_surah" = "Поделиться сурой";
+"surah_alert_added_playlist_format" = "Добавлено в %@";
+"surah_alert_already_in_playlist_format" = "Уже в %@";
+"surah_alert_added_bookmark" = "Добавлено в закладки";
+"surah_alert_added_queue" = "Добавлено в очередь";
+"surah_share_body_format" = "%1$@ — %2$@\n%3$@";
+"surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
+
 // MARK: - Reader / Quran tab
 "quran_title" = "Коран";
 "quran_continue_reading" = "Продолжить чтение";
@@ -230,3 +260,17 @@
 "reader_book_holy_quran" = "Священный Коран";
 "reader_book_madinah" = "Мединский мусхаф";
 "reader_book_tajweed" = "Мусхаф с таджвидом";
+
+// MARK: - Download Manager
+"download_manager_title" = "Менеджер загрузок";
+"download_manager_section_overall" = "Менеджер загрузок";
+"download_manager_downloaded_data" = "Загруженные данные";
+"download_manager_zero_kb" = "Ноль КБ";
+"download_manager_delete_now" = "Удалить сейчас";
+"download_manager_overall_footnote" = "После подтверждения мы удалим все загруженные данные, включая скачанные суры и аудиокэш.";
+"download_manager_section_by_reciter" = "Удалить по чтецу";
+"download_manager_no_downloads" = "Загрузок нет";
+"download_manager_by_reciter_footnote" = "Здесь можно удалить загруженные суры по чтецу, чтобы оставить только тех, кого вы слушаете регулярно.";
+"download_manager_remove_reciter" = "Удалить загрузки этого чтеца";
+"download_manager_delete_confirm_title" = "Удалить все загрузки?";
+"download_manager_delete_confirm_message" = "С устройства будут удалены все загруженные суры и аудиокэш. Вы сможете загрузить их снова в любое время.";

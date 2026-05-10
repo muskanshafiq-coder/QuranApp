@@ -31,6 +31,7 @@ struct PlayerAllRecitersView: View {
     @State private var selectedSegment: ReciterListSegment = .mostPopular
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @ObservedObject private var favoritesViewModel = FavoriteRecitersViewModel.shared
 
     /// Adaptive grid: 3 columns on iPhone, 5 on iPad / regular width.
     private var gridColumns: [GridItem] {
@@ -44,8 +45,7 @@ struct PlayerAllRecitersView: View {
         case .mostPopular:
             return reciters
         case .favorites:
-            // TODO: Replace with persisted favorites once that store exists.
-            return []
+            return favoritesViewModel.favorites
         }
     }
 

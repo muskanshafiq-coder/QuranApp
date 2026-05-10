@@ -219,6 +219,36 @@
 "player_see_all" = "See All";
 "featured_reciter_editors_pick" = "Editor's Pick";
 
+// MARK: - Reciter options menu
+"reciter_menu_add_favorite" = "Add to Favorite";
+"reciter_menu_remove_favorite" = "Remove from Favorites";
+"reciter_menu_follow" = "Follow the Reciter";
+"reciter_menu_download_manager" = "Download Manager";
+"reciter_menu_share" = "Share";
+
+// MARK: - Reciter action feedback
+"reciter_alert_added_favorite" = "Added to Favorite";
+"reciter_alert_removed_favorite" = "Removed from Favorites";
+"reciter_alert_share_done" = "Share";
+
+// MARK: - Reciter share
+"reciter_share_message_format" = "Discover %1$@ on Quran Pro\n%2$@";
+"reciter_share_link_format" = "https://open.quranpro.co/play?reciter=%@";
+
+// MARK: - Surah row options (reciter surah list)
+"surah_options_nav_title" = "Surah";
+"surah_options_media_placeholder" = " ";
+"surah_options_add_playlist" = "Add to a Playlist…";
+"surah_options_add_bookmark" = "Add to Bookmark";
+"surah_options_play_next" = "Play Next";
+"surah_options_share_surah" = "Share Surah";
+"surah_alert_added_playlist_format" = "Added to %@";
+"surah_alert_already_in_playlist_format" = "Already in %@";
+"surah_alert_added_bookmark" = "Added to Bookmark";
+"surah_alert_added_queue" = "Added to Queue";
+"surah_share_body_format" = "%1$@ — %2$@\n%3$@";
+"surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
+
 // MARK: - Reader / Quran tab
 "quran_title" = "Quran";
 "quran_continue_reading" = "Continue Reading";
@@ -237,3 +267,17 @@
 "reader_book_holy_quran" = "Holy Quran";
 "reader_book_madinah" = "Madinah";
 "reader_book_tajweed" = "Tajweed";
+
+// MARK: - Download Manager
+"download_manager_title" = "Download Manager";
+"download_manager_section_overall" = "Download Manager";
+"download_manager_downloaded_data" = "Downloaded Data";
+"download_manager_zero_kb" = "Zero KB";
+"download_manager_delete_now" = "Delete Now";
+"download_manager_overall_footnote" = "Once confirmed, we will clean all the downloaded data such as downloaded suras and audio cache.";
+"download_manager_section_by_reciter" = "Delete by Reciters";
+"download_manager_no_downloads" = "No downloads";
+"download_manager_by_reciter_footnote" = "Here you can remove downloaded suras by reciter to leave only the ones you listen to regularly.";
+"download_manager_remove_reciter" = "Remove downloads for this reciter";
+"download_manager_delete_confirm_title" = "Clear all downloads?";
+"download_manager_delete_confirm_message" = "This will remove every downloaded surah and audio cache from this device. You can re-download anything later.";

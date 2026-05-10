@@ -210,6 +210,36 @@
 "player_see_all" = "Vedi tutti";
 "featured_reciter_editors_pick" = "Scelto dalla redazione";
 
+// MARK: - Reciter options menu
+"reciter_menu_add_favorite" = "Aggiungi ai preferiti";
+"reciter_menu_remove_favorite" = "Rimuovi dai preferiti";
+"reciter_menu_follow" = "Segui il recitatore";
+"reciter_menu_download_manager" = "Gestore download";
+"reciter_menu_share" = "Condividi";
+
+// MARK: - Reciter action feedback
+"reciter_alert_added_favorite" = "Aggiunto ai preferiti";
+"reciter_alert_removed_favorite" = "Rimosso dai preferiti";
+"reciter_alert_share_done" = "Condiviso";
+
+// MARK: - Reciter share
+"reciter_share_message_format" = "Scopri %1$@ su Quran Pro\n%2$@";
+"reciter_share_link_format" = "https://open.quranpro.co/play?reciter=%@";
+
+// MARK: - Surah row options (reciter surah list)
+"surah_options_nav_title" = "Sura";
+"surah_options_media_placeholder" = " ";
+"surah_options_add_playlist" = "Aggiungi a una playlist…";
+"surah_options_add_bookmark" = "Aggiungi ai segnalibri";
+"surah_options_play_next" = "Riproduci dopo";
+"surah_options_share_surah" = "Condividi sura";
+"surah_alert_added_playlist_format" = "Aggiunto a %@";
+"surah_alert_already_in_playlist_format" = "Già in %@";
+"surah_alert_added_bookmark" = "Aggiunto ai segnalibri";
+"surah_alert_added_queue" = "Aggiunto alla coda";
+"surah_share_body_format" = "%1$@ — %2$@\n%3$@";
+"surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
+
 // MARK: - Reader / Quran tab
 "quran_title" = "Corano";
 "quran_continue_reading" = "Continua la lettura";
@@ -228,3 +258,17 @@
 "reader_book_holy_quran" = "Sacro Corano";
 "reader_book_madinah" = "Medina";
 "reader_book_tajweed" = "Tajwid";
+
+// MARK: - Download Manager
+"download_manager_title" = "Gestione download";
+"download_manager_section_overall" = "Gestione download";
+"download_manager_downloaded_data" = "Dati scaricati";
+"download_manager_zero_kb" = "Zero KB";
+"download_manager_delete_now" = "Elimina ora";
+"download_manager_overall_footnote" = "Una volta confermato, elimineremo tutti i dati scaricati come le sure scaricate e la cache audio.";
+"download_manager_section_by_reciter" = "Elimina per recitatore";
+"download_manager_no_downloads" = "Nessun download";
+"download_manager_by_reciter_footnote" = "Qui puoi rimuovere le sure scaricate per recitatore, mantenendo solo quelle che ascolti regolarmente.";
+"download_manager_remove_reciter" = "Rimuovi i download di questo recitatore";
+"download_manager_delete_confirm_title" = "Eliminare tutti i download?";
+"download_manager_delete_confirm_message" = "Verranno rimosse tutte le sure scaricate e la cache audio da questo dispositivo. Potrai riscaricarle in qualsiasi momento.";

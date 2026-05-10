@@ -212,6 +212,36 @@
 "player_see_all" = "سب دیکھیں";
 "featured_reciter_editors_pick" = "ایڈیٹر کا انتخاب";
 
+// MARK: - Reciter options menu
+"reciter_menu_add_favorite" = "پسندیدہ میں شامل کریں";
+"reciter_menu_remove_favorite" = "پسندیدہ سے ہٹائیں";
+"reciter_menu_follow" = "قاری کو فالو کریں";
+"reciter_menu_download_manager" = "ڈاؤن لوڈ مینیجر";
+"reciter_menu_share" = "شیئر کریں";
+
+// MARK: - Reciter action feedback
+"reciter_alert_added_favorite" = "پسندیدہ میں شامل کر دیا";
+"reciter_alert_removed_favorite" = "پسندیدہ سے ہٹا دیا";
+"reciter_alert_share_done" = "شیئر کر دیا";
+
+// MARK: - Reciter share
+"reciter_share_message_format" = "Quran Pro پر %1$@ کو دریافت کریں\n%2$@";
+"reciter_share_link_format" = "https://open.quranpro.co/play?reciter=%@";
+
+// MARK: - Surah row options (reciter surah list)
+"surah_options_nav_title" = "سورۃ";
+"surah_options_media_placeholder" = " ";
+"surah_options_add_playlist" = "پلے لسٹ میں شامل کریں…";
+"surah_options_add_bookmark" = "بک مارک میں شامل کریں";
+"surah_options_play_next" = "اگلے پر چلائیں";
+"surah_options_share_surah" = "سورۃ شیئر کریں";
+"surah_alert_added_playlist_format" = "%@ میں شامل کر دیا";
+"surah_alert_already_in_playlist_format" = "پہلے سے %@ میں ہے";
+"surah_alert_added_bookmark" = "بک مارک میں شامل کر دیا";
+"surah_alert_added_queue" = "قطار میں شامل کر دیا";
+"surah_share_body_format" = "%1$@ — %2$@\n%3$@";
+"surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
+
 // MARK: - Reader / Quran tab
 "quran_title" = "قرآن";
 "quran_continue_reading" = "پڑھنا جاری رکھیں";
@@ -230,3 +260,17 @@
 "reader_book_holy_quran" = "قرآن مجید";
 "reader_book_madinah" = "مدینہ مصحف";
 "reader_book_tajweed" = "تجوید مصحف";
+
+// MARK: - Download Manager
+"download_manager_title" = "ڈاؤن لوڈ مینیجر";
+"download_manager_section_overall" = "ڈاؤن لوڈ مینیجر";
+"download_manager_downloaded_data" = "ڈاؤن لوڈ شدہ ڈیٹا";
+"download_manager_zero_kb" = "زیرو KB";
+"download_manager_delete_now" = "ابھی حذف کریں";
+"download_manager_overall_footnote" = "تصدیق کے بعد، ہم تمام ڈاؤن لوڈ شدہ ڈیٹا جیسے ڈاؤن لوڈ شدہ سورتیں اور آڈیو کیشے صاف کر دیں گے۔";
+"download_manager_section_by_reciter" = "قاری کے حساب سے حذف کریں";
+"download_manager_no_downloads" = "کوئی ڈاؤن لوڈ نہیں";
+"download_manager_by_reciter_footnote" = "یہاں سے آپ ہر قاری کی ڈاؤن لوڈ شدہ سورتیں ہٹا سکتے ہیں اور صرف انہیں رکھ سکتے ہیں جنہیں آپ باقاعدگی سے سنتے ہیں۔";
+"download_manager_remove_reciter" = "اس قاری کی ڈاؤن لوڈز ہٹائیں";
+"download_manager_delete_confirm_title" = "تمام ڈاؤن لوڈز صاف کریں؟";
+"download_manager_delete_confirm_message" = "اس سے آپ کے آلے سے ہر ڈاؤن لوڈ شدہ سورت اور آڈیو کیشے ہٹ جائے گا۔ آپ بعد میں دوبارہ ڈاؤن لوڈ کر سکتے ہیں۔";

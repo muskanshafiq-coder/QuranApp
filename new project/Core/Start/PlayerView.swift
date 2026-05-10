@@ -14,6 +14,7 @@ struct PlayerView: View {
     @State private var showLoginSheet = false
     @State private var navigateToPlaylists = false
     @ObservedObject private var playlistsViewModel = PlaylistsViewModel.shared
+    @ObservedObject private var favoriteRecitersViewModel = FavoriteRecitersViewModel.shared
     @EnvironmentObject private var languageManager: AppLanguageManager
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
@@ -73,7 +74,10 @@ struct PlayerView: View {
                             
                             Divider()
                                 .padding(.horizontal)
-                            PlayerRow(title: "popular_favorites_title") {
+                            PlayerRow(
+                                title: "popular_favorites_title",
+                                trailingCount: favoriteRecitersViewModel.favorites.count
+                            ) {
                                 navigateToPopularReciters = true
                             }
                         }

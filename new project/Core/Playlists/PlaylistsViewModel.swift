@@ -69,4 +69,14 @@ final class PlaylistsViewModel: ObservableObject {
         playlists[index].surahIDs.move(fromOffsets: source, toOffset: destination)
         store.save(playlists)
     }
+
+    /// Appends `surahNumber` to the playlist if it is not already present.
+    @discardableResult
+    func addSurah(number surahNumber: Int, toPlaylistId id: UUID) -> Bool {
+        guard let index = playlists.firstIndex(where: { $0.id == id }) else { return false }
+        if playlists[index].surahIDs.contains(surahNumber) { return false }
+        playlists[index].surahIDs.append(surahNumber)
+        store.save(playlists)
+        return true
+    }
 }

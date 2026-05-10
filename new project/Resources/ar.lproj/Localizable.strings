@@ -213,6 +213,36 @@
 "player_see_all" = "عرض الكل";
 "featured_reciter_editors_pick" = "اختيار المحرر";
 
+// MARK: - Reciter options menu
+"reciter_menu_add_favorite" = "إضافة إلى المفضلة";
+"reciter_menu_remove_favorite" = "إزالة من المفضلة";
+"reciter_menu_follow" = "متابعة القارئ";
+"reciter_menu_download_manager" = "مدير التنزيلات";
+"reciter_menu_share" = "مشاركة";
+
+// MARK: - Reciter action feedback
+"reciter_alert_added_favorite" = "تمت الإضافة إلى المفضلة";
+"reciter_alert_removed_favorite" = "تمت الإزالة من المفضلة";
+"reciter_alert_share_done" = "مشاركة";
+
+// MARK: - Reciter share
+"reciter_share_message_format" = "اكتشف %1$@ على Quran Pro\n%2$@";
+"reciter_share_link_format" = "https://open.quranpro.co/play?reciter=%@";
+
+// MARK: - Surah row options (reciter surah list)
+"surah_options_nav_title" = "السورة";
+"surah_options_media_placeholder" = " ";
+"surah_options_add_playlist" = "إضافة إلى قائمة تشغيل…";
+"surah_options_add_bookmark" = "إضافة إلى الإشارات المرجعية";
+"surah_options_play_next" = "تشغيل تالياً";
+"surah_options_share_surah" = "مشاركة السورة";
+"surah_alert_added_playlist_format" = "تمت الإضافة إلى %@";
+"surah_alert_already_in_playlist_format" = "موجود بالفعل في %@";
+"surah_alert_added_bookmark" = "تمت الإضافة إلى الإشارات المرجعية";
+"surah_alert_added_queue" = "تمت الإضافة إلى قائمة الانتظار";
+"surah_share_body_format" = "%1$@ — %2$@\n%3$@";
+"surah_share_link_format" = "https://open.quranpro.co/play?reciter=%@&surah=%d";
+
 // MARK: - Reader / Quran tab
 "quran_title" = "القرآن";
 "quran_continue_reading" = "متابعة القراءة";
@@ -231,3 +261,17 @@
 "reader_book_holy_quran" = "القرآن الكريم";
 "reader_book_madinah" = "مصحف المدينة";
 "reader_book_tajweed" = "مصحف التجويد";
+
+// MARK: - Download Manager
+"download_manager_title" = "إدارة التنزيلات";
+"download_manager_section_overall" = "إدارة التنزيلات";
+"download_manager_downloaded_data" = "البيانات المنزّلة";
+"download_manager_zero_kb" = "صفر كيلوبايت";
+"download_manager_delete_now" = "احذف الآن";
+"download_manager_overall_footnote" = "بمجرد التأكيد، سنقوم بمسح جميع البيانات المنزّلة مثل السور المنزّلة وذاكرة الصوت المؤقتة.";
+"download_manager_section_by_reciter" = "الحذف حسب القارئ";
+"download_manager_no_downloads" = "لا توجد تنزيلات";
+"download_manager_by_reciter_footnote" = "هنا يمكنك إزالة السور المنزّلة لكل قارئ والإبقاء فقط على من تستمع إليهم بانتظام.";
+"download_manager_remove_reciter" = "إزالة تنزيلات هذا القارئ";
+"download_manager_delete_confirm_title" = "مسح جميع التنزيلات؟";
+"download_manager_delete_confirm_message" = "سيؤدي هذا إلى إزالة جميع السور المنزّلة وذاكرة الصوت المؤقتة من هذا الجهاز. يمكنك إعادة التنزيل لاحقًا.";

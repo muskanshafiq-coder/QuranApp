@@ -20,6 +20,8 @@ final class ReciterSurahAudioPlayer: ObservableObject {
     private var timeObserver: Any?
     private var statusObservation: NSKeyValueObservation?
     private var endObserver: NSObjectProtocol?
+    /// Called on the main queue when the current `AVPlayerItem` plays to end.
+    var onDidPlayToEnd: (() -> Void)?
 
     deinit {
         tearDown()
@@ -41,6 +43,7 @@ final class ReciterSurahAudioPlayer: ObservableObject {
             if let d = self?.duration, d > 0 {
                 self?.currentTime = d
             }
+            self?.onDidPlayToEnd?()
         }
 
         statusObservation = item.observe(\.status, options: [.new]) { [weak self] it, _ in
@@ -166,6 +169,7 @@ final class ReciterSurahAudioPlayer: ObservableObject {
         }
         statusObservation?.invalidate()
         statusObservation = nil
+        onDidPlayToEnd = nil
         player?.pause()
         player = nil
         observedItem = nil
