@@ -10,6 +10,7 @@ struct MyApp: App {
     @StateObject private var themeManager = ThemeManager()
     @StateObject private var selectedThemeColorManager = SelectedThemeColorManager()
     @StateObject private var authManager = AuthManager.shared
+    @ObservedObject private var dummyPaywallPresenter = DummyPaywallPresenter.shared
     init(){
         prefetchSleepStories()
     }
@@ -21,6 +22,10 @@ struct MyApp: App {
                 .environmentObject(themeManager)
                 .environmentObject(selectedThemeColorManager)
                 .environmentObject(authManager)
+                .sheet(isPresented: $dummyPaywallPresenter.isPresented) {
+                    DummySubscriptionPaywallView()
+                        .environmentObject(selectedThemeColorManager)
+                }
         }
     }
 }

@@ -10,6 +10,8 @@ struct AudioSurahListRow<MenuAccessory: View>: View {
     let listPosition: Int
     let surahTitleEn: String
     let surahTitleAr: String?
+    /// When set, shows an ayah line under the surah title (audio bookmarks from now playing).
+    let ayahNumber: Int?
     let reciterNameEn: String
     let portraitURLString: String?
     let accentColor: Color
@@ -17,6 +19,32 @@ struct AudioSurahListRow<MenuAccessory: View>: View {
     let navigationReciter: PlayerReciterDisplayItem
     let onDownloadTap: () -> Void
     @ViewBuilder var menuAccessory: () -> MenuAccessory
+
+    init(
+        listPosition: Int,
+        surahTitleEn: String,
+        surahTitleAr: String?,
+        ayahNumber: Int? = nil,
+        reciterNameEn: String,
+        portraitURLString: String?,
+        accentColor: Color,
+        preferredReciterId: Binding<String>,
+        navigationReciter: PlayerReciterDisplayItem,
+        onDownloadTap: @escaping () -> Void,
+        @ViewBuilder menuAccessory: @escaping () -> MenuAccessory
+    ) {
+        self.listPosition = listPosition
+        self.surahTitleEn = surahTitleEn
+        self.surahTitleAr = surahTitleAr
+        self.ayahNumber = ayahNumber
+        self.reciterNameEn = reciterNameEn
+        self.portraitURLString = portraitURLString
+        self.accentColor = accentColor
+        self._preferredReciterId = preferredReciterId
+        self.navigationReciter = navigationReciter
+        self.onDownloadTap = onDownloadTap
+        self.menuAccessory = menuAccessory
+    }
 
     private let rowHPadding: CGFloat = 14
 
@@ -55,6 +83,16 @@ struct AudioSurahListRow<MenuAccessory: View>: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)
                         .minimumScaleFactor(0.85)
+                    if let ayahNumber {
+                        Text(
+                            String(
+                                format: NSLocalizedString("bookmark_audio_ayah_line_format", comment: ""),
+                                ayahNumber
+                            )
+                        )
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(.secondary)
+                    }
                     Text(reciterNameEn)
                         .font(.system(size: 14, weight: .regular))
                         .foregroundStyle(.secondary)

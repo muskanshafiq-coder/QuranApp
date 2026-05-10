@@ -306,3 +306,25 @@
 "reader_pdf_save_page" = "حفظ الصفحة";
 "reader_pdf_error_invalid_url" = "رابط PDF غير صالح";
 "reader_pdf_error_open_failed" = "تعذر فتح ملف PDF";
+
+// MARK: - Ayah now playing row & paywall
+"ayah_menu_add_bookmark" = "إضافة إلى الإشارات";
+"ayah_menu_remove_bookmark" = "إزالة من الإشارات";
+"ayah_menu_share" = "مشاركة";
+"ayah_menu_play" = "تشغيل";
+"ayah_menu_translation" = "الترجمة";
+"ayah_menu_repeat" = "تكرار";
+"ayah_repeat_once" = "تكرار مرة واحدة";
+"ayah_repeat_twice" = "تكرار مرتين";
+"ayah_repeat_three" = "تكرار 3 مرات";
+"ayah_repeat_four" = "تكرار 4 مرات";
+"ayah_repeat_loop" = "تكرار مستمر";
+"ayah_repeat_cancel" = "إلغاء التكرار";
+"ayah_translation_sheet_title" = "الترجمة";
+"ayah_translation_empty" = "لا تتوفر ترجمة لهذه الآية.";
+"bookmark_audio_ayah_line_format" = "الآية %d";
+"ayah_share_body_format" = "%1$@\n\n— %2$@، الآية %3$d";
+"dummy_paywall_title" = "افتح مزايا Quran Pro";
+"dummy_paywall_message" = "هذه الميزة ضمن Quran Pro. اشترك للمتابعة والاستماع بالوصول الكامل.";
+"dummy_paywall_subscribe" = "اشترك";
+"dummy_paywall_later" = "ربما لاحقًا";

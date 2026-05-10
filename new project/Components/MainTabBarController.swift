@@ -134,7 +134,10 @@ class MainTabBarController: UITabBarController {
             popupBar.customBarViewController = reciterPopupBar
         }
         popupContentView.popupCloseButtonStyle = .none
-        let contentVC = ReciterSurahPopupContentViewController(session: session)
+        let contentVC = ReciterSurahPopupContentViewController(
+            session: session,
+            selectedThemeColorManager: selectedThemeColorManager
+        )
         let openFull = ReciterPlaybackPopupCoordinator.shared.openFullScreenOnPresent
         ReciterPlaybackPopupCoordinator.shared.openFullScreenOnPresent = true
         presentPopupBar(with: contentVC, openPopup: openFull, animated: true)

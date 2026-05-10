@@ -304,3 +304,25 @@
 "reader_pdf_save_page" = "Seite speichern";
 "reader_pdf_error_invalid_url" = "Ungültige PDF-URL";
 "reader_pdf_error_open_failed" = "PDF konnte nicht geöffnet werden";
+
+// MARK: - Ayah now playing row & paywall
+"ayah_menu_add_bookmark" = "Add to Bookmark";
+"ayah_menu_remove_bookmark" = "Remove from Bookmark";
+"ayah_menu_share" = "Share";
+"ayah_menu_play" = "Play";
+"ayah_menu_translation" = "Translation";
+"ayah_menu_repeat" = "Repeat";
+"ayah_repeat_once" = "Repeat Once";
+"ayah_repeat_twice" = "Repeat Twice";
+"ayah_repeat_three" = "Repeat 3 times";
+"ayah_repeat_four" = "Repeat 4 times";
+"ayah_repeat_loop" = "Repeat in Loop";
+"ayah_repeat_cancel" = "Cancel Repeat";
+"ayah_translation_sheet_title" = "Translation";
+"ayah_translation_empty" = "No translation is available for this ayah.";
+"bookmark_audio_ayah_line_format" = "Ayah %d";
+"ayah_share_body_format" = "%1$@\n\n— %2$@, Ayah %3$d";
+"dummy_paywall_title" = "Unlock Quran Pro";
+"dummy_paywall_message" = "This feature is part of Quran Pro. Subscribe to continue listening with full access.";
+"dummy_paywall_subscribe" = "Subscribe";
+"dummy_paywall_later" = "Maybe later";

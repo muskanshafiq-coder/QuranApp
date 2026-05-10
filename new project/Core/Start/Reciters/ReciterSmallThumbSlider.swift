@@ -5,9 +5,9 @@
 import SwiftUI
 
 struct ReciterSmallThumbSlider: UIViewRepresentable {
+    @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
     @Binding var value: Double
     let range: ClosedRange<Double>
-    let tint: UIColor
 
     func makeCoordinator() -> Coordinator { Coordinator(value: $value) }
 
@@ -16,8 +16,8 @@ struct ReciterSmallThumbSlider: UIViewRepresentable {
         s.minimumValue = Float(range.lowerBound)
         s.maximumValue = Float(range.upperBound)
         s.value = Float(value)
-        s.minimumTrackTintColor = tint
-        s.maximumTrackTintColor = tint.withAlphaComponent(0.22)
+        s.minimumTrackTintColor = UIColor(selectedThemeColorManager.selectedColor)
+        s.maximumTrackTintColor = UIColor(selectedThemeColorManager.selectedColor).withAlphaComponent(0.22)
         s.setThumbImage(Self.thumbImage(color: .white, diameter: 10), for: .normal)
         s.setThumbImage(Self.thumbImage(color: .white, diameter: 11), for: .highlighted)
         s.setContentHuggingPriority(.required, for: .vertical)
@@ -31,8 +31,8 @@ struct ReciterSmallThumbSlider: UIViewRepresentable {
         if abs(Double(uiView.value) - value) > 0.0001 {
             uiView.value = Float(value)
         }
-        uiView.minimumTrackTintColor = tint
-        uiView.maximumTrackTintColor = tint.withAlphaComponent(0.22)
+        uiView.minimumTrackTintColor =  UIColor(selectedThemeColorManager.selectedColor)
+        uiView.maximumTrackTintColor = UIColor(selectedThemeColorManager.selectedColor).withAlphaComponent(0.22)
     }
 
     final class Coordinator: NSObject {

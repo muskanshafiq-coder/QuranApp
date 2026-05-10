@@ -12,6 +12,9 @@ struct AudioSurahBookmark: Identifiable, Codable, Equatable, Hashable {
     let surahNumber: Int
     let surahTitleEn: String
     let surahTitleAr: String?
+    /// When set, this bookmark targets a specific ayah inside the surah (now playing).
+    /// `nil` means a whole-surah bookmark (e.g. from the surah list sheet).
+    let ayahNumber: Int?
     let createdAt: Date
 
     init(
@@ -22,6 +25,7 @@ struct AudioSurahBookmark: Identifiable, Codable, Equatable, Hashable {
         surahNumber: Int,
         surahTitleEn: String,
         surahTitleAr: String?,
+        ayahNumber: Int? = nil,
         createdAt: Date = Date()
     ) {
         self.id = id
@@ -31,6 +35,7 @@ struct AudioSurahBookmark: Identifiable, Codable, Equatable, Hashable {
         self.surahNumber = surahNumber
         self.surahTitleEn = surahTitleEn
         self.surahTitleAr = surahTitleAr
+        self.ayahNumber = ayahNumber
         self.createdAt = createdAt
     }
 

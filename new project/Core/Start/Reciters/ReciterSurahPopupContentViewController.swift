@@ -16,6 +16,7 @@ import LNPopupController
 
 final class ReciterSurahPopupContentViewController: UIViewController {
     private let session: ReciterPlaybackSession
+    private let selectedThemeColorManager: SelectedThemeColorManager
     private let player = ReciterSurahAudioPlayer()
     private var playerSubscription: AnyCancellable?
     private weak var customBar: ReciterSurahPopupBarViewController?
@@ -33,8 +34,9 @@ final class ReciterSurahPopupContentViewController: UIViewController {
         action: #selector(forwardTapped)
     )
 
-    init(session: ReciterPlaybackSession) {
+    init(session: ReciterPlaybackSession, selectedThemeColorManager: SelectedThemeColorManager) {
         self.session = session
+        self.selectedThemeColorManager = selectedThemeColorManager
         super.init(nibName: nil, bundle: nil)
         configurePopupItem()
         playerSubscription = player.objectWillChange
@@ -59,6 +61,7 @@ final class ReciterSurahPopupContentViewController: UIViewController {
             player: player,
             onMinimize: { [weak self] in self?.minimizePopup() }
         )
+        .environmentObject(selectedThemeColorManager)
         let hosting = UIHostingController(rootView: nowPlayingView)
         addChild(hosting)
         hosting.view.translatesAutoresizingMaskIntoConstraints = false
