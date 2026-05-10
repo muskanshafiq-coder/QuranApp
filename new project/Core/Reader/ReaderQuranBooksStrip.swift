@@ -94,15 +94,17 @@ struct ReaderQuranBooksStrip: View {
 
     private var downloadingOverlay: some View {
         ZStack {
-            Color.black.opacity(0.45).ignoresSafeArea()
+            Rectangle()
+                .fill(.ultraThinMaterial)
+                .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 14) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("reader_downloading_title")
                         .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundStyle(.primary)
                     Text("reader_downloading_status")
                         .font(.system(size: 13, design: .rounded))
-                        .foregroundColor(.white.opacity(0.55))
+                        .foregroundStyle(.secondary)
                 }
                 ProgressView(value: downloader.progress)
                     .progressViewStyle(.linear)
@@ -111,7 +113,8 @@ struct ReaderQuranBooksStrip: View {
             .padding(20)
             .background(
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(Color(white: 0.13))
+                    .fill(Color(.systemBackground))
+                    .shadow(color: .black.opacity(0.12), radius: 16, y: 6)
             )
             .padding(.horizontal, 32)
         }
@@ -152,7 +155,6 @@ struct ReaderQuranBooksStrip: View {
                             lineWidth: 1
                         )
                 )
-                .shadow(color: .black.opacity(0.35), radius: 8, x: 0, y: 4)
 
                 Text(verbatim: book.title)
                     .font(.system(size: 13, weight: .semibold, design: .rounded))

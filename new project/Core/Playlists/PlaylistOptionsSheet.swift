@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct PlaylistOptionsSheet: View {
     @Environment(\.dismiss) private var dismiss
@@ -13,9 +14,13 @@ struct PlaylistOptionsSheet: View {
     let onRename: () -> Void
     let onDelete: () -> Void
 
+    private var sheetBackground: Color {
+        Color(UIColor.systemGroupedBackground)
+    }
+
     var body: some View {
         NavigationStack {
-            VStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 12) {
                 sheetRow(
                     titleKey: "playlist_sheet_reorder",
                     systemImage: "list.number",
@@ -52,20 +57,27 @@ struct PlaylistOptionsSheet: View {
             .padding(.horizontal, 20)
             .padding(.top, 8)
             .frame(maxWidth: 700)
-            .frame(maxWidth: .infinity)
-            .background(Color.app.ignoresSafeArea())
-            .navigationTitle("playlist_sheet_title")
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .background(sheetBackground.ignoresSafeArea())
             .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("")
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("playlist_sheet_title")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Color.primary)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
+                            .font(.system(size: 15, weight: .semibold))
                     }
-
                 }
             }
+            .toolbarBackground(sheetBackground, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
 

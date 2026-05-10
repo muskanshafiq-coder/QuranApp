@@ -104,6 +104,7 @@ struct PlaylistDetailView: View {
                     }
                 }
             )
+            .presentationDragIndicator(.visible)
         }
         .alert("playlist_rename_alert_title", isPresented: $showRenameAlert) {
             TextField("playlist_rename_placeholder", text: $renameFieldText)

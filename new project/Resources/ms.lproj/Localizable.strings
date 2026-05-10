@@ -184,6 +184,8 @@
 "add_audio_bookmark" = "Tambah Audio ke Penanda Buku";
 "no_bookmarks_title" = "Tiada Penanda Buku";
 "add_text_bookmark" = "Tambah Teks ke Penanda Buku";
+"bookmarks_audio_see_all" = "Lihat Semua";
+"bookmarks_audio_remove" = "Buang Penanda Buku";
 "home_reciters_all_title" = "Semua Qari";
 "home_reciters_search_placeholder" = "Nama Qari";
 // MARK: - Reciter surah list (Player)

@@ -184,6 +184,8 @@
 "add_audio_bookmark" = "Audio toevoegen aan bladwijzers";
 "no_bookmarks_title" = "Geen bladwijzers";
 "add_text_bookmark" = "Tekst toevoegen aan bladwijzers";
+"bookmarks_audio_see_all" = "Bekijk alles";
+"bookmarks_audio_remove" = "Bladwijzer verwijderen";
 "home_reciters_all_title" = "Alle voordragers";
 "home_reciters_search_placeholder" = "Naam voordrager";
 // MARK: - Reciter surah list (Player)

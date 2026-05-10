@@ -48,8 +48,8 @@ struct SurahOptionsFlowSheet: View {
                 }
 
                 secondaryOptionButton(titleKey: "surah_options_add_bookmark", systemImage: "bookmark") {
-                    dismiss()
                     onAddBookmark()
+                    dismiss()
                 }
 
                 secondaryOptionButton(titleKey: "surah_options_play_next", systemImage: "text.line.first.and.arrowtriangle.forward") {

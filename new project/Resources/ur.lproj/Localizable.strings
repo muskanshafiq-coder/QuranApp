@@ -184,6 +184,8 @@
 "add_audio_bookmark" = "آڈیو کو بک مارکس میں شامل کریں";
 "no_bookmarks_title" = "کوئی بک مارکس نہیں";
 "add_text_bookmark" = "متن کو بک مارکس میں شامل کریں";
+"bookmarks_audio_see_all" = "سب دیکھیں";
+"bookmarks_audio_remove" = "بک مارک حذف کریں";
 "home_reciters_all_title" = "تمام قاری";
 "home_reciters_search_placeholder" = "قاری کا نام";
 // MARK: - Reciter surah list (Player)

@@ -184,6 +184,8 @@
 "add_audio_bookmark" = "Sesi Yer İmlerine Ekle";
 "no_bookmarks_title" = "Yer İmi Yok";
 "add_text_bookmark" = "Metni Yer İmlerine Ekle";
+"bookmarks_audio_see_all" = "Tümünü Gör";
+"bookmarks_audio_remove" = "Yer İmini Kaldır";
 "home_reciters_all_title" = "Tüm okuyucular";
 "home_reciters_search_placeholder" = "Okuyucu adı";
 // MARK: - Reciter surah list (Player)

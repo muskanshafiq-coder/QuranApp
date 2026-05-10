@@ -429,7 +429,7 @@ private struct PlayerRowButtonStyle: ButtonStyle {
 
             Spacer()
 
-            if let trailingCount {
+            if let trailingCount, trailingCount > 0 {
                 Text("\(trailingCount)")
                     .font(.system(size: 17, weight: .medium))
                     .foregroundColor(isPressed ? .white.opacity(0.9) : .secondary)

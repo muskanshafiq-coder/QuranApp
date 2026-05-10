@@ -183,6 +183,8 @@
 "add_audio_bookmark" = "Ajouter l’audio aux favoris";
 "no_bookmarks_title" = "Aucun favori";
 "add_text_bookmark" = "Ajouter le texte aux favoris";
+"bookmarks_audio_see_all" = "Tout voir";
+"bookmarks_audio_remove" = "Supprimer le favori";
 "home_reciters_all_title" = "Tous les récitateurs";
 "home_reciters_search_placeholder" = "Nom du récitateur";
 // MARK: - Reciter surah list (Player)

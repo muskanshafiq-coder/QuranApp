@@ -17,17 +17,24 @@ final class AudioBookmarksViewModel: ObservableObject {
         self.bookmarks = store.load()
     }
 
+    /// Syncs from persistent storage (e.g. tab became visible again).
+    func reloadFromStore() {
+        bookmarks = store.load()
+    }
+
     /// Inserts at the top; replaces an existing bookmark for the same reciter + surah.
     func add(_ bookmark: AudioSurahBookmark) {
-        bookmarks.removeAll {
+        var updated = bookmarks
+        updated.removeAll {
             $0.reciterSlug == bookmark.reciterSlug && $0.surahNumber == bookmark.surahNumber
         }
-        bookmarks.insert(bookmark, at: 0)
+        updated.insert(bookmark, at: 0)
+        bookmarks = updated
         store.save(bookmarks)
     }
 
     func remove(id: UUID) {
-        bookmarks.removeAll { $0.id == id }
+        bookmarks = bookmarks.filter { $0.id != id }
         store.save(bookmarks)
     }
 }

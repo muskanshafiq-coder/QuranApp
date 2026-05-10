@@ -184,6 +184,8 @@
 "add_audio_bookmark" = "Add Audio to Bookmark";
 "no_bookmarks_title" = "No Bookmarks";
 "add_text_bookmark" = "Add Text to Bookmark";
+"bookmarks_audio_see_all" = "See All";
+"bookmarks_audio_remove" = "Remove Bookmark";
 "home_reciters_all_title" = "All Reciters";
 "home_reciters_search_placeholder" = "Reciter Name";
 // MARK: - Reciter surah list (Player)
