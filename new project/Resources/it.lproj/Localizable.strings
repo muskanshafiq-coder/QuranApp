@@ -209,7 +209,7 @@
 
 "search_surah" = "Sura";
 
-// MARK: - Player home (Features / All Reciters)
+// MARK: - Player home (Featured / All Reciters)
 "player_features_section_title" = "In evidenza";
 "player_features_section_subtitle" = "Playlist curate con le migliori voci del momento al mondo";
 "player_all_reciters_title" = "Tutti i recitatori";

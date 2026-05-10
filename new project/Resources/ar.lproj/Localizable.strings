@@ -211,8 +211,8 @@
 
 "search_surah" = "سورة";
 
-// MARK: - Player home (Features / All Reciters)
-"player_features_section_title" = "المميزات";
+// MARK: - Player home (Featured / All Reciters)
+"player_features_section_title" = "المختارة";
 "player_features_section_subtitle" = "قوائم تشغيل منسقة بعناية لأفضل الأصوات في العالم في الوقت الحالي";
 "player_all_reciters_title" = "جميع القراء";
 "player_see_all" = "عرض الكل";

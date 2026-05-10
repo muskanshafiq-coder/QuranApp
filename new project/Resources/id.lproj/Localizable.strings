@@ -211,7 +211,7 @@
 
 "search_surah" = "Surah";
 
-// MARK: - Player home (Features / All Reciters)
+// MARK: - Player home (Featured / All Reciters)
 "player_features_section_title" = "Unggulan";
 "player_features_section_subtitle" = "Daftar putar pilihan ahli dari suara-suara terbaik dunia saat ini";
 "player_all_reciters_title" = "Semua Qari";

@@ -211,7 +211,7 @@
 
 "search_surah" = "Sure";
 
-// MARK: - Player home (Features / All Reciters)
+// MARK: - Player home (Featured / All Reciters)
 "player_features_section_title" = "Öne Çıkanlar";
 "player_features_section_subtitle" = "Dünyanın en güzel seslerinden uzmanca derlenmiş çalma listeleri";
 "player_all_reciters_title" = "Tüm Okuyucular";

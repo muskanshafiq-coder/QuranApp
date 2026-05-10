@@ -211,8 +211,8 @@
 
 "search_surah" = "سورۃ";
 
-// MARK: - Player home (Features / All Reciters)
-"player_features_section_title" = "خصوصیات";
+// MARK: - Player home (Featured / All Reciters)
+"player_features_section_title" = "نمایاں";
 "player_features_section_subtitle" = "دنیا کی بہترین آوازوں کی ماہرانہ منتخب پلے لسٹس";
 "player_all_reciters_title" = "تمام قاری";
 "player_see_all" = "سب دیکھیں";

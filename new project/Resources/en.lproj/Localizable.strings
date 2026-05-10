@@ -212,8 +212,8 @@
 
 "search_surah" = "Surah";
 
-// MARK: - Player home (Features / All Reciters)
-"player_features_section_title" = "Features";
+// MARK: - Player home (Featured / All Reciters)
+"player_features_section_title" = "Featured";
 "player_features_section_subtitle" = "Expertly curated playlists of the world's best voice of the moment";
 "player_all_reciters_title" = "All Reciters";
 "player_see_all" = "See All";
