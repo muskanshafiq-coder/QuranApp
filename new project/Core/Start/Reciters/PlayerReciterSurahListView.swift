@@ -386,57 +386,22 @@ struct PlayerReciterSurahListView: View {
     }
 
     private func surahRow(_ row: PlayerSurahRowModel) -> some View {
-        HStack(alignment: .center, spacing: 0) {
-            Text("\(row.number)")
-                .font(.system(size: 14, weight: .medium, design: .rounded))
-                .foregroundColor(.secondary)
-                .frame(width: 28, alignment: .leading)
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(row.englishLine)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.primary)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.85)
-                if !row.arabicLine.isEmpty {
-                    Text(row.arabicLine)
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, 6)
-            .contentShape(Rectangle())
-            .onTapGesture {
+        SurahListingRow(
+            number: row.number,
+            englishLine: row.englishLine,
+            arabicLine: row.arabicLine,
+            accentColor: selectedThemeColorManager.selectedColor,
+            onTapContent: {
                 guard let d = detail,
                       let dto = d.surahs.first(where: { $0.number == row.number }),
                       row.audioURL != nil
                 else { return }
                 ReciterPlaybackQueueCoordinator.shared.cancelQueued()
                 playbackSession = ReciterPlaybackSession(detail: d, surah: dto)
-            }
-
-            Button {} label: {
-                Image(systemName: "icloud.and.arrow.down")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(selectedThemeColorManager.selectedColor)
-            }
-            .buttonStyle(.plain)
-            .padding(.trailing, 10)
-
-            Button {
-                surahOptionsRow = row
-            } label: {
-                Image(systemName: "ellipsis")
-                    .font(.system(size: 16, weight: .semibold))
-                    .frame(width: 28)
-                    .foregroundColor(selectedThemeColorManager.selectedColor)
-            }
-            .buttonStyle(.plain)
-        }
-        .padding(.horizontal, rowHPadding)
-        .padding(.vertical, 12)
+            },
+            onDownload: {},
+            onMore: { surahOptionsRow = row }
+        )
     }
 
     // MARK: - Surah row sheet actions
@@ -452,7 +417,14 @@ struct PlayerReciterSurahListView: View {
     }
 
     private func addSurahToPlaylist(row: PlayerSurahRowModel, playlist: Playlist) {
-        if playlistsViewModel.addSurah(number: row.number, toPlaylistId: playlist.id) {
+        guard let d = detail else { return }
+        let entry = PlaylistSurahEntry(
+            surahNumber: row.number,
+            reciterSlug: d.slug,
+            englishLine: row.englishLine,
+            arabicLine: row.arabicLine
+        )
+        if playlistsViewModel.addSurahEntry(entry, toPlaylistId: playlist.id) {
             SurahRowActionFeedback.presentAddedToPlaylist(playlistName: playlist.name)
         } else {
             SurahRowActionFeedback.presentAlreadyInPlaylist(playlistName: playlist.name)

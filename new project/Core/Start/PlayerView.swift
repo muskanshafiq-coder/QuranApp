@@ -198,7 +198,11 @@ struct PlayerView: View {
                     .environmentObject(selectedThemeColorManager)
             }
             .navigationDestination(isPresented: $navigateToPopularReciters) {
-                PlayerAllRecitersView(reciters: popularReciterItems, preferredReciterId: $preferredAudioReciterId)
+                PlayerAllRecitersView(
+                    reciters: popularReciterItems,
+                    preferredReciterId: $preferredAudioReciterId,
+                    reciterCatalogExtras: playerReciterItems
+                )
                     .environmentObject(authManager)
                     .environmentObject(languageManager)
                     .environmentObject(themeManager)

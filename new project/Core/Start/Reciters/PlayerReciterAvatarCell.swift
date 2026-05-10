@@ -44,7 +44,7 @@ struct PlayerReciterAvatarCell: View {
                             startPoint: .topLeading, endPoint: .bottomTrailing
                         ))
 
-                    Text(PlayerReciterAvatarPalette.initials(for: item.englishName))
+                    Text(PlayerReciterAvatarPalette.initials(for: item.englishName, idFallback: item.id))
                         .font(.system(size: diameter * 0.27, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
 
@@ -73,10 +73,14 @@ struct PlayerReciterAvatarCell: View {
     }
 }
 enum PlayerReciterAvatarPalette {
-    static func initials(for name: String) -> String {
+    static func initials(for name: String, idFallback: String = "") -> String {
         let parts = name.trimmingCharacters(in: .whitespaces)
             .split(whereSeparator: \.isWhitespace).map(String.init)
-        guard !parts.isEmpty else { return "?" }
+        guard !parts.isEmpty else {
+            let fid = idFallback.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !fid.isEmpty else { return "?" }
+            return String(fid.prefix(2)).uppercased()
+        }
         if parts.count >= 2 { return "\(parts[0].prefix(1))\(parts[1].prefix(1))".uppercased() }
         return String(parts[0].prefix(2)).uppercased()
     }

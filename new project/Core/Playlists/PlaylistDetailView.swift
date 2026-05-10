@@ -17,6 +17,9 @@ struct PlaylistDetailView: View {
     @State private var editMode: EditMode = .inactive
     @State private var showRenameAlert = false
     @State private var renameFieldText = ""
+    @State private var playbackSession: ReciterPlaybackSession?
+
+    @AppStorage(UserDefaultsManager.Keys.quranPreferredAudioReciterEdition) private var preferredAudioReciterId: String = ""
 
     private var isIPad: Bool { horizontalSizeClass == .regular }
     private var contentMaxWidth: CGFloat { isIPad ? 700 : .infinity }
@@ -118,6 +121,18 @@ struct PlaylistDetailView: View {
         } message: {
             Text("playlist_rename_alert_message")
         }
+        .fullScreenCover(item: $playbackSession) { session in
+            ReciterSurahNowPlayingView(
+                detail: session.detail,
+                surah: session.surah,
+                onDismiss: { playbackSession = nil },
+                onFinishedCurrentTrack: {
+                    if let next = ReciterPlaybackQueueCoordinator.shared.dequeueNext() {
+                        playbackSession = next
+                    }
+                }
+            )
+        }
     }
 
     private func shareMessage(playlist: Playlist, userDisplayName: String) -> String {
@@ -135,6 +150,59 @@ struct PlaylistDetailView: View {
 
     private func scheduleAfterSheetDismiss(_ action: @escaping () -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: action)
+    }
+
+    private func play(entry: PlaylistSurahEntry) {
+        let stored = entry.reciterSlug.trimmingCharacters(in: .whitespacesAndNewlines)
+        let fallback = preferredAudioReciterId.trimmingCharacters(in: .whitespacesAndNewlines)
+        let slug = stored.isEmpty ? fallback : stored
+        guard !slug.isEmpty else { return }
+        Task {
+            var latest: IslamicCloudReciterDetailPayload?
+            _ = await ReciterRepository.loadReciterDetail(slug: slug) { d in
+                latest = d
+            }
+            guard let detail = latest,
+                  let dto = detail.surahs.first(where: { $0.number == entry.surahNumber })
+            else { return }
+            let audio = dto.audio?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            guard !audio.isEmpty else { return }
+            await MainActor.run {
+                ReciterPlaybackQueueCoordinator.shared.cancelQueued()
+                playbackSession = ReciterPlaybackSession(detail: detail, surah: dto)
+            }
+        }
+    }
+
+    private func removeSurah(_ entry: PlaylistSurahEntry) {
+        guard let idx = resolvedPlaylist.entries.firstIndex(where: { $0.surahNumber == entry.surahNumber }) else { return }
+        playlistsViewModel.removeSurah(at: idx, fromPlaylistId: resolvedPlaylist.id)
+    }
+
+    @ViewBuilder
+    private func entryRow(_ entry: PlaylistSurahEntry) -> some View {
+        SurahListingRow(
+            number: entry.surahNumber,
+            englishLine: entry.englishLine,
+            arabicLine: entry.arabicLine,
+            accentColor: selectedThemeColorManager.selectedColor,
+            onTapContent: { play(entry: entry) },
+            onDownload: {},
+            moreAccessory: {
+                Menu {
+                    Button(role: .destructive) {
+                        removeSurah(entry)
+                    } label: {
+                        Label("playlist_remove_surah", systemImage: "trash")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.system(size: 16, weight: .semibold))
+                        .frame(width: 28)
+                        .foregroundColor(selectedThemeColorManager.selectedColor)
+                }
+            }
+        )
     }
 
     private var headerCard: some View {
@@ -201,23 +269,20 @@ struct PlaylistDetailView: View {
 
     @ViewBuilder
     private var surahsSection: some View {
-        if resolvedPlaylist.surahIDs.isEmpty {
+        if resolvedPlaylist.entries.isEmpty {
             Text("playlist_detail_empty_surahs")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(16)
                 .background(RoundedRectangle(cornerRadius: 12).fill(Color.card))
-        } else {
+        } else if isReordering {
             List {
-                ForEach(resolvedPlaylist.surahIDs, id: \.self) { surahId in
-                    Text(
-                        String(
-                            format: NSLocalizedString("playlist_surah_row_format", comment: ""),
-                            surahId
-                        )
-                    )
-                    .listRowBackground(Color.card)
+                ForEach(resolvedPlaylist.entries, id: \.surahNumber) { entry in
+                    entryRow(entry)
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                 }
                 .onMove { source, destination in
                     playlistsViewModel.moveSurahs(
@@ -227,9 +292,28 @@ struct PlaylistDetailView: View {
                     )
                 }
             }
-            .listStyle(.insetGrouped)
+            .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .environment(\.editMode, $editMode)
+            .background(Color.card)
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        } else {
+            ScrollView {
+                VStack(spacing: 0) {
+                    ForEach(Array(resolvedPlaylist.entries.enumerated()), id: \.element.surahNumber) { index, entry in
+                        entryRow(entry)
+                        if index < resolvedPlaylist.entries.count - 1 {
+                            Divider()
+                                .background(Color(.separator))
+                                .padding(.horizontal, 14)
+                        }
+                    }
+                }
+                .padding(.vertical, 6)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.card)
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            }
         }
     }
 }

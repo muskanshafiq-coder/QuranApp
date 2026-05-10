@@ -23,6 +23,8 @@ struct PlayerAllRecitersView: View {
     let reciters: [PlayerReciterDisplayItem]
     @Binding var preferredReciterId: String
     var showSegmentedPicker: Bool = true
+    /// Extra reciter payloads (e.g. full “All reciters” list) used to merge stored favorites with fresh names/portraits so the Favorites tab matches Popular / All.
+    var reciterCatalogExtras: [PlayerReciterDisplayItem] = []
 
     @State private var searchText = ""
     @State private var selectedSegment: ReciterListSegment = .mostPopular
@@ -36,13 +38,26 @@ struct PlayerAllRecitersView: View {
         return Array(repeating: GridItem(.flexible(), spacing: 8), count: count)
     }
 
+    /// Primary list wins on conflicts; extras fill in ids missing from `reciters`.
+    private var mergedCatalogById: [String: PlayerReciterDisplayItem] {
+        var map: [String: PlayerReciterDisplayItem] = [:]
+        for item in reciterCatalogExtras {
+            map[item.id] = item
+        }
+        for item in reciters {
+            map[item.id] = item
+        }
+        return map
+    }
+
     /// Reciters available in the current segment (before search filtering).
     private var segmentReciters: [PlayerReciterDisplayItem] {
         switch selectedSegment {
         case .mostPopular:
             return reciters
         case .favorites:
-            return favoritesViewModel.favorites
+            let catalog = mergedCatalogById
+            return favoritesViewModel.favorites.map { catalog[$0.id] ?? $0 }
         }
     }
 

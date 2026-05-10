@@ -175,6 +175,7 @@
 "playlist_share_link_format" = "https://quran.app/playlist/%@";
 "playlist_share_default_user" = "You";
 "playlist_detail_empty_surahs" = "No surahs in this playlist yet.";
+"playlist_remove_surah" = "Remove from Playlist";
 "playlist_surah_row_format" = "Surah %d";
 "playlist_reorder_done_accessibility" = "Done reordering";
 "bookmarks_title" = "Bookmarks";
