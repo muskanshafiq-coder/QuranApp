@@ -296,3 +296,11 @@
 "alert_download" = "Загрузить";
 "reader_downloading_title" = "Загружается Коран для чтения офлайн…";
 "reader_downloading_status" = "Идёт загрузка";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Продолжить";
+"reader_pdf_close_grid" = "Закрыть сетку";
+"reader_pdf_browse_pages" = "Просмотр страниц";
+"reader_pdf_save_page" = "Сохранить страницу";
+"reader_pdf_error_invalid_url" = "Неверный URL PDF";
+"reader_pdf_error_open_failed" = "Не удалось открыть PDF";

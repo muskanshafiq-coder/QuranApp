@@ -296,3 +296,11 @@
 "alert_download" = "İndir";
 "reader_downloading_title" = "Çevrimdışı okumak için Kur'an indiriliyor…";
 "reader_downloading_status" = "İndirme devam ediyor";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Devam Et";
+"reader_pdf_close_grid" = "Izgarayı Kapat";
+"reader_pdf_browse_pages" = "Sayfaları Gözat";
+"reader_pdf_save_page" = "Sayfayı Kaydet";
+"reader_pdf_error_invalid_url" = "Geçersiz PDF URL";
+"reader_pdf_error_open_failed" = "PDF açılamadı";

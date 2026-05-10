@@ -294,3 +294,11 @@
 "alert_download" = "Descargar";
 "reader_downloading_title" = "Descargando el Corán para leer sin conexión…";
 "reader_downloading_status" = "Descarga en curso";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Reanudar";
+"reader_pdf_close_grid" = "Cerrar cuadrícula";
+"reader_pdf_browse_pages" = "Ver páginas";
+"reader_pdf_save_page" = "Guardar página";
+"reader_pdf_error_invalid_url" = "URL de PDF no válida";
+"reader_pdf_error_open_failed" = "No se pudo abrir el PDF";

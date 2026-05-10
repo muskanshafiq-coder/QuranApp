@@ -296,3 +296,11 @@
 "alert_download" = "Unduh";
 "reader_downloading_title" = "Mengunduh Al-Qur'an untuk dibaca offline…";
 "reader_downloading_status" = "Unduhan Berlangsung";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Lanjutkan";
+"reader_pdf_close_grid" = "Tutup grid";
+"reader_pdf_browse_pages" = "Jelajahi halaman";
+"reader_pdf_save_page" = "Simpan halaman";
+"reader_pdf_error_invalid_url" = "URL PDF tidak valid";
+"reader_pdf_error_open_failed" = "Tidak dapat membuka PDF";

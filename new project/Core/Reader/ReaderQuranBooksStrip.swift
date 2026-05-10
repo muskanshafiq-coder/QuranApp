@@ -10,6 +10,8 @@ struct ReaderQuranBooksStrip: View {
     private let bookHeight: CGFloat = 142
     private let corner: CGFloat = 14
 
+    @Environment(\.colorScheme) private var colorScheme
+
     @StateObject private var viewModel = ReaderQuranBooksViewModel()
     @StateObject private var downloader = PDFLoader()
     @State private var selectedBook: ReaderQuranBook?
@@ -37,22 +39,9 @@ struct ReaderQuranBooksStrip: View {
         .task {
             await viewModel.loadIfNeeded()
         }
-        .background(
-            NavigationLink(
-                destination: Group {
-                    if let book = selectedBook {
-                        ReaderPDFViewerView(book: book)
-                    }
-                },
-                isActive: Binding(
-                    get: { selectedBook != nil },
-                    set: { if !$0 { selectedBook = nil } }
-                )
-            ) {
-                EmptyView()
-            }
-            .hidden()
-        )
+        .fullScreenCover(item: $selectedBook) { book in
+            ReaderPDFViewerView(book: book)
+        }
         .alert(
             Text("quran_pro_download_title"),
             isPresented: Binding(
@@ -94,8 +83,9 @@ struct ReaderQuranBooksStrip: View {
 
     private var downloadingOverlay: some View {
         ZStack {
+            // Solid dimmed scrim (no material) — `.ultraThinMaterial` blurs the whole screen behind the sheet.
             Rectangle()
-                .fill(.ultraThinMaterial)
+                .fill(downloadScrimColor)
                 .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 14) {
                 VStack(alignment: .leading, spacing: 4) {
@@ -118,6 +108,12 @@ struct ReaderQuranBooksStrip: View {
             )
             .padding(.horizontal, 32)
         }
+    }
+
+    private var downloadScrimColor: Color {
+        colorScheme == .dark
+            ? Color.black.opacity(0.55)
+            : Color.black.opacity(0.28)
     }
 
     private func bookCell(_ book: ReaderQuranBook) -> some View {

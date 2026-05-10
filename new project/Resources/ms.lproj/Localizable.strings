@@ -296,3 +296,11 @@
 "alert_download" = "Muat Turun";
 "reader_downloading_title" = "Memuat turun Al-Quran untuk dibaca luar talian…";
 "reader_downloading_status" = "Muat Turun Sedang Berlangsung";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Sambung";
+"reader_pdf_close_grid" = "Tutup grid";
+"reader_pdf_browse_pages" = "Layari halaman";
+"reader_pdf_save_page" = "Simpan halaman";
+"reader_pdf_error_invalid_url" = "URL PDF tidak sah";
+"reader_pdf_error_open_failed" = "Tidak dapat membuka PDF";

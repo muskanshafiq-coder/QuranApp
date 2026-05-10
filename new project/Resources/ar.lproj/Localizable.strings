@@ -296,3 +296,11 @@
 "alert_download" = "تنزيل";
 "reader_downloading_title" = "جارٍ تنزيل القرآن للقراءة بدون اتصال…";
 "reader_downloading_status" = "التنزيل قيد التقدم";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "استئناف";
+"reader_pdf_close_grid" = "إغلاق شبكة الصفحات";
+"reader_pdf_browse_pages" = "تصفح الصفحات";
+"reader_pdf_save_page" = "حفظ الصفحة";
+"reader_pdf_error_invalid_url" = "رابط PDF غير صالح";
+"reader_pdf_error_open_failed" = "تعذر فتح ملف PDF";

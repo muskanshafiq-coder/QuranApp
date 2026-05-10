@@ -296,3 +296,11 @@
 "alert_download" = "ڈاؤن لوڈ";
 "reader_downloading_title" = "آف لائن مطالعہ کے لیے قرآن ڈاؤن لوڈ ہو رہا ہے…";
 "reader_downloading_status" = "ڈاؤن لوڈ جاری ہے";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "جاری رکھیں";
+"reader_pdf_close_grid" = "گرڈ بند کریں";
+"reader_pdf_browse_pages" = "صفحات دیکھیں";
+"reader_pdf_save_page" = "صفحہ محفوظ کریں";
+"reader_pdf_error_invalid_url" = "PDF لنک غلط ہے";
+"reader_pdf_error_open_failed" = "PDF نہیں کھل سکی";

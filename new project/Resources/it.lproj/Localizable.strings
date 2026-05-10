@@ -294,3 +294,11 @@
 "alert_download" = "Scarica";
 "reader_downloading_title" = "Download del Corano per la lettura offline…";
 "reader_downloading_status" = "Download in corso";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Riprendi";
+"reader_pdf_close_grid" = "Chiudi griglia";
+"reader_pdf_browse_pages" = "Sfoglia pagine";
+"reader_pdf_save_page" = "Salva pagina";
+"reader_pdf_error_invalid_url" = "URL PDF non valido";
+"reader_pdf_error_open_failed" = "Impossibile aprire il PDF";

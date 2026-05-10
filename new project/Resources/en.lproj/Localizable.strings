@@ -298,3 +298,11 @@
 "reader_downloading_title" = "Downloading Quran for reading offline…";
 "reader_downloading_status" = "Download in Progress";
 
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Resume";
+"reader_pdf_close_grid" = "Close page grid";
+"reader_pdf_browse_pages" = "Browse pages";
+"reader_pdf_save_page" = "Save page";
+"reader_pdf_error_invalid_url" = "Invalid PDF URL";
+"reader_pdf_error_open_failed" = "Could not open PDF";
+

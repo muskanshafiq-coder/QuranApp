@@ -294,3 +294,11 @@
 "alert_download" = "Herunterladen";
 "reader_downloading_title" = "Koran wird zum Offline-Lesen heruntergeladen…";
 "reader_downloading_status" = "Download läuft";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Fortsetzen";
+"reader_pdf_close_grid" = "Raster schließen";
+"reader_pdf_browse_pages" = "Seiten durchsuchen";
+"reader_pdf_save_page" = "Seite speichern";
+"reader_pdf_error_invalid_url" = "Ungültige PDF-URL";
+"reader_pdf_error_open_failed" = "PDF konnte nicht geöffnet werden";

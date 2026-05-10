@@ -295,3 +295,11 @@
 "alert_download" = "Télécharger";
 "reader_downloading_title" = "Téléchargement du Coran pour la lecture hors ligne…";
 "reader_downloading_status" = "Téléchargement en cours";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Reprendre";
+"reader_pdf_close_grid" = "Fermer la grille";
+"reader_pdf_browse_pages" = "Parcourir les pages";
+"reader_pdf_save_page" = "Enregistrer la page";
+"reader_pdf_error_invalid_url" = "URL PDF invalide";
+"reader_pdf_error_open_failed" = "Impossible d'ouvrir le PDF";

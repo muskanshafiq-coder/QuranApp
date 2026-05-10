@@ -296,3 +296,11 @@
 "alert_download" = "Downloaden";
 "reader_downloading_title" = "Koran downloaden om offline te lezen…";
 "reader_downloading_status" = "Download bezig";
+
+// MARK: - Reader PDF viewer
+"reader_pdf_resume" = "Hervatten";
+"reader_pdf_close_grid" = "Raster sluiten";
+"reader_pdf_browse_pages" = "Pagina's bekijken";
+"reader_pdf_save_page" = "Pagina opslaan";
+"reader_pdf_error_invalid_url" = "Ongeldige PDF-URL";
+"reader_pdf_error_open_failed" = "PDF kon niet worden geopend";
