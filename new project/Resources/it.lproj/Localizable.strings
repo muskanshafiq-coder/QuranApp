@@ -330,3 +330,6 @@
 /* Reciter now playing */
 "reciter_now_playing_surah_index_of_total" = "%1$d di %2$d";
 "general_ok" = "OK";
+"expandable_toolbar_placeholder_title" = "Altro";
+"expandable_toolbar_placeholder_message" = "Pannello segnaposto. Potrai collegare le azioni qui in seguito.";
+"expandable_toolbar_more_actions" = "Altre azioni";

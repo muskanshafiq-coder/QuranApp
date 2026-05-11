@@ -332,3 +332,6 @@
 /* Reciter now playing */
 "reciter_now_playing_surah_index_of_total" = "%1$d dari %2$d";
 "general_ok" = "OKE";
+"expandable_toolbar_placeholder_title" = "Lainnya";
+"expandable_toolbar_placeholder_message" = "Panel contoh. Anda dapat menambahkan tindakan di sini nanti.";
+"expandable_toolbar_more_actions" = "Tindakan lainnya";

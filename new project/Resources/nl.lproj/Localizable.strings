@@ -332,3 +332,6 @@
 /* Reciter now playing */
 "reciter_now_playing_surah_index_of_total" = "%1$d van %2$d";
 "general_ok" = "OK";
+"expandable_toolbar_placeholder_title" = "Meer";
+"expandable_toolbar_placeholder_message" = "Tijdelijk paneel. U kunt hier later acties toevoegen.";
+"expandable_toolbar_more_actions" = "Meer acties";

@@ -71,7 +71,6 @@ private struct MarqueeSurahTitleView: View {
                 } else {
                     Text(segment)
                         .font(font)
-                        .foregroundColor(.white)
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -99,12 +98,10 @@ private struct MarqueeSurahTitleView: View {
         HStack(spacing: gap) {
             Text(segment)
                 .font(font)
-                .foregroundColor(.white)
                 .lineLimit(1)
                 .fixedSize(horizontal: true, vertical: false)
             Text(segment)
                 .font(font)
-                .foregroundColor(.white)
                 .lineLimit(1)
                 .fixedSize(horizontal: true, vertical: false)
         }
@@ -139,25 +136,15 @@ struct ReciterSurahNowPlayingView: View {
     @ObservedObject private var premiumManager = PremiumManager.shared
     @State private var translationSheetContext: AyahTranslationSheetContext?
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
-    /// UIKit nav bar + SwiftUI toolbar — toggled from scroll *direction* (delta),
-    /// not scroll position, so show/hide happens immediately on each reversal.
+    @State private var isReciterMoreActionsSheetPresented = false
     @State private var reciterNavBarUIKitHidden = false
-    /// Previous `ScrollTopMinYForNavBarPreferenceKey` sample for delta-based bar toggling.
     @State private var lastScrollContentMinY: CGFloat = .infinity
-    /// Last time we flipped `reciterNavBarUIKitHidden`, used to suppress chatter
-    /// while the visual transform animation is still in flight.
     @State private var lastNavBarToggleAt: Date = .distantPast
-    /// Ignore scroll samples briefly after a bar visibility flip to avoid
-    /// feedback loops caused by layout changes while bottom chrome transitions.
     @State private var suppressScrollUpdatesUntil: Date = .distantPast
-    /// Hysteresis state: only flip bars after enough travel in one direction.
     @State private var pendingScrollDirection: Int = 0 // -1 up, +1 down
     @State private var pendingScrollTravel: CGFloat = 0
-    /// Pauses auto-scroll-to-active-ayah while the user scrolls the list.
     @State private var pauseAutoAyahScrollUntil: Date = .distantPast
-    /// True while the user is dragging the timeline slider (scrubbing).
     @State private var isTimelineScrubbing = false
-    /// Brief white ring blink on transport controls.
     @State private var transportRingBlink: ReciterTransportRingBlink?
     @State private var showCarPlayPremiumInfo = false
 
@@ -264,7 +251,6 @@ struct ReciterSurahNowPlayingView: View {
     @ViewBuilder
     private func chromeTransportChip(active: Bool, accent: Color, @ViewBuilder label: () -> some View) -> some View {
         label()
-            .foregroundColor(active ? Color.white : Color.white.opacity(0.55))
             .frame(width: 40, height: 40)
             .background(
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -285,16 +271,6 @@ struct ReciterSurahNowPlayingView: View {
         }
     }
 
-    @ViewBuilder
-    private func transportRingOverlay(_ ring: ReciterTransportRingBlink, diameter: CGFloat) -> some View {
-        let on = transportRingBlink == ring
-        Circle()
-            .stroke(Color.white.opacity(on ? 0.95 : 0), lineWidth: 2.25)
-            .frame(width: diameter, height: diameter)
-            .scaleEffect(on ? 1.1 : 1.0)
-            .animation(.easeOut(duration: 0.22), value: on)
-            .allowsHitTesting(false)
-    }
 
     var body: some View {
         AppNavigationContainer{
@@ -304,7 +280,6 @@ struct ReciterSurahNowPlayingView: View {
                 VStack(spacing: 0) {
                     if loadFailed {
                         Text("error")
-                            .foregroundColor(.white.opacity(0.7))
                             .padding()
                         Spacer()
                     } else if isLoadingAyahs, ayahs.isEmpty {
@@ -385,7 +360,6 @@ struct ReciterSurahNowPlayingView: View {
                     ToolbarItem(placement: .principal) {
                         Text(principalSurahIndexTitle)
                             .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.white)
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
@@ -412,6 +386,7 @@ struct ReciterSurahNowPlayingView: View {
                 pendingScrollTravel = 0
                 pauseAutoAyahScrollUntil = .distantPast
                 isTimelineScrubbing = false
+                isReciterMoreActionsSheetPresented = false
             }
             .task {
                 await loadAyahContent()
@@ -419,6 +394,13 @@ struct ReciterSurahNowPlayingView: View {
             .sheet(item: $translationSheetContext) { context in
                 AyahTranslationSheet(context: context)
                     .environmentObject(selectedThemeColorManager)
+            }
+            .sheet(isPresented: $isReciterMoreActionsSheetPresented) {
+                ExpandableToolbarPlaceholderPanel {
+                    isReciterMoreActionsSheetPresented = false
+                }
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
             }
             .alert("feature_carplay_title", isPresented: $showCarPlayPremiumInfo) {
                 Button("general_ok", role: .cancel) {}
@@ -495,11 +477,6 @@ struct ReciterSurahNowPlayingView: View {
         )
     }
 
-    /// Hides the nav bar when the user scrolls **down** the list (content `minY`
-    /// decreases) and shows it again on the next **up** scroll — independent of
-    /// how far from the top they are. The visual change is a transform/alpha
-    /// animation on `UINavigationBar` (no safe-area reflow), and a minimum
-    /// dwell time stops the state from chattering during a single gesture.
     private func updateNavBarVisibilityFromScroll(minY: CGFloat) {
         guard minY.isFinite else { return }
         if Date() < suppressScrollUpdatesUntil { return }
@@ -519,8 +496,6 @@ struct ReciterSurahNowPlayingView: View {
         if abs(delta) < noise { return }
         if abs(delta) > jump { return }
 
-        // Require sustained movement before flipping visibility. This prevents
-        // tiny settle/reflow movement from causing one extra jerk.
         let direction = delta < 0 ? -1 : 1
         if direction != pendingScrollDirection {
             pendingScrollDirection = direction
@@ -597,7 +572,6 @@ struct ReciterSurahNowPlayingView: View {
                     } label: {
                         Image(systemName: "gobackward.15")
                             .font(.system(size: 20))
-                            .foregroundColor(.white)
                     }
                     .buttonStyle(.plain)
                     .frame(maxWidth: .infinity)
@@ -607,10 +581,8 @@ struct ReciterSurahNowPlayingView: View {
                         goToPreviousReciterAudio()
                     } label: {
                         ZStack {
-                            transportRingOverlay(.previousSurah, diameter: 44)
                             Image(systemName: "backward.end.fill")
                                 .font(.system(size: 22))
-                                .foregroundColor(.white)
                         }
                     }
                     .buttonStyle(.plain)
@@ -620,15 +592,8 @@ struct ReciterSurahNowPlayingView: View {
                         player.togglePlayPause()
                         flashTransportRing(.playPause)
                     } label: {
-                        ZStack {
-                            Circle()
-                                .fill(Color.white.opacity(0.12))
-                                .frame(width: 56, height: 56)
-                            transportRingOverlay(.playPause, diameter: 56)
                             Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                                 .font(.system(size: 26, weight: .medium))
-                                .foregroundColor(.white)
-                        }
                     }
                     .buttonStyle(.plain)
 
@@ -637,10 +602,8 @@ struct ReciterSurahNowPlayingView: View {
                         goToNextReciterAudio()
                     } label: {
                         ZStack {
-                            transportRingOverlay(.nextSurah, diameter: 44)
                             Image(systemName: "forward.end.fill")
                                 .font(.system(size: 22))
-                                .foregroundColor(.white)
                         }
                     }
                     .buttonStyle(.plain)
@@ -652,7 +615,6 @@ struct ReciterSurahNowPlayingView: View {
                     } label: {
                         Image(systemName: "goforward.15")
                             .font(.system(size: 20))
-                            .foregroundColor(.white)
                     }
                     .buttonStyle(.plain)
                     .frame(maxWidth: .infinity)
@@ -671,11 +633,9 @@ struct ReciterSurahNowPlayingView: View {
                 HStack {
                     Text(formatTime(player.currentTime))
                         .font(.system(size: 12, weight: .medium, design: .monospaced))
-                        .foregroundColor(.white.opacity(0.55))
                     Spacer()
                     Text(formatTime(player.duration))
                         .font(.system(size: 12, weight: .medium, design: .monospaced))
-                        .foregroundColor(.white.opacity(0.55))
                 }
                 ReciterSmallThumbSlider(
                     value: Binding(
@@ -708,7 +668,6 @@ struct ReciterSurahNowPlayingView: View {
                     if !reciterTitle.isEmpty {
                         Text(reciterTitle)
                             .font(.system(size: 14, weight: .regular))
-                            .foregroundColor(.white.opacity(0.55))
                             .lineLimit(1)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -742,12 +701,11 @@ struct ReciterSurahNowPlayingView: View {
 
             ZStack {
                 VStack(spacing: 2) {
-                    ReciterAirPlayRoutePicker(tint: .white)
+                    ReciterAirPlayRoutePicker(tint: .gray)
                         .frame(width: 34, height: 28)
                     if !audioOutputLabel.isEmpty {
                         Text(audioOutputLabel)
                             .font(.system(size: 10, weight: .medium))
-                            .foregroundColor(.white.opacity(0.65))
                             .multilineTextAlignment(.center)
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
@@ -762,7 +720,7 @@ struct ReciterSurahNowPlayingView: View {
                         } label: {
                             Image(systemName: "list.bullet")
                                 .font(.system(size: 18))
-                                .foregroundColor(.white.opacity(0.65))
+                                .foregroundColor(.gray)
                         }
                         .buttonStyle(.plain)
 
@@ -771,7 +729,7 @@ struct ReciterSurahNowPlayingView: View {
                         } label: {
                             Text(playbackRateLabel)
                                 .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                .foregroundColor(.white.opacity(0.85))
+                                .foregroundColor(.gray)
                         }
                         .buttonStyle(.plain)
                     }
@@ -787,7 +745,7 @@ struct ReciterSurahNowPlayingView: View {
                     } label: {
                         Image(systemName: "car.fill")
                             .font(.system(size: 18))
-                            .foregroundColor(.white.opacity(0.65))
+                            .foregroundColor(.gray)
                     }
                     .buttonStyle(.plain)
                 }
@@ -804,7 +762,6 @@ struct ReciterSurahNowPlayingView: View {
         Button(action: action) {
             Image(systemName: systemName)
                 .font(.system(size: 18))
-                .foregroundColor(.white.opacity(0.65))
         }
         .buttonStyle(.plain)
         .frame(maxWidth: .infinity)

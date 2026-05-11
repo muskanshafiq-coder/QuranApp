@@ -332,3 +332,6 @@
 /* Reciter now playing */
 "reciter_now_playing_surah_index_of_total" = "%2$d میں سے %1$d";
 "general_ok" = "ٹھیک";
+"expandable_toolbar_placeholder_title" = "مزید";
+"expandable_toolbar_placeholder_message" = "عارضی پینل۔ بعد میں یہاں اعمال شامل کریں۔";
+"expandable_toolbar_more_actions" = "مزید اعمال";

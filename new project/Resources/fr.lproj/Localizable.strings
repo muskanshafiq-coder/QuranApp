@@ -331,3 +331,6 @@
 /* Reciter now playing */
 "reciter_now_playing_surah_index_of_total" = "%1$d sur %2$d";
 "general_ok" = "OK";
+"expandable_toolbar_placeholder_title" = "Plus";
+"expandable_toolbar_placeholder_message" = "Panneau de substitution. Vous pourrez ajouter des actions ici plus tard.";
+"expandable_toolbar_more_actions" = "Plus d’actions";
