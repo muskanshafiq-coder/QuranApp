@@ -18,6 +18,8 @@ struct ReciterPlayerAyahRow: View {
 
     @Environment(\.colorScheme) private var colorScheme
     @AppStorage(UserDefaultsManager.Keys.quranFontSize) private var quranFontSize: Double = 20
+    @AppStorage(UserDefaultsManager.Keys.quranFontFamily) private var storedQuranFontFamily: String = QuranAyahDisplayFont.freeReciterArabicFontFamilyId
+    @ObservedObject private var premiumManager = PremiumManager.shared
 
     /// One size for transliteration + every translation (matches reference “supplementary” band).
     private var supplementaryFontSize: CGFloat {
@@ -31,7 +33,20 @@ struct ReciterPlayerAyahRow: View {
 
     private var ayahFont: Font {
         let size = CGFloat(quranFontSize > 0 ? quranFontSize : 22)
-        return QuranAyahDisplayFont.uthmani(size: size)
+        return QuranAyahDisplayFont.reciterArabicFont(
+            storedFamilyId: storedQuranFontFamily,
+            size: size,
+            isPremiumUser: premiumManager.isPremium
+        )
+    }
+
+    private var resolvedArabicFontFamilyId: String {
+        premiumManager.isPremium ? storedQuranFontFamily : QuranAyahDisplayFont.freeReciterArabicFontFamilyId
+    }
+
+    /// Naskh-style Nabi needs a bit more line leading to match print-like references.
+    private var arabicLineSpacing: CGFloat {
+        resolvedArabicFontFamilyId == QuranAyahDisplayFont.freeReciterArabicFontFamilyId ? 10 : 6
     }
 
     var body: some View {
@@ -44,7 +59,7 @@ struct ReciterPlayerAyahRow: View {
                         .font(ayahFont)
                         .foregroundStyle(Color(uiColor: .label))
                         .multilineTextAlignment(.trailing)
-                        .lineSpacing(6)
+                        .lineSpacing(arabicLineSpacing)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .environment(\.layoutDirection, .rightToLeft)
 

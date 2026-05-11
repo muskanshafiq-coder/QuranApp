@@ -10,13 +10,13 @@ final class PremiumManager: NSObject, ObservableObject {
 
     static let shared = PremiumManager()
 
-    @Published private(set) var isPremium: Bool = true
+    @Published private(set) var isPremium: Bool = false
 
     private let defaults = UserDefaults.standard
     private let cacheKey = "is_premium_user"
 
     private override init() {
-//        isPremium = defaults.bool(forKey: cacheKey)
+        isPremium = defaults.bool(forKey: cacheKey)
         super.init()
     }
 
@@ -34,12 +34,12 @@ final class PremiumManager: NSObject, ObservableObject {
     }
 
     // MARK: - Status update (always call on MainActor)
-//    @MainActor
-//    func updatePremiumStatus(_ value: Bool) {
-//        guard isPremium != value else { return }
-//        isPremium = value
-//        defaults.set(value, forKey: cacheKey)
-//    }
+    @MainActor
+    func updatePremiumStatus(_ value: Bool) {
+        guard isPremium != value else { return }
+        isPremium = value
+        defaults.set(value, forKey: cacheKey)
+    }
 }
 
 //// MARK: - PurchasesDelegate

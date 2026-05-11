@@ -341,6 +341,14 @@
 "quran_juz_format" = "پارہ %@";
 "quran_options_tab_translations" = "تراجم";
 "quran_options_tab_appearance" = "ظاہری شکل";
+"quran_appearance_text_style" = "متن کا انداز";
+"quran_appearance_font_and_size" = "فونٹ اور سائز";
+"quran_appearance_scroll_speed" = "سکرول کی رفتار";
+"quran_appearance_audio_sync_title" = "آڈیو سنک";
+"quran_appearance_audio_sync_description" = "قرآن کی آیات آڈیو کے ساتھ ہموار طریقے سے ہم آہنگ ہوتی ہیں۔ صرف چند قاریوں کے لیے دستیاب۔";
+"quran_font_family_nabi" = "Nabi";
+"quran_arabic_text_font" = "عربی متن";
+"quran_appearance_nav_title_font" = "فونٹ";
 "quran_in_arabic_title" = "قرآن عربی میں";
 "quran_downloaded_translations" = "ڈاؤن لوڈ شدہ تراجم";
 "quran_downloaded_translations_subtitle" = "تراجم جو آپ پہلے ڈاؤن لوڈ کر چکے ہیں";

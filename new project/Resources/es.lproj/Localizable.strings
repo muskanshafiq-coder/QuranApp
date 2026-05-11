@@ -339,6 +339,14 @@
 "quran_juz_format" = "Juz %@";
 "quran_options_tab_translations" = "Traducciones";
 "quran_options_tab_appearance" = "Apariencia";
+"quran_appearance_text_style" = "Estilo de texto";
+"quran_appearance_font_and_size" = "Fuente y tamaño";
+"quran_appearance_scroll_speed" = "Velocidad de desplazamiento";
+"quran_appearance_audio_sync_title" = "Sincronización de audio";
+"quran_appearance_audio_sync_description" = "Los versículos del Corán se sincronizan con el audio de forma fluida. Disponible solo para algunos recitadores.";
+"quran_font_family_nabi" = "Nabi";
+"quran_arabic_text_font" = "Texto árabe";
+"quran_appearance_nav_title_font" = "Fuente";
 "quran_in_arabic_title" = "Corán en árabe";
 "quran_downloaded_translations" = "Traducciones descargadas";
 "quran_downloaded_translations_subtitle" = "Traducciones que ya has descargado";

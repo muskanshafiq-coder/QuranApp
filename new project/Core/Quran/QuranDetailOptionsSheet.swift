@@ -135,6 +135,9 @@ enum QuranDetailOptionsTab: String, CaseIterable, Identifiable {
     }
 }
 
+private enum QuranAppearanceRoute: Hashable {
+    case fontAndSize
+}
 
 struct QuranDetailOptionsSheet: View {
     /// Default editions shown with no delete/checkmark icons (Al-Quran Cloud identifiers).
@@ -147,8 +150,11 @@ struct QuranDetailOptionsSheet: View {
     let onDismiss: () -> Void
     
     @State private var selectedTab: QuranDetailOptionsTab
-    @AppStorage(UserDefaultsManager.Keys.quranFontFamily) private var selectedFont: String = "SF font"
+    @AppStorage(UserDefaultsManager.Keys.quranFontFamily) private var selectedFont: String = QuranAyahDisplayFont.freeReciterArabicFontFamilyId
+    @ObservedObject private var premiumManager = PremiumManager.shared
     @AppStorage(UserDefaultsManager.Keys.quranFontSize) private var fontSize: Double = 20
+    @AppStorage(UserDefaultsManager.Keys.quranReciterAyahScrollSpeed) private var reciterAyahScrollSpeed: Double = 0.5
+    @State private var appearanceNavPath = NavigationPath()
     @State private var downloadedIds: [String] = []
     @State private var selectedIds: [String] = []
     /// Loaded from Al-Quran Cloud GET /v1/edition?format=text&type=translation
@@ -157,23 +163,25 @@ struct QuranDetailOptionsSheet: View {
     @State private var allPhoneticItems: [TranslationItem] = []
     @State private var editionsLoading = true
 
-    /// PostScript / UserDefaults storage IDs (must stay stable for AyahRowView and previews).
+    /// UserDefaults / `UserDefaultsManager.Keys.quranFontFamily` ids (first is free; rest premium unless subscribed).
     private let quranFontFamilyIds: [String] = [
+        QuranAyahDisplayFont.freeReciterArabicFontFamilyId,
         "Me Quran",
         "PDMS Saleem Quran Font",
         "Al Qalam Quran Majeed Web",
-        "Droid Arabic Naskh",
+        "Scheherazade",
         "SF font",
-        "Noto Kufi Arabic",
         "Noto Naskh Arabic",
         "Noto Nastaliq Urdu",
-        "Scheherazade"
+        "Noto Kufi Arabic",
+        "Droid Arabic Naskh"
     ]
 
     /// Localized title for the font picker; `id` is the value stored in UserDefaults.
     private func localizedQuranFontName(_ id: String) -> String {
         let key: String
         switch id {
+        case QuranAyahDisplayFont.freeReciterArabicFontFamilyId: key = "quran_font_family_nabi"
         case "Me Quran": key = "quran_font_family_me_quran"
         case "PDMS Saleem Quran Font": key = "quran_font_family_pdms_saleem"
         case "Al Qalam Quran Majeed Web": key = "quran_font_family_al_qalam_majeed_web"
@@ -195,26 +203,38 @@ struct QuranDetailOptionsSheet: View {
     }
     
     var body: some View {
-        NavigationView{
-            ZStack{
+        NavigationStack(path: $appearanceNavPath) {
+            ZStack {
                 Color.app
                     .ignoresSafeArea()
-                
-                if selectedTab == .translations {
-                    translationsContent
-                } else {
-                    appearanceContent
+
+                Group {
+                    if selectedTab == .translations {
+                        translationsContent
+                    } else {
+                        appearanceOverviewContent
+                    }
                 }
             }
-            .toolbar{
+            .navigationDestination(for: QuranAppearanceRoute.self) { route in
+                switch route {
+                case .fontAndSize:
+                    appearanceFontAndSizeDetailContent
+                        .navigationTitle("quran_appearance_nav_title_font")
+                        .navigationBarTitleDisplayMode(.inline)
+                }
+            }
+            .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Picker("", selection: $selectedTab) {
-                        ForEach(QuranDetailOptionsTab.allCases) { tab in
-                            Text(tab.localizedTitle).tag(tab)
+                    if selectedTab == .translations || appearanceNavPath.isEmpty {
+                        Picker("", selection: $selectedTab) {
+                            ForEach(QuranDetailOptionsTab.allCases) { tab in
+                                Text(tab.localizedTitle).tag(tab)
+                            }
                         }
+                        .pickerStyle(.segmented)
+                        .frame(width: 200)
                     }
-                    .pickerStyle(.segmented)
-                    .frame(width: 200)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -224,6 +244,11 @@ struct QuranDetailOptionsSheet: View {
                         Image(systemName: "xmark")
                             .font(.system(size: 14, weight: .semibold))
                     }
+                }
+            }
+            .onChange(of: selectedTab) { newTab in
+                if newTab == .translations {
+                    appearanceNavPath = NavigationPath()
                 }
             }
             .onAppear {
@@ -245,6 +270,82 @@ struct QuranDetailOptionsSheet: View {
                 // Ensures selections/downloads are saved when the sheet closes by any path (button, swipe, etc.).
                 persistTranslationState()
             }
+        }
+    }
+
+    /// Appearance tab root: text-style row, scroll speed, audio sync (paywall).
+    private var appearanceOverviewContent: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("quran_appearance_text_style")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(Color(UIColor.secondaryLabel))
+                        .padding(.horizontal, 4)
+                    NavigationLink(value: QuranAppearanceRoute.fontAndSize) {
+                        HStack {
+                            Text("quran_appearance_font_and_size")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(Color(UIColor.tertiaryLabel))
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 14)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(.card)
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                }
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("quran_appearance_scroll_speed")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(Color(UIColor.secondaryLabel))
+                        .padding(.horizontal, 4)
+                    VStack(spacing: 6) {
+                        Slider(value: $reciterAyahScrollSpeed, in: 0...1, step: 0.25)
+                            .tint(selectedThemeColorManager.selectedColor)
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 14)
+                    .background(.card)
+                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                }
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Button {
+                        DummyPaywallPresenter.shared.present()
+                    } label: {
+                        HStack {
+                            Text("quran_appearance_audio_sync_title")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                            Spacer()
+                            Image(systemName: "lock.fill")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(selectedThemeColorManager.selectedColor)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 14)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(.card)
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                    Text("quran_appearance_audio_sync_description")
+                        .font(.system(size: 12, weight: .regular))
+                        .foregroundColor(Color(UIColor.secondaryLabel))
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.horizontal, 4)
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+            .padding(.bottom, 24)
         }
     }
     
@@ -596,11 +697,11 @@ struct QuranDetailOptionsSheet: View {
         }
     }
     
-    private var appearanceContent: some View {
+    private var appearanceFontAndSizeDetailContent: some View {
         ScrollView {
             VStack(alignment: .leading){
                 VStack(alignment: .leading, spacing: 4){
-                    Text("quran_font")
+                    Text("quran_arabic_text_font")
                         .font(.system(size: 14, weight: .bold,design: .rounded))
                         .foregroundColor(.secondary)
                         .padding(.horizontal)
@@ -608,16 +709,29 @@ struct QuranDetailOptionsSheet: View {
                     LazyVStack(spacing: 0) {
                         ForEach(quranFontFamilyIds, id: \.self) { font in
                             Button {
-                                UserDefaultsManager.shared.quranFontFamily = font
-                                selectedFont = font
+                                let freeId = QuranAyahDisplayFont.freeReciterArabicFontFamilyId
+                                if font == freeId {
+                                    UserDefaultsManager.shared.quranFontFamily = font
+                                    selectedFont = font
+                                } else if premiumManager.isPremium {
+                                    UserDefaultsManager.shared.quranFontFamily = font
+                                    selectedFont = font
+                                } else {
+                                    DummyPaywallPresenter.shared.present()
+                                }
                             } label: {
                                 HStack {
                                     Text(LocalizedStringKey(localizedQuranFontName(font)))
                                         .foregroundColor(colorScheme == .dark ? .white : .black)
                                     Spacer()
-                                    if selectedFont == font {
+                                    if !premiumManager.isPremium, font != QuranAyahDisplayFont.freeReciterArabicFontFamilyId {
+                                        Image(systemName: "lock.fill")
+                                            .font(.system(size: 15, weight: .semibold))
+                                            .foregroundColor(selectedThemeColorManager.selectedColor)
+                                    } else if selectedFont == font {
                                         Image(systemName: "checkmark")
-                                            .foregroundColor(.blue)
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundColor(selectedThemeColorManager.selectedColor)
                                     }
                                 }
                                 .padding()
@@ -665,6 +779,14 @@ struct QuranDetailOptionsSheet: View {
                 .padding(.top, 16)
                 .padding(.bottom, 24)
             }
+            .background(.app)
+        }
+        .onAppear {
+            if !premiumManager.isPremium, selectedFont != QuranAyahDisplayFont.freeReciterArabicFontFamilyId {
+                let free = QuranAyahDisplayFont.freeReciterArabicFontFamilyId
+                UserDefaultsManager.shared.quranFontFamily = free
+                selectedFont = free
+            }
         }
     }
 
@@ -685,6 +807,9 @@ struct QuranDetailOptionsSheet: View {
     private var previewFont: Font {
         if selectedFont == "SF font" {
             return .system(size: fontSize, weight: .regular)
+        }
+        if selectedFont == QuranAyahDisplayFont.freeReciterArabicFontFamilyId {
+            return .custom(QuranAyahDisplayFont.nabiResolvedFontName, size: fontSize)
         }
         let fontNameMap: [String: String] = [
             "Me Quran": "me_quran",

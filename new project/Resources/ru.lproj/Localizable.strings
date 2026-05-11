@@ -341,6 +341,14 @@
 "quran_juz_format" = "Джуз %@";
 "quran_options_tab_translations" = "Переводы";
 "quran_options_tab_appearance" = "Оформление";
+"quran_appearance_text_style" = "Стиль текста";
+"quran_appearance_font_and_size" = "Шрифт и размер";
+"quran_appearance_scroll_speed" = "Скорость прокрутки";
+"quran_appearance_audio_sync_title" = "Синхронизация с аудио";
+"quran_appearance_audio_sync_description" = "Аяты Корана плавно синхронизируются с аудио. Доступно только для некоторых чтецов.";
+"quran_font_family_nabi" = "Nabi";
+"quran_arabic_text_font" = "Арабский текст";
+"quran_appearance_nav_title_font" = "Шрифт";
 "quran_in_arabic_title" = "Коран на арабском";
 "quran_downloaded_translations" = "Загруженные переводы";
 "quran_downloaded_translations_subtitle" = "Переводы, которые вы уже загрузили";

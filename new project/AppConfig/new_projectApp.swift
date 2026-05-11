@@ -11,7 +11,8 @@ struct MyApp: App {
     @StateObject private var selectedThemeColorManager = SelectedThemeColorManager()
     @StateObject private var authManager = AuthManager.shared
     @ObservedObject private var dummyPaywallPresenter = DummyPaywallPresenter.shared
-    init(){
+    init() {
+        QuranAyahDisplayFont.registerBundledReciterFonts()
         prefetchSleepStories()
     }
     var body: some Scene {

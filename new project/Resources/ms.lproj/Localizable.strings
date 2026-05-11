@@ -341,6 +341,14 @@
 "quran_juz_format" = "Juz %@";
 "quran_options_tab_translations" = "Terjemahan";
 "quran_options_tab_appearance" = "Penampilan";
+"quran_appearance_text_style" = "Gaya teks";
+"quran_appearance_font_and_size" = "Font & saiz";
+"quran_appearance_scroll_speed" = "Kelajuan tatal";
+"quran_appearance_audio_sync_title" = "Penyegerakan audio";
+"quran_appearance_audio_sync_description" = "Ayat Al-Quran disegerakkan dengan audio dengan lancar. Tersedia untuk sesetengah qari sahaja.";
+"quran_font_family_nabi" = "Nabi";
+"quran_arabic_text_font" = "Teks Arab";
+"quran_appearance_nav_title_font" = "Font";
 "quran_in_arabic_title" = "Al-Quran dalam bahasa Arab";
 "quran_downloaded_translations" = "Terjemahan Dimuat Turun";
 "quran_downloaded_translations_subtitle" = "Terjemahan yang telah anda muat turun";

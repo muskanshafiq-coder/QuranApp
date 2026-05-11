@@ -151,6 +151,8 @@ struct ReciterSurahNowPlayingView: View {
     @State private var quranDetailOptionsSheetTab: QuranDetailOptionsTab?
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @AppStorage(UserDefaultsManager.Keys.quranLatestSelectedTranslationId) private var storedLatestTranslationId: String = ""
+    /// 0 = follow-scroll off; >0 while audio plays scrolls the list to the active ayah (speed maps to animation duration).
+    @AppStorage(UserDefaultsManager.Keys.quranReciterAyahScrollSpeed) private var reciterAyahScrollSpeed: Double = 0.5
 
     private var ayahListHorizontalPadding: CGFloat {
         horizontalSizeClass == .regular ? 48 : 16
@@ -367,14 +369,21 @@ struct ReciterSurahNowPlayingView: View {
                                 }
                             )
                             .modifier(ReciterScrollUserInteractionPauseModifier(pauseUntil: $pauseAutoAyahScrollUntil))
-                            .onChange(of: activeAyahNumber) { newVal in
-                                scrollToActiveAyahIfAllowed(proxy: proxy, ayahNumber: newVal)
+                            .onChange(of: player.currentTime) { _ in
+                                smoothScrollFollowPlaybackIfAllowed(proxy: proxy)
+                            }
+                            .onChange(of: player.isPlaying) { isPlaying in
+                                guard isPlaying else { return }
+                                smoothScrollFollowPlaybackIfAllowed(proxy: proxy)
+                            }
+                            .onChange(of: reciterAyahScrollSpeed) { _ in
+                                guard player.isPlaying else { return }
+                                smoothScrollFollowPlaybackIfAllowed(proxy: proxy)
                             }
                             .onChange(of: ayahs.count) { count in
                                 guard count > 0 else { return }
-                                let n = activeAyahNumber
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                                    scrollToActiveAyahIfAllowed(proxy: proxy, ayahNumber: n)
+                                    smoothScrollFollowPlaybackIfAllowed(proxy: proxy)
                                 }
                             }
                         }
@@ -408,7 +417,8 @@ struct ReciterSurahNowPlayingView: View {
                             quranDetailOptionsSheetTab = .translations
                         } label: {
                             Text(translationsToolbarFlagEmoji)
-                                .font(.system(size: 22))
+                                .font(.body)
+                                .scaleEffect(horizontalSizeClass == .regular ? 1.35 : 1.2)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.85)
                         }
@@ -584,11 +594,17 @@ struct ReciterSurahNowPlayingView: View {
         pendingScrollTravel = 0
     }
 
-    private func scrollToActiveAyahIfAllowed(proxy: ScrollViewProxy, ayahNumber: Int) {
+    /// Follows `currentTime` with a moving `scrollTo` anchor so motion stays continuous (not only on ayah index changes).
+    private func smoothScrollFollowPlaybackIfAllowed(proxy: ScrollViewProxy) {
+        guard reciterAyahScrollSpeed > 0 else { return }
+        guard player.isPlaying else { return }
         guard !isTimelineScrubbing else { return }
         guard Date() > pauseAutoAyahScrollUntil else { return }
-        withAnimation(.easeInOut(duration: 0.78)) {
-            proxy.scrollTo(ayahNumber, anchor: .bottom)
+        guard let target = player.smoothFollowScrollTarget(ayahCount: ayahCountForMapping) else { return }
+        let base = UserDefaultsManager.ayahScrollAnimationDuration(forStoredSpeed: reciterAyahScrollSpeed)
+        let frameDur = max(0.028, min(0.22, base * 0.09))
+        withAnimation(.linear(duration: frameDur)) {
+            proxy.scrollTo(target.ayah, anchor: UnitPoint(x: 0.5, y: target.anchorY))
         }
     }
 

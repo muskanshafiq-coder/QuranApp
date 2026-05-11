@@ -339,6 +339,14 @@
 "quran_juz_format" = "Juz %@";
 "quran_options_tab_translations" = "Übersetzungen";
 "quran_options_tab_appearance" = "Erscheinungsbild";
+"quran_appearance_text_style" = "Textstil";
+"quran_appearance_font_and_size" = "Schrift & Größe";
+"quran_appearance_scroll_speed" = "Scrollgeschwindigkeit";
+"quran_appearance_audio_sync_title" = "Audio-Sync";
+"quran_appearance_audio_sync_description" = "Die Koranverse werden auf magische Weise mit dem Audio synchronisiert. Nur bei einigen Rezitatoren verfügbar.";
+"quran_font_family_nabi" = "Nabi";
+"quran_arabic_text_font" = "Arabischer Text";
+"quran_appearance_nav_title_font" = "Schrift";
 "quran_in_arabic_title" = "Koran auf Arabisch";
 "quran_downloaded_translations" = "Heruntergeladene Übersetzungen";
 "quran_downloaded_translations_subtitle" = "Übersetzungen, die Sie bereits heruntergeladen haben";

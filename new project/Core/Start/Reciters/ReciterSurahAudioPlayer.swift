@@ -56,7 +56,8 @@ final class ReciterSurahAudioPlayer: ObservableObject {
             }
         }
 
-        let interval = CMTime(seconds: 0.2, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        // Finer than 0.2s so reciter follow-scroll can interpolate smoothly with `scrollTo` anchors.
+        let interval = CMTime(seconds: 1.0 / 30.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         timeObserver = p.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] t in
             guard let self else { return }
             self.currentTime = t.seconds
@@ -140,6 +141,22 @@ final class ReciterSurahAudioPlayer: ObservableObject {
         let t = min(max(0, currentTime), d - 1e-6)
         let zeroBased = Int(floor((t / d) * Double(ayahCount)))
         return min(ayahCount, max(1, zeroBased + 1))
+    }
+
+    /// Linear model over the whole surah: used to move the scroll anchor smoothly within each ayah’s time slice.
+    /// `anchorY` is the SwiftUI `UnitPoint.y` for `scrollTo(_:anchor:)` (horizontal center).
+    func smoothFollowScrollTarget(ayahCount: Int) -> (ayah: Int, anchorY: CGFloat)? {
+        guard ayahCount > 0 else { return nil }
+        let d = duration
+        guard d > 0 else { return nil }
+        let t = min(max(0, currentTime), d)
+        let p = (t / d) * Double(ayahCount)
+        let idx0 = min(ayahCount - 1, max(0, Int(floor(p))))
+        let frac = CGFloat(p - Double(idx0))
+        let ayah = idx0 + 1
+        // As `frac` advances through this ayah’s segment, move the anchor downward so the list tracks continuously.
+        let anchorY = 0.20 + frac * 0.58
+        return (ayah, anchorY)
     }
 
     func seekToEstimatedStartOfAyah(ayahNumber: Int, ayahCount: Int) {

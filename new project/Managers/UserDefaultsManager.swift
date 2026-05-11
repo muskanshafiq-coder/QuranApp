@@ -25,6 +25,8 @@ final class UserDefaultsManager {
         static let audioBookmarksData = "audio_bookmarks_data"
         static let quranLatestSelectedTranslationId = "quran_latest_selected_translation_id"
         static let quranDownloadedTranslationIds = "quran_downloaded_translation_ids"
+        /// 0 = slowest auto-scroll, 1 = fastest. Maps to ayah follow animation duration in reciter surah view.
+        static let quranReciterAyahScrollSpeed = "quran_reciter_ayah_scroll_speed"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -101,7 +103,7 @@ final class UserDefaultsManager {
     /// Selected Quran font family. "SF font" = system font; otherwise use custom font name.
     var quranFontFamily: String {
         get {
-            defaults.string(forKey: Keys.quranFontFamily) ?? "SF font"
+            defaults.string(forKey: Keys.quranFontFamily) ?? "Nabi"
         }
         set {
             defaults.set(newValue, forKey: Keys.quranFontFamily)
@@ -146,5 +148,23 @@ final class UserDefaultsManager {
         set {
             defaults.set(newValue, forKey: Keys.quranSelectedTranslationIds)
         }
+    }
+
+    /// Stored 0...1; higher = faster auto-scroll to active ayah in reciter surah view.
+    var quranReciterAyahScrollSpeed: Double {
+        get {
+            guard defaults.object(forKey: Keys.quranReciterAyahScrollSpeed) != nil else { return 0.5 }
+            let v = defaults.double(forKey: Keys.quranReciterAyahScrollSpeed)
+            return min(1, max(0, v))
+        }
+        set {
+            defaults.set(min(1, max(0, newValue)), forKey: Keys.quranReciterAyahScrollSpeed)
+        }
+    }
+
+    /// `easeInOut` duration used when scrolling the ayah list to the active verse (from stored speed).
+    static func ayahScrollAnimationDuration(forStoredSpeed speed: Double) -> Double {
+        let s = min(1, max(0, speed))
+        return 1.28 - s * (1.28 - 0.32)
     }
 }

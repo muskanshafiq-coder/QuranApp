@@ -47,6 +47,7 @@ struct DummySubscriptionPaywallView: View {
                 Spacer(minLength: 12)
 
                 Button {
+                    PremiumManager.shared.updatePremiumStatus(true)
                     DummyPaywallPresenter.shared.dismiss()
                 } label: {
                     Text("dummy_paywall_subscribe")
