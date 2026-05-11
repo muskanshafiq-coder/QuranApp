@@ -7,8 +7,7 @@
 "more_features_title" = "Commencer";
 "notification_title" = "Notification";
 "verse_of_the_day_permission" = "Pour recevoir le verset du jour, vous devez autoriser les notifications";
-"app_name_quran" = "Coran";
-"app_name_pro" = "Pro";
+"app_display_name" = "Quran Pro";
 "app_description" = "Écoutez le Coran avec les voix les plus belles du monde. Profitez également de la meilleure expérience de lecture.";
 "sign_in_apple" = "Se connecter avec Apple";
 "other_sign_in_options" = "Autres options de connexion";

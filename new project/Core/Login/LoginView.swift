@@ -34,15 +34,9 @@ struct LoginView: View {
                             .frame(width: 80, height: 80)
                             .padding(.top, 40)
 
-                        HStack(spacing: 0) {
-                            Text("app_name_quran")
-                                .font(.custom("Avenir Next Cyr", size: 34))
-                                .foregroundColor(.blue)
-
-                            Text("app_name_pro")
-                                .font(.system(size: 34))
-                                .foregroundColor(.blue)
-                        }
+                        Text("app_display_name")
+                            .font(.custom("Avenir Next Cyr", size: 34))
+                            .foregroundColor(.blue)
 
                         Text(descriptionKey)
                             .font(.system(size: 15))

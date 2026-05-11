@@ -1,6 +1,6 @@
 /*
   Localizable.strings
-  new project
+  Quran Pro
 
   Created by Muhammad Ahsan on 17/03/2026.
   
@@ -8,8 +8,7 @@
 "more_features_title" = "Başla";
 "notification_title" = "Bildirim";
 "verse_of_the_day_permission" = "Günün ayetini almak için bildirimlere izin vermeniz gerekmektedir";
-"app_name_quran" = "Kur'an";
-"app_name_pro" = "Pro";
+"app_display_name" = "Quran Pro";
 "app_description" = "Dünyanın en güzel seslerinden Kur'an'ı dinleyin. En iyi okuma deneyimi ile birlikte.";
 "sign_in_apple" = "Apple ile Giriş Yap";
 "other_sign_in_options" = "Diğer Giriş Seçenekleri";
