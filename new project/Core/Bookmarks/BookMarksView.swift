@@ -9,11 +9,16 @@ struct BookmarksView: View {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
     @ObservedObject private var audioBookmarksViewModel = AudioBookmarksViewModel.shared
+    @ObservedObject private var readingBookmarksViewModel = ReadingBookmarksViewModel.shared
     @AppStorage(UserDefaultsManager.Keys.quranPreferredAudioReciterEdition) private var preferredAudioReciterId: String = ""
     @State private var showDownloadManager = false
 
     private var audioBookmarksPreview: [AudioSurahBookmark] {
         Array(audioBookmarksViewModel.bookmarks.prefix(3))
+    }
+
+    private var readingBookmarksPreview: [ReadingSurahBookmark] {
+        Array(readingBookmarksViewModel.bookmarks.prefix(3))
     }
 
     var body: some View {
@@ -91,14 +96,52 @@ struct BookmarksView: View {
 
                     VStack(alignment: .leading, spacing: 14) {
 
-                        Text("reading_title")
-                            .font(.system(size: 22, weight: .bold))
-                            .foregroundColor(primaryTextColor)
+                        if readingBookmarksViewModel.bookmarks.isEmpty {
+                            Text("reading_title")
+                                .font(.system(size: 22, weight: .bold))
+                                .foregroundColor(primaryTextColor)
 
-                        bookmarkCard(
-                            title: "no_bookmarks_title",
-                            subtitle: "add_text_bookmark"
-                        )
+                            bookmarkCard(
+                                title: "no_bookmarks_title",
+                                subtitle: "add_text_bookmark"
+                            )
+                        } else {
+                            HStack(alignment: .firstTextBaseline) {
+                                Text("reading_title")
+                                    .font(.system(size: 22, weight: .bold))
+                                    .foregroundColor(primaryTextColor)
+
+                                Spacer(minLength: 8)
+
+                                NavigationLink {
+                                    ReadingBookmarksListScreen()
+                                } label: {
+                                    Text("bookmarks_audio_see_all")
+                                        .font(.system(size: 16, weight: .semibold))
+                                        .foregroundColor(selectedThemeColorManager.selectedColor)
+                                }
+                            }
+
+                            VStack(spacing: 12) {
+                                ForEach(readingBookmarksPreview) { bookmark in
+                                    ReadingBookmarkRowCard(bookmark: bookmark) {
+                                        Menu {
+                                            Button(role: .destructive, action: {
+                                                readingBookmarksViewModel.remove(id: bookmark.id)
+                                            }) {
+                                                Label("bookmarks_audio_remove", systemImage: "bookmark.slash")
+                                            }
+                                        } label: {
+                                            Image(systemName: "ellipsis")
+                                                .font(.system(size: 16, weight: .semibold))
+                                                .frame(width: 28)
+                                                .foregroundStyle(selectedThemeColorManager.selectedColor)
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     Spacer(minLength: 120)
@@ -111,10 +154,106 @@ struct BookmarksView: View {
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 audioBookmarksViewModel.reloadFromStore()
+                readingBookmarksViewModel.reloadFromStore()
             }
             .sheet(isPresented: $showDownloadManager) {
                 DownloadManagerSheet()
             }
+        }
+    }
+}
+
+// MARK: - Reading bookmarks row
+
+private struct ReadingBookmarkRowCard<MenuContent: View>: View {
+    let bookmark: ReadingSurahBookmark
+    @ViewBuilder let menu: () -> MenuContent
+
+    @Environment(\.colorScheme) private var colorScheme
+
+    private var titleLine: String {
+        let ar = bookmark.surahTitleAr?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if ar.isEmpty {
+            return bookmark.surahTitleEn
+        }
+        return "\(bookmark.surahTitleEn) \(ar)"
+    }
+
+    private var subtitleLine: String {
+        String(
+            format: NSLocalizedString("reading_bookmark_row_subtitle_format", comment: ""),
+            bookmark.page,
+            bookmark.surahNumber,
+            bookmark.ayahNumber
+        )
+    }
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(titleLine)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(colorScheme == .dark ? .white : .primary)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.85)
+                Text(subtitleLine)
+                    .font(.system(size: 13, weight: .regular))
+                    .foregroundColor(colorScheme == .dark ? .white.opacity(0.55) : .secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            menu()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color(UIColor.secondarySystemBackground))
+        )
+    }
+}
+
+// MARK: - All reading bookmarks
+
+private struct ReadingBookmarksListScreen: View {
+    @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
+    @ObservedObject private var readingBookmarksViewModel = ReadingBookmarksViewModel.shared
+
+    private var backgroundColor: Color {
+        colorScheme == .dark ? .black : Color.app
+    }
+
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 12) {
+                ForEach(readingBookmarksViewModel.bookmarks) { bookmark in
+                    ReadingBookmarkRowCard(bookmark: bookmark) {
+                        Menu {
+                            Button(role: .destructive, action: {
+                                readingBookmarksViewModel.remove(id: bookmark.id)
+                            }) {
+                                Label("bookmarks_audio_remove", systemImage: "bookmark.slash")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .font(.system(size: 16, weight: .semibold))
+                                .frame(width: 28)
+                                .foregroundStyle(selectedThemeColorManager.selectedColor)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 8)
+            .padding(.bottom, 120)
+        }
+        .background(backgroundColor.ignoresSafeArea())
+        .navigationTitle("reading_title")
+        .navigationBarTitleDisplayMode(.large)
+        .onAppear {
+            readingBookmarksViewModel.reloadFromStore()
         }
     }
 }

@@ -450,19 +450,6 @@ private struct PlayerRowButtonStyle: ButtonStyle {
     }
 }
 
-private extension View {
-    @ViewBuilder
-    func toolbarSpacerIfAvailable() -> some View {
-        if #available(iOS 26.0, *) {
-            self.toolbar {
-                ToolbarSpacer(placement: .topBarTrailing)
-            }
-        } else {
-            self
-        }
-    }
-}
-
 @ViewBuilder
 func bottomButton(title: String, icon: String) -> some View {
     

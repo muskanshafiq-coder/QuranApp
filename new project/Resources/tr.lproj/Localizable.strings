@@ -9,6 +9,10 @@
 "notification_title" = "Bildirim";
 "verse_of_the_day_permission" = "Günün ayetini almak için bildirimlere izin vermeniz gerekmektedir";
 "app_display_name" = "Quran Pro";
+"reader_surah_toolbar_subtitle_format" = "Page %d, Juz %d Hizb %d";
+"reader_surah_close_a11y" = "Close";
+"reader_add_reading_bookmark_a11y" = "Add to reading bookmarks";
+"reading_bookmark_row_subtitle_format" = "Page %d, surah %d, aya %d";
 "app_description" = "Dünyanın en güzel seslerinden Kur'an'ı dinleyin. En iyi okuma deneyimi ile birlikte.";
 "sign_in_apple" = "Apple ile Giriş Yap";
 "other_sign_in_options" = "Diğer Giriş Seçenekleri";

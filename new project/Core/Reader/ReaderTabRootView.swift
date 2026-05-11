@@ -12,12 +12,7 @@ struct ReaderTabRootView: View {
         }
     }
 }
-//
-//  QuranView.swift
-//  Quran App
-//
 
-import SwiftUI
 enum AllSurasNavigation {
     case normal
     case search
@@ -139,15 +134,18 @@ struct QuranView: View {
 //            }
         )
         .fullScreenCover(item: $surahDetailContext) { ctx in
-//            SuraDetailView(
-//                surah: ctx.surah,
-//                viewModel: viewModel,
-//                surahs: viewModel.surahs,
-//                initialScrollToAyahNumber: ctx.scrollToAyahNumber,
-//                onSwitchToSurah: { newSurah in
-//                    surahDetailContext = SuraDetailContext(surah: newSurah, scrollToAyahNumber: nil)
-//                }
-//            )
+            ReciterSurahNowPlayingView(
+                detail: IslamicCloudReciterDetailPayload.readerTabPlaybackDetail,
+                surah: IslamicCloudReciterSurahItemDTO(readerSurah: ctx.surah),
+                player: ReciterSurahAudioPlayer(),
+                onMinimize: { surahDetailContext = nil },
+                isReaderTabPresentation: true,
+                initialReaderScrollAyah: ctx.scrollToAyahNumber,
+                readerSurahs: viewModel.surahs,
+                onReaderSwitchSurah: { newSurah in
+                    surahDetailContext = SuraDetailContext(surah: newSurah, scrollToAyahNumber: nil)
+                }
+            )
         }
     }
     

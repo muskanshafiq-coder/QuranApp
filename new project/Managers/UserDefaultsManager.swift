@@ -23,6 +23,7 @@ final class UserDefaultsManager {
         static let quranLastHizbQuarter = "quran_last_hizb_quarter"
         static let favoriteRecitersData = "favorite_reciters_data"
         static let audioBookmarksData = "audio_bookmarks_data"
+        static let readingBookmarksData = "reading_bookmarks_data"
         static let quranLatestSelectedTranslationId = "quran_latest_selected_translation_id"
         static let quranDownloadedTranslationIds = "quran_downloaded_translation_ids"
         /// 0 = slowest auto-scroll, 1 = fastest. Maps to ayah follow animation duration in reciter surah view.
@@ -98,7 +99,17 @@ final class UserDefaultsManager {
     func saveAudioBookmarksData(_ data: Data) {
         defaults.set(data, forKey: Keys.audioBookmarksData)
     }
-    
+
+    // MARK: - Reading bookmarks (Reader tab surah)
+
+    func readingBookmarksData() -> Data? {
+        defaults.data(forKey: Keys.readingBookmarksData)
+    }
+
+    func saveReadingBookmarksData(_ data: Data) {
+        defaults.set(data, forKey: Keys.readingBookmarksData)
+    }
+
     // MARK: - Quran Font
     /// Selected Quran font family. "SF font" = system font; otherwise use custom font name.
     var quranFontFamily: String {

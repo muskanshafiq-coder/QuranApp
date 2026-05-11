@@ -7,6 +7,10 @@
 "notification_title" = "Benachrichtigung";
 "verse_of_the_day_permission" = "Um das Vers des Tages zu erhalten, müssen Sie Benachrichtigungen zulassen";
 "app_display_name" = "Quran Pro";
+"reader_surah_toolbar_subtitle_format" = "Page %d, Juz %d Hizb %d";
+"reader_surah_close_a11y" = "Close";
+"reader_add_reading_bookmark_a11y" = "Add to reading bookmarks";
+"reading_bookmark_row_subtitle_format" = "Page %d, surah %d, aya %d";
 "app_description" = "Hören Sie den Koran mit den schönsten Stimmen der Welt. Genießen Sie außerdem das beste Leseerlebnis.";
 "sign_in_apple" = "Mit Apple anmelden";
 "other_sign_in_options" = "Weitere Anmeldeoptionen";

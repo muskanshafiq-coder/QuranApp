@@ -112,6 +112,11 @@ struct ReciterSurahNowPlayingView: View {
     let detail: IslamicCloudReciterDetailPayload
     let surah: IslamicCloudReciterSurahItemDTO
     let onMinimize: () -> Void
+    /// Reader tab full-screen: Quran-style toolbar, optional deep link scroll, prev/next within `readerSurahs`.
+    private let isReaderTabPresentation: Bool
+    private let initialReaderScrollAyah: Int?
+    private let readerSurahs: [SurahItem]?
+    private let onReaderSwitchSurah: ((SurahItem) -> Void)?
 
     @ObservedObject private var player: ReciterSurahAudioPlayer
 
@@ -119,11 +124,19 @@ struct ReciterSurahNowPlayingView: View {
         detail: IslamicCloudReciterDetailPayload,
         surah: IslamicCloudReciterSurahItemDTO,
         player: ReciterSurahAudioPlayer,
-        onMinimize: @escaping () -> Void
+        onMinimize: @escaping () -> Void,
+        isReaderTabPresentation: Bool = false,
+        initialReaderScrollAyah: Int? = nil,
+        readerSurahs: [SurahItem]? = nil,
+        onReaderSwitchSurah: ((SurahItem) -> Void)? = nil
     ) {
         self.detail = detail
         self.surah = surah
         self.onMinimize = onMinimize
+        self.isReaderTabPresentation = isReaderTabPresentation
+        self.initialReaderScrollAyah = initialReaderScrollAyah
+        self.readerSurahs = readerSurahs
+        self.onReaderSwitchSurah = onReaderSwitchSurah
         self._player = ObservedObject(wrappedValue: player)
     }
 
@@ -135,6 +148,7 @@ struct ReciterSurahNowPlayingView: View {
     @State private var loadFailed = false
     @State private var isLoadingAyahs = true
     @ObservedObject private var audioBookmarksViewModel = AudioBookmarksViewModel.shared
+    @ObservedObject private var readingBookmarksViewModel = ReadingBookmarksViewModel.shared
     @ObservedObject private var premiumManager = PremiumManager.shared
     @State private var translationSheetContext: AyahTranslationSheetContext?
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
@@ -147,6 +161,7 @@ struct ReciterSurahNowPlayingView: View {
     @State private var transportRingBlink: ReciterTransportRingBlink?
     @State private var showCarPlayPremiumInfo = false
     @State private var quranDetailOptionsSheetTab: QuranDetailOptionsTab?
+    @State private var didPerformInitialReaderAyahScroll = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @AppStorage(UserDefaultsManager.Keys.quranLatestSelectedTranslationId) private var storedLatestTranslationId: String = ""
 
@@ -205,6 +220,27 @@ struct ReciterSurahNowPlayingView: View {
         return en.lowercased().hasPrefix("surah") ? en : "Surah \(en)"
     }
 
+    /// Page / Juz / Hizb line under the surah title (Reader tab toolbar).
+    private var readerToolbarSubtitle: String {
+        guard let first = ayahs.first else {
+            return " "
+        }
+        return String(
+            format: NSLocalizedString("reader_surah_toolbar_subtitle_format", comment: ""),
+            first.page,
+            first.juz,
+            first.hizbQuarter
+        )
+    }
+
+    /// Reader toolbar bookmark targets ayah 1 of the open surah (same as `addCurrentSurahToReadingBookmarks`).
+    private var readerToolbarBookmarkAyahNumber: Int { 1 }
+
+    private var isReaderSurahBookmarked: Bool {
+        guard isReaderTabPresentation else { return false }
+        return readingBookmarksViewModel.containsBookmark(surahNumber: surah.number, ayahNumber: readerToolbarBookmarkAyahNumber)
+    }
+
     /// Current surah position within this reciter’s surah list (e.g. “12 of 114”).
     private var principalSurahIndexTitle: String {
         let list = detail.surahs
@@ -258,6 +294,13 @@ struct ReciterSurahNowPlayingView: View {
     }
 
     private func goToPreviousReciterAudio() {
+        if isReaderTabPresentation,
+           let list = readerSurahs,
+           let idx = list.firstIndex(where: { $0.number == surah.number }),
+           idx > 0 {
+            onReaderSwitchSurah?(list[idx - 1])
+            return
+        }
         if let prev = previousPlayableSurah() {
             presentPlayableSurah(prev)
         } else {
@@ -266,6 +309,13 @@ struct ReciterSurahNowPlayingView: View {
     }
 
     private func goToNextReciterAudio() {
+        if isReaderTabPresentation,
+           let list = readerSurahs,
+           let idx = list.firstIndex(where: { $0.number == surah.number }),
+           idx + 1 < list.count {
+            onReaderSwitchSurah?(list[idx + 1])
+            return
+        }
         if let next = nextPlayableSurah() {
             presentPlayableSurah(next)
         } else {
@@ -305,6 +355,20 @@ struct ReciterSurahNowPlayingView: View {
         }
     }
 
+    private func applyInitialReaderScrollIfNeeded(proxy: ScrollViewProxy) {
+        guard isReaderTabPresentation,
+              !didPerformInitialReaderAyahScroll,
+              let n = initialReaderScrollAyah,
+              n >= 1,
+              !ayahs.isEmpty,
+              n <= ayahs.count else { return }
+        didPerformInitialReaderAyahScroll = true
+        DispatchQueue.main.async {
+            withAnimation(.easeOut(duration: 0.35)) {
+                proxy.scrollTo(n, anchor: UnitPoint(x: 0.5, y: 0.12))
+            }
+        }
+    }
 
     var body: some View {
         AppNavigationContainer{
@@ -321,91 +385,176 @@ struct ReciterSurahNowPlayingView: View {
                         ProgressView()
                         Spacer()
                     } else {
-                        ScrollView {
-                            HStack(spacing: 0) {
-                                VStack(alignment: .leading, spacing: 0) {
-                                    istiadhBlock
-                                        .padding(.horizontal, ayahListHorizontalPadding)
-                                        .padding(.bottom, 20)
-                                        .reportScrollTopMinYForNavigationBar()
+                        ScrollViewReader { proxy in
+                            ScrollView {
+                                HStack(spacing: 0) {
+                                    VStack(alignment: .leading, spacing: 0) {
+                                        istiadhBlock
+                                            .padding(.horizontal, ayahListHorizontalPadding)
+                                            .padding(.bottom, 20)
+                                            .reportScrollTopMinYForNavigationBar()
 
-                                    LazyVStack(alignment: .leading, spacing: 0) {
-                                        ForEach(ayahs) { ayah in
-                                            ReciterPlayerAyahRow(
-                                                ayah: ayah,
-                                                translationTexts: selectedTranslationTexts(for: ayah.numberInSurah),
-                                                isAyahBookmarked: audioBookmarksViewModel.containsAyahBookmark(
-                                                    reciterSlug: detail.slug,
-                                                    surahNumber: surah.number,
-                                                    ayahNumber: ayah.numberInSurah
-                                                ),
-                                                accentColor: selectedThemeColorManager.selectedColor,
-                                                onToggleAyahBookmark: { toggleAyahBookmark(ayah) },
-                                                onShareAyah: { shareAyah(ayah) },
-                                                onPlayAyah: { DummyPaywallPresenter.shared.present() },
-                                                onShowTranslation: { presentAyahTranslationSheet(ayah) },
-                                                onRepeatOption: { DummyPaywallPresenter.shared.present() }
-                                            )
-                                            .id(ayah.numberInSurah)
+                                        LazyVStack(alignment: .leading, spacing: 0) {
+                                            ForEach(ayahs) { ayah in
+                                                ReciterPlayerAyahRow(
+                                                    ayah: ayah,
+                                                    translationTexts: selectedTranslationTexts(for: ayah.numberInSurah),
+                                                    isAyahBookmarked: audioBookmarksViewModel.containsAyahBookmark(
+                                                        reciterSlug: detail.slug,
+                                                        surahNumber: surah.number,
+                                                        ayahNumber: ayah.numberInSurah
+                                                    ),
+                                                    accentColor: selectedThemeColorManager.selectedColor,
+                                                    onToggleAyahBookmark: { toggleAyahBookmark(ayah) },
+                                                    onShareAyah: { shareAyah(ayah) },
+                                                    onPlayAyah: { DummyPaywallPresenter.shared.present() },
+                                                    onShowTranslation: { presentAyahTranslationSheet(ayah) },
+                                                    onRepeatOption: { DummyPaywallPresenter.shared.present() }
+                                                )
+                                                .id(ayah.numberInSurah)
+                                            }
                                         }
+                                        .padding(.horizontal, ayahListHorizontalPadding)
                                     }
-                                    .padding(.horizontal, ayahListHorizontalPadding)
+                                    .frame(maxWidth: ayahContentMaxWidth, alignment: .leading)
                                 }
-                                .frame(maxWidth: ayahContentMaxWidth, alignment: .leading)
+                                .padding(.bottom, isReaderTabPresentation ? 32 : 220)
+                                .frame(maxWidth: .infinity)
                             }
-                            .padding(.bottom, 220)
-                            .frame(maxWidth: .infinity)
+                            .coordinateSpace(name: ReciterNowPlayingScrollSpace.name)
+                            .simultaneousGesture(
+                                TapGesture().onEnded {
+                                    toggleChromeVisibility()
+                                }
+                            )
+                            .onAppear {
+                                applyInitialReaderScrollIfNeeded(proxy: proxy)
+                            }
+                            .onChange(of: ayahs.count) { _ in
+                                applyInitialReaderScrollIfNeeded(proxy: proxy)
+                            }
                         }
-                        .coordinateSpace(name: ReciterNowPlayingScrollSpace.name)
-                        .simultaneousGesture(
-                            TapGesture().onEnded {
-                                toggleChromeVisibility()
-                            }
-                        )
                     }
                 }
                 .overlay(alignment: .bottom) {
-                    bottomChrome
-                        .offset(y: reciterNavBarUIKitHidden ? 260 : 0)
-                        .opacity(reciterNavBarUIKitHidden ? 0 : 1)
-                        .allowsHitTesting(!reciterNavBarUIKitHidden)
-                        .accessibilityHidden(reciterNavBarUIKitHidden)
-                        .animation(.easeInOut(duration: 0.28), value: reciterNavBarUIKitHidden)
+                    if !isReaderTabPresentation {
+                        bottomChrome
+                            .offset(y: reciterNavBarUIKitHidden ? 260 : 0)
+                            .opacity(reciterNavBarUIKitHidden ? 0 : 1)
+                            .allowsHitTesting(!reciterNavBarUIKitHidden)
+                            .accessibilityHidden(reciterNavBarUIKitHidden)
+                            .animation(.easeInOut(duration: 0.28), value: reciterNavBarUIKitHidden)
+                    }
                 }
                 .onPreferenceChange(ScrollTopMinYForNavBarPreferenceKey.self) { minY in
                     updateNavBarVisibilityFromScroll(minY: minY)
                 }
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            onMinimize()
-                        } label: {
-                            Image(systemName: "chevron.down")
+                    if isReaderTabPresentation {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button {
+                                toggleReaderReadingBookmark()
+                            } label: {
+                                Image(systemName: isReaderSurahBookmarked ? "bookmark.fill" : "bookmark")
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel(Text("reader_add_reading_bookmark_a11y"))
+                        }
+                    } else {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                                onMinimize()
+                            } label: {
+                                Image(systemName: "chevron.down")
+                            }
+                        }
+                        ToolbarItem(placement: .principal) {
+                            Text(principalSurahIndexTitle)
+                                .font(.system(size: 16, weight: .medium))
                         }
                     }
-                    ToolbarItem(placement: .principal) {
-                        Text(principalSurahIndexTitle)
-                            .font(.system(size: 16, weight: .medium))
-                    }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            quranDetailOptionsSheetTab = .translations
-                        } label: {
-                            Text(translationsToolbarFlagEmoji)
-                                .font(.body)
-                                .scaleEffect(horizontalSizeClass == .regular ? 1.35 : 1.2)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.85)
+                }
+                .readerToolbarSpacerBetweenLeadingControls(isReaderTabPresentation)
+                .toolbar {
+                    if isReaderTabPresentation {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button {
+                                onMinimize()
+                            } label: {
+                                Image(systemName: "xmark")
+                            }
+                            .accessibilityLabel(Text("reader_surah_close_a11y"))
                         }
-                        .accessibilityLabel(Text("quran_options_tab_translations"))
                     }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            quranDetailOptionsSheetTab = .appearance
-                        } label: {
-                            Image(systemName: "ellipsis")
+                }
+                .toolbar {
+                    if isReaderTabPresentation {
+                        ToolbarItem(placement: .principal) {
+                            VStack(spacing: 2) {
+                                Text(displayTitleLine)
+                                    .font(.system(size: 15, weight: .semibold))
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.75)
+                                Text(readerToolbarSubtitle)
+                                    .font(.system(size: 11, weight: .regular))
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.8)
+                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .accessibilityLabel(Text("quran_options_tab_appearance"))
+                    }
+                }
+                .toolbar {
+                    if isReaderTabPresentation {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                quranDetailOptionsSheetTab = .translations
+                            } label: {
+                                Text(translationsToolbarFlagEmoji)
+                                    .font(.body)
+                                    .scaleEffect(horizontalSizeClass == .regular ? 1.35 : 1.2)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.85)
+                            }
+                            .accessibilityLabel(Text("quran_options_tab_translations"))
+                        }
+                    }
+                }
+                .toolbar {
+                    if isReaderTabPresentation {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                quranDetailOptionsSheetTab = .appearance
+                            } label: {
+                                Image(systemName: "ellipsis")
+                            }
+                            .accessibilityLabel(Text("quran_options_tab_appearance"))
+                        }
+                    }
+                }
+                .toolbar {
+                    if !isReaderTabPresentation {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                quranDetailOptionsSheetTab = .translations
+                            } label: {
+                                Text(translationsToolbarFlagEmoji)
+                                    .font(.body)
+                                    .scaleEffect(horizontalSizeClass == .regular ? 1.35 : 1.2)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.85)
+                            }
+                            .accessibilityLabel(Text("quran_options_tab_translations"))
+                        }
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                quranDetailOptionsSheetTab = .appearance
+                            } label: {
+                                Image(systemName: "ellipsis")
+                            }
+                            .accessibilityLabel(Text("quran_options_tab_appearance"))
+                        }
                     }
                 }
             }
@@ -417,6 +566,9 @@ struct ReciterSurahNowPlayingView: View {
                 pendingScrollDirection = 0
                 pendingScrollTravel = 0
                 quranDetailOptionsSheetTab = nil
+                if isReaderTabPresentation {
+                    didPerformInitialReaderAyahScroll = false
+                }
             }
             .task(id: surah.number) {
                 await loadAyahContent()
@@ -508,6 +660,28 @@ struct ReciterSurahNowPlayingView: View {
             arabicText: ayah.text,
             translation: translationCombined.isEmpty ? nil : translationCombined
         )
+    }
+
+    private func toggleReaderReadingBookmark() {
+        guard isReaderTabPresentation else { return }
+        if isReaderSurahBookmarked {
+            readingBookmarksViewModel.remove(surahNumber: surah.number, ayahNumber: readerToolbarBookmarkAyahNumber)
+            SurahRowActionFeedback.presentRemovedFromBookmark()
+            return
+        }
+        let ayahNum = readerToolbarBookmarkAyahNumber
+        guard let ayah = ayahs.first(where: { $0.numberInSurah == ayahNum }) ?? ayahs.first else { return }
+        let item = ReadingSurahBookmark(
+            surahNumber: surah.number,
+            ayahNumber: ayah.numberInSurah,
+            page: ayah.page,
+            juz: ayah.juz,
+            hizbQuarter: ayah.hizbQuarter,
+            surahTitleEn: bookmarkSurahTitleEn,
+            surahTitleAr: bookmarkSurahTitleAr
+        )
+        readingBookmarksViewModel.add(item)
+        SurahRowActionFeedback.presentAddedToBookmark()
     }
 
     private func updateNavBarVisibilityFromScroll(minY: CGFloat) {
@@ -823,6 +997,17 @@ struct ReciterSurahNowPlayingView: View {
         await MainActor.run {
             selectedTranslationIds = bundle.selectedTranslationIds
             translationByAyah = bundle.translationByAyah
+        }
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func readerToolbarSpacerBetweenLeadingControls(_ isReader: Bool) -> some View {
+        if isReader {
+            self.toolbarSpacerIfAvailable(.leading)
+        } else {
+            self
         }
     }
 }

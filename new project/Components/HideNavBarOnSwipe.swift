@@ -29,6 +29,12 @@ struct ScrollTopMinYForNavBarPreferenceKey: PreferenceKey {
     }
 }
 
+/// Where to insert `ToolbarSpacer` when supported (iOS 26+).
+enum ToolbarSpacerIfAvailableSide {
+    case leading
+    case trailing
+}
+
 extension View {
     /// Place on content inside a `ScrollView` that uses `.coordinateSpace(name:)`
     /// matching `ReciterNowPlayingScrollSpace.name`.
@@ -47,6 +53,23 @@ extension View {
     /// for the nearest `UINavigationController`.
     func navigationBarUIKitHidden(_ hidden: Bool) -> some View {
         background(NavigationBarUIKitVisibilityBridge(isHidden: hidden))
+    }
+
+    /// Inserts `ToolbarSpacer` on supported OS versions (e.g. between leading controls, or trailing groups).
+    @ViewBuilder
+    func toolbarSpacerIfAvailable(_ side: ToolbarSpacerIfAvailableSide = .trailing) -> some View {
+        if #available(iOS 26.0, *) {
+            self.toolbar {
+                switch side {
+                case .leading:
+                    ToolbarSpacer(placement: .topBarLeading)
+                case .trailing:
+                    ToolbarSpacer(placement: .topBarTrailing)
+                }
+            }
+        } else {
+            self
+        }
     }
 }
 

@@ -117,6 +117,46 @@ struct IslamicCloudReciterDetailPayload: Decodable {
 }
 
 extension IslamicCloudReciterDetailPayload {
+    /// Synthetic reciter used when presenting `ReciterSurahNowPlayingView` from the Reader tab (no streaming audio list).
+    static let readerTabReciterSlug = "quran-reader-tab"
+
+    /// Empty `surahs` so next/previous use Reader tab surah list instead of API playables.
+    static var readerTabPlaybackDetail: IslamicCloudReciterDetailPayload {
+        IslamicCloudReciterDetailPayload(
+            slug: readerTabReciterSlug,
+            nameEn: "",
+            nameAr: nil,
+            bio: nil,
+            surahCount: nil,
+            image: nil,
+            url: nil,
+            reciterListType: nil,
+            surahs: []
+        )
+    }
+
+    init(
+        slug: String,
+        nameEn: String,
+        nameAr: String?,
+        bio: String?,
+        surahCount: String?,
+        image: String?,
+        url: String?,
+        reciterListType: String?,
+        surahs: [IslamicCloudReciterSurahItemDTO]
+    ) {
+        self.slug = slug
+        self.nameEn = nameEn
+        self.nameAr = nameAr
+        self.bio = bio
+        self.surahCount = surahCount
+        self.image = image
+        self.url = url
+        self.reciterListType = reciterListType
+        self.surahs = surahs
+    }
+
     /// Surahs that have a non-empty `audio` URL, ordered by surah number.
     func playableSurahsSortedByNumber() -> [IslamicCloudReciterSurahItemDTO] {
         surahs
@@ -156,6 +196,27 @@ struct IslamicCloudReciterSurahItemDTO: Decodable, Identifiable, Hashable {
         nameAr = try c.decodeIfPresent(String.self, forKey: .nameAr)
         audio = try c.decodeIfPresent(String.self, forKey: .audio)
         ayahCount = decodeAyahCount(from: c)
+    }
+
+    init(number: Int, slug: String, nameEn: String, nameAr: String?, ayahCount: Int, audio: String?) {
+        self.number = number
+        self.slug = slug
+        self.nameEn = nameEn
+        self.nameAr = nameAr
+        self.ayahCount = ayahCount
+        self.audio = audio
+    }
+
+    init(readerSurah surah: SurahItem) {
+        let ar = surah.nameArabic.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.init(
+            number: surah.number,
+            slug: "surah-\(surah.number)",
+            nameEn: surah.nameEnglish,
+            nameAr: ar.isEmpty ? nil : ar,
+            ayahCount: surah.numberOfAyahs,
+            audio: nil
+        )
     }
 }
 
