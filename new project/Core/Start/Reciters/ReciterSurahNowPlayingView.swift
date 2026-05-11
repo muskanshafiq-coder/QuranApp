@@ -19,7 +19,7 @@ private enum MarqueeTextUnitWidthKey: PreferenceKey {
 }
 
 /// Single-line title: scrolls toward leading (LTR). Two copies spaced by `width + gap` so the loop is **mathematically seamless** — jerk was from `cycle` changing when measured width jumped from 0 → real width.
-private struct MarqueeSurahTitleView: View {
+struct MarqueeSurahTitleView: View {
     let text: String
     let fontSize: CGFloat
 

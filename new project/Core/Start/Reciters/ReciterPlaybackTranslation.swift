@@ -6,7 +6,7 @@ import Foundation
 enum ReciterPlaybackTranslation {
     /// Loaded text per translation edition id (same ids as `UserDefaultsManager.Keys.quranSelectedTranslationIds`).
     struct SurahTranslationMaps {
-        /// Selection order excluding Arabic mushaf; only ids that successfully loaded (or fallback edition).
+        /// Selection order excluding Arabic mushaf; only ids that successfully loaded.
         let selectedTranslationIds: [String]
         let translationByAyah: [String: [Int: String]]
     }
@@ -38,13 +38,7 @@ enum ReciterPlaybackTranslation {
                 translationByAyah[raw] = m
             }
         }
-        var selectedTranslationIds = ids.filter { $0 != "quran-buck" && translationByAyah[$0] != nil }
-        if selectedTranslationIds.isEmpty {
-            if let fallback = try? await QuranAPIClient.shared.fetchTranslatedSurah(surahNumber: surahNumber, editionIdentifier: "en.yusufali") {
-                translationByAyah["en.yusufali"] = fallback
-                selectedTranslationIds = ["en.yusufali"]
-            }
-        }
+        let selectedTranslationIds = ids.filter { $0 != "quran-buck" && translationByAyah[$0] != nil }
         return SurahTranslationMaps(selectedTranslationIds: selectedTranslationIds, translationByAyah: translationByAyah)
     }
 
