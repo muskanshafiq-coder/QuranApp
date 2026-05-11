@@ -23,6 +23,8 @@ final class UserDefaultsManager {
         static let quranLastHizbQuarter = "quran_last_hizb_quarter"
         static let favoriteRecitersData = "favorite_reciters_data"
         static let audioBookmarksData = "audio_bookmarks_data"
+        static let quranLatestSelectedTranslationId = "quran_latest_selected_translation_id"
+        static let quranDownloadedTranslationIds = "quran_downloaded_translation_ids"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -71,11 +73,6 @@ final class UserDefaultsManager {
         defaults.data(forKey: Keys.playlistsData)
     }
 
-    /// Ordered translation / resource ids for Quran reader playback (e.g. `en.yusufali`, legacy `en`).
-    var quranSelectedTranslationIds: [String] {
-        defaults.stringArray(forKey: Keys.quranSelectedTranslationIds) ?? []
-    }
-
     func saveQuranSelectedTranslationIds(_ ids: [String]) {
         defaults.set(ids, forKey: Keys.quranSelectedTranslationIds)
     }
@@ -98,5 +95,56 @@ final class UserDefaultsManager {
 
     func saveAudioBookmarksData(_ data: Data) {
         defaults.set(data, forKey: Keys.audioBookmarksData)
+    }
+    
+    // MARK: - Quran Font
+    /// Selected Quran font family. "SF font" = system font; otherwise use custom font name.
+    var quranFontFamily: String {
+        get {
+            defaults.string(forKey: Keys.quranFontFamily) ?? "SF font"
+        }
+        set {
+            defaults.set(newValue, forKey: Keys.quranFontFamily)
+        }
+    }
+
+    /// Quran ayah font size (16–32 pt). Default 20.
+    var quranFontSize: Double {
+        get {
+            let value = defaults.double(forKey: Keys.quranFontSize)
+            return value > 0 ? value : 20
+        }
+        set {
+            defaults.set(min(32, max(16, newValue)), forKey: Keys.quranFontSize)
+        }
+    }
+    /// ID of the translation whose flag is shown in the surah toolbar (last one user selected).
+    var quranLatestSelectedTranslationId: String? {
+        get {
+            defaults.string(forKey: Keys.quranLatestSelectedTranslationId)
+        }
+        set {
+            if let v = newValue {
+                defaults.set(v, forKey: Keys.quranLatestSelectedTranslationId)
+            } else {
+                defaults.removeObject(forKey: Keys.quranLatestSelectedTranslationId)
+            }
+        }
+    }
+    var quranDownloadedTranslationIds: [String] {
+        get {
+            (defaults.array(forKey: Keys.quranDownloadedTranslationIds) as? [String]) ?? []
+        }
+        set {
+            defaults.set(newValue, forKey: Keys.quranDownloadedTranslationIds)
+        }
+    }
+    var quranSelectedTranslationIds: [String] {
+        get {
+            (defaults.array(forKey: Keys.quranSelectedTranslationIds) as? [String]) ?? []
+        }
+        set {
+            defaults.set(newValue, forKey: Keys.quranSelectedTranslationIds)
+        }
     }
 }

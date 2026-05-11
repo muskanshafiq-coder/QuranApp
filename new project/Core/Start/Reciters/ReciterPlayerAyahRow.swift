@@ -6,6 +6,8 @@ import SwiftUI
 
 struct ReciterPlayerAyahRow: View {
     let ayah: AyahItem
+    /// Transliteration and/or translations from Quran options, in selection order.
+    let translationTexts: [String]
     let isAyahBookmarked: Bool
     let accentColor: Color
     let onToggleAyahBookmark: () -> Void
@@ -14,7 +16,18 @@ struct ReciterPlayerAyahRow: View {
     let onShowTranslation: () -> Void
     let onRepeatOption: () -> Void
 
+    @Environment(\.colorScheme) private var colorScheme
     @AppStorage(UserDefaultsManager.Keys.quranFontSize) private var quranFontSize: Double = 20
+
+    /// One size for transliteration + every translation (matches reference “supplementary” band).
+    private var supplementaryFontSize: CGFloat {
+        let base = CGFloat(quranFontSize > 0 ? quranFontSize : 22)
+        return min(max(round(base * 0.58), 13), 17)
+    }
+
+    private var supplementaryTextColor: Color {
+        Color(uiColor: .secondaryLabel)
+    }
 
     private var ayahFont: Font {
         let size = CGFloat(quranFontSize > 0 ? quranFontSize : 22)
@@ -23,45 +36,60 @@ struct ReciterPlayerAyahRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(alignment: .top, spacing: 12) {
+            HStack(alignment: .top, spacing: 14) {
                 diamondBadge
 
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 0) {
                     Text(ayah.text)
                         .font(ayahFont)
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(Color(uiColor: .label))
                         .multilineTextAlignment(.trailing)
+                        .lineSpacing(6)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .environment(\.layoutDirection, .rightToLeft)
+
+                    if !translationTexts.isEmpty {
+                        VStack(alignment: .leading, spacing: 10) {
+                            ForEach(Array(translationTexts.enumerated()), id: \.offset) { _, line in
+                                Text(line)
+                                    .font(.system(size: supplementaryFontSize, weight: .regular, design: .default))
+                                    .foregroundStyle(supplementaryTextColor)
+                                    .multilineTextAlignment(.leading)
+                                    .lineSpacing(5)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                        }
+                        .padding(.top, 16)
+                    }
 
                     HStack {
                         Spacer(minLength: 0)
                         ayahOptionsMenu
                     }
+                    .padding(.top, translationTexts.isEmpty ? 10 : 14)
                 }
             }
-            .padding(.vertical, 12)
-            .padding(.horizontal, 4)
-            .clipShape(RoundedRectangle(cornerRadius: 2, style: .continuous))
+            .padding(.vertical, 18)
 
             Rectangle()
-                .fill(Color.primary.opacity(0.12))
+                .fill(Color(uiColor: .separator).opacity(colorScheme == .dark ? 0.5 : 0.85))
                 .frame(height: 1)
-                .padding(.top, 2)
         }
     }
 
     private var diamondBadge: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 3)
-                .strokeBorder(accentColor, lineWidth: 1.25)
-                .frame(width: 22, height: 22)
+                .strokeBorder(accentColor, lineWidth: 1)
+                .frame(width: 21, height: 21)
                 .rotationEffect(.degrees(45))
             Text("\(ayah.numberInSurah)")
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundStyle(.primary)
+                .font(.system(size: 11, weight: .semibold, design: .rounded))
+                .foregroundStyle(Color(uiColor: .label))
         }
-        .frame(width: 32, height: 32)
+        .frame(width: 30, height: 30)
+        .padding(.top, 2)
     }
 
     private var ayahOptionsMenu: some View {
@@ -126,9 +154,9 @@ struct ReciterPlayerAyahRow: View {
             }
         } label: {
             Image(systemName: "ellipsis")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.system(size: 17, weight: .medium))
                 .foregroundStyle(accentColor)
-                .frame(width: 32, height: 28)
+                .frame(width: 36, height: 30)
                 .contentShape(Rectangle())
         }
     }

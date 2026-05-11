@@ -81,6 +81,25 @@ final class QuranAPIClient {
         let ayahs = surahResponse.data.ayahs.map { $0.toAyahItem() }
         return (item, ayahs)
     }
+    func fetchTransliterationEditions() async throws -> [Edition] {
+        guard let url = URL(string: "\(baseURL)/edition?format=text&type=transliteration") else {
+            throw QuranAPIError.invalidURL
+        }
+        let (data, response) = try await session.data(from: url)
+        try validateResponse(data: data, response: response)
+        let editionsResponse = try decoder.decode(EditionsResponse.self, from: data)
+        return editionsResponse.data
+    }
+    func fetchEditions() async throws -> [Edition] {
+        guard let url = URL(string: "\(baseURL)/edition?format=text&type=translation") else {
+            throw QuranAPIError.invalidURL
+        }
+        let (data, response) = try await session.data(from: url)
+        try validateResponse(data: data, response: response)
+        let editionsResponse = try decoder.decode(EditionsResponse.self, from: data)
+        return editionsResponse.data
+    }
+
     /// Fetch full meta (surahs, hizbQuarters, sajdas)
     func fetchMetaFull() async throws -> QuranMetaData {
         let url = URL(string: "\(baseURL)/meta")!

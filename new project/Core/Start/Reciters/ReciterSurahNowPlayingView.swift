@@ -129,14 +129,15 @@ struct ReciterSurahNowPlayingView: View {
 
     @State private var ayahs: [AyahItem] = []
     @State private var surahMeta: SurahItem?
-    @State private var translationByAyah: [Int: String] = [:]
+    /// Same ordering as Quran detail options (excluding Arabic mushaf); ids that loaded for this surah.
+    @State private var selectedTranslationIds: [String] = []
+    @State private var translationByAyah: [String: [Int: String]] = [:]
     @State private var loadFailed = false
     @State private var isLoadingAyahs = true
     @ObservedObject private var audioBookmarksViewModel = AudioBookmarksViewModel.shared
     @ObservedObject private var premiumManager = PremiumManager.shared
     @State private var translationSheetContext: AyahTranslationSheetContext?
     @EnvironmentObject private var selectedThemeColorManager: SelectedThemeColorManager
-    @State private var isReciterMoreActionsSheetPresented = false
     @State private var reciterNavBarUIKitHidden = false
     @State private var lastScrollContentMinY: CGFloat = .infinity
     @State private var lastNavBarToggleAt: Date = .distantPast
@@ -147,6 +148,41 @@ struct ReciterSurahNowPlayingView: View {
     @State private var isTimelineScrubbing = false
     @State private var transportRingBlink: ReciterTransportRingBlink?
     @State private var showCarPlayPremiumInfo = false
+    @State private var quranDetailOptionsSheetTab: QuranDetailOptionsTab?
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @AppStorage(UserDefaultsManager.Keys.quranLatestSelectedTranslationId) private var storedLatestTranslationId: String = ""
+
+    private var ayahListHorizontalPadding: CGFloat {
+        horizontalSizeClass == .regular ? 48 : 16
+    }
+
+    /// Keeps ayah blocks readable and centered on iPad (reference-style margins).
+    private var ayahContentMaxWidth: CGFloat {
+        horizontalSizeClass == .regular ? 720 : .infinity
+    }
+
+    /// Same “latest selected translation” flag as in Quran options (`TranslationRegistry` + UserDefaults).
+    private var translationsToolbarFlagEmoji: String {
+        let latest = storedLatestTranslationId.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !latest.isEmpty, latest != "quran-buck" {
+            return TranslationRegistry.flag(for: latest)
+        }
+        let ids = selectedTranslationIds.isEmpty
+            ? UserDefaultsManager.shared.quranSelectedTranslationIds
+            : selectedTranslationIds
+        if let id = ids.last(where: { $0 != "quran-buck" }) ?? ids.first(where: { $0 != "quran-buck" }) {
+            return TranslationRegistry.flag(for: id)
+        }
+        return TranslationRegistry.flag(for: "quran-buck")
+    }
+
+    private func selectedTranslationTexts(for ayahNumber: Int) -> [String] {
+        selectedTranslationIds.compactMap { id in
+            guard let raw = translationByAyah[id]?[ayahNumber] else { return nil }
+            let t = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+            return t.isEmpty ? nil : t
+        }
+    }
 
     private var reciterTitle: String {
         let t = detail.nameEn.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -289,34 +325,40 @@ struct ReciterSurahNowPlayingView: View {
                     } else {
                         ScrollViewReader { proxy in
                             ScrollView {
-                                VStack(alignment: .leading, spacing: 0) {
-                                    istiadhBlock
-                                        .padding(.horizontal, 16)
-                                        .padding(.bottom, 16)
-                                        .reportScrollTopMinYForNavigationBar()
+                                HStack(spacing: 0) {
+                                    VStack(alignment: .leading, spacing: 0) {
+                                        istiadhBlock
+                                            .padding(.horizontal, ayahListHorizontalPadding)
+                                            .padding(.bottom, 20)
+                                            .reportScrollTopMinYForNavigationBar()
 
-                                    LazyVStack(alignment: .leading, spacing: 0) {
-                                        ForEach(ayahs) { ayah in
-                                            ReciterPlayerAyahRow(
-                                                ayah: ayah,
-                                                isAyahBookmarked: audioBookmarksViewModel.containsAyahBookmark(
-                                                    reciterSlug: detail.slug,
-                                                    surahNumber: surah.number,
-                                                    ayahNumber: ayah.numberInSurah
-                                                ),
-                                                accentColor: selectedThemeColorManager.selectedColor,
-                                                onToggleAyahBookmark: { toggleAyahBookmark(ayah) },
-                                                onShareAyah: { shareAyah(ayah) },
-                                                onPlayAyah: { DummyPaywallPresenter.shared.present() },
-                                                onShowTranslation: { presentAyahTranslationSheet(ayah) },
-                                                onRepeatOption: { DummyPaywallPresenter.shared.present() }
-                                            )
-                                            .id(ayah.numberInSurah)
+                                        LazyVStack(alignment: .leading, spacing: 0) {
+                                            ForEach(ayahs) { ayah in
+                                                ReciterPlayerAyahRow(
+                                                    ayah: ayah,
+                                                    translationTexts: selectedTranslationTexts(for: ayah.numberInSurah),
+                                                    isAyahBookmarked: audioBookmarksViewModel.containsAyahBookmark(
+                                                        reciterSlug: detail.slug,
+                                                        surahNumber: surah.number,
+                                                        ayahNumber: ayah.numberInSurah
+                                                    ),
+                                                    accentColor: selectedThemeColorManager.selectedColor,
+                                                    onToggleAyahBookmark: { toggleAyahBookmark(ayah) },
+                                                    onShareAyah: { shareAyah(ayah) },
+                                                    onPlayAyah: { DummyPaywallPresenter.shared.present() },
+                                                    onShowTranslation: { presentAyahTranslationSheet(ayah) },
+                                                    onRepeatOption: { DummyPaywallPresenter.shared.present() }
+                                                )
+                                                .id(ayah.numberInSurah)
+                                            }
                                         }
+                                        .padding(.horizontal, ayahListHorizontalPadding)
                                     }
-                                    .padding(.horizontal, 16)
+                                    .frame(maxWidth: ayahContentMaxWidth, alignment: .leading)
                                 }
                                 .padding(.bottom, 220)
+                                .frame(maxWidth: .infinity)
+//                                .background(Color(uiColor: .secondarySystemGroupedBackground))
                             }
                             .coordinateSpace(name: ReciterNowPlayingScrollSpace.name)
                             .simultaneousGesture(
@@ -363,17 +405,22 @@ struct ReciterSurahNowPlayingView: View {
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
-                            // TODO: Wire favourite toggle for the surah.
+                            quranDetailOptionsSheetTab = .translations
                         } label: {
-                            Image(systemName: "star.fill")
+                            Text(translationsToolbarFlagEmoji)
+                                .font(.system(size: 22))
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.85)
                         }
+                        .accessibilityLabel(Text("quran_options_tab_translations"))
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        Menu {
-                            Button("general_share") {}
+                        Button {
+                            quranDetailOptionsSheetTab = .appearance
                         } label: {
                             Image(systemName: "ellipsis")
                         }
+                        .accessibilityLabel(Text("quran_options_tab_appearance"))
                     }
                 }
             }
@@ -386,21 +433,23 @@ struct ReciterSurahNowPlayingView: View {
                 pendingScrollTravel = 0
                 pauseAutoAyahScrollUntil = .distantPast
                 isTimelineScrubbing = false
-                isReciterMoreActionsSheetPresented = false
+                quranDetailOptionsSheetTab = nil
             }
-            .task {
+            .task(id: surah.number) {
                 await loadAyahContent()
             }
             .sheet(item: $translationSheetContext) { context in
                 AyahTranslationSheet(context: context)
                     .environmentObject(selectedThemeColorManager)
             }
-            .sheet(isPresented: $isReciterMoreActionsSheetPresented) {
-                ExpandableToolbarPlaceholderPanel {
-                    isReciterMoreActionsSheetPresented = false
-                }
-                .presentationDetents([.medium, .large])
-                .presentationDragIndicator(.visible)
+            .sheet(item: $quranDetailOptionsSheetTab, onDismiss: {
+                // Runs for every dismiss (close button, swipe down, etc.) after `quranSelectedTranslationIds` is updated.
+                Task { await reloadTranslationsMatchingSelection() }
+            }) { tab in
+                QuranDetailOptionsSheet(initialTab: tab, onDismiss: {
+                    quranDetailOptionsSheetTab = nil
+                })
+                .environmentObject(selectedThemeColorManager)
             }
             .alert("feature_carplay_title", isPresented: $showCarPlayPremiumInfo) {
                 Button("general_ok", role: .cancel) {}
@@ -469,11 +518,12 @@ struct ReciterSurahNowPlayingView: View {
     }
 
     private func presentAyahTranslationSheet(_ ayah: AyahItem) {
+        let translationCombined = selectedTranslationTexts(for: ayah.numberInSurah).joined(separator: "\n\n")
         translationSheetContext = AyahTranslationSheetContext(
             ayahNumber: ayah.numberInSurah,
             surahNumber: surah.number,
             arabicText: ayah.text,
-            translation: translationByAyah[ayah.numberInSurah]
+            translation: translationCombined.isEmpty ? nil : translationCombined
         )
     }
 
@@ -776,18 +826,36 @@ struct ReciterSurahNowPlayingView: View {
     }
 
     private func loadAyahContent() async {
-        isLoadingAyahs = true
-        loadFailed = false
+        await MainActor.run {
+            isLoadingAyahs = true
+            loadFailed = false
+        }
         do {
-            let result = try await QuranAPIClient.shared.fetchSurah(number: surah.number)
-            let map = await ReciterPlaybackTranslation.loadMap(surahNumber: surah.number)
-            ayahs = result.ayahs
-            surahMeta = result.surah
-            translationByAyah = map
-            isLoadingAyahs = false
+            async let surahPayload = QuranAPIClient.shared.fetchSurah(number: surah.number)
+            async let translationBundle = ReciterPlaybackTranslation.loadSurahTranslationMaps(surahNumber: surah.number)
+            let result = try await surahPayload
+            let bundle = await translationBundle
+            await MainActor.run {
+                ayahs = result.ayahs
+                surahMeta = result.surah
+                selectedTranslationIds = bundle.selectedTranslationIds
+                translationByAyah = bundle.translationByAyah
+                isLoadingAyahs = false
+            }
         } catch {
-            loadFailed = true
-            isLoadingAyahs = false
+            await MainActor.run {
+                loadFailed = true
+                isLoadingAyahs = false
+            }
+        }
+    }
+
+    /// Re-fetch ayah text for every translation edition currently selected in options (UserDefaults); safe to call anytime selections change.
+    private func reloadTranslationsMatchingSelection() async {
+        let bundle = await ReciterPlaybackTranslation.loadSurahTranslationMaps(surahNumber: surah.number)
+        await MainActor.run {
+            selectedTranslationIds = bundle.selectedTranslationIds
+            translationByAyah = bundle.translationByAyah
         }
     }
 }
