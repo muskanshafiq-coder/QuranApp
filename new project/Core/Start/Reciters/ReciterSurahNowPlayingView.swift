@@ -144,15 +144,11 @@ struct ReciterSurahNowPlayingView: View {
     @State private var suppressScrollUpdatesUntil: Date = .distantPast
     @State private var pendingScrollDirection: Int = 0 // -1 up, +1 down
     @State private var pendingScrollTravel: CGFloat = 0
-    @State private var pauseAutoAyahScrollUntil: Date = .distantPast
-    @State private var isTimelineScrubbing = false
     @State private var transportRingBlink: ReciterTransportRingBlink?
     @State private var showCarPlayPremiumInfo = false
     @State private var quranDetailOptionsSheetTab: QuranDetailOptionsTab?
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @AppStorage(UserDefaultsManager.Keys.quranLatestSelectedTranslationId) private var storedLatestTranslationId: String = ""
-    /// 0 = follow-scroll off; >0 while audio plays scrolls the list to the active ayah (speed maps to animation duration).
-    @AppStorage(UserDefaultsManager.Keys.quranReciterAyahScrollSpeed) private var reciterAyahScrollSpeed: Double = 0.5
 
     private var ayahListHorizontalPadding: CGFloat {
         horizontalSizeClass == .regular ? 48 : 16
@@ -325,68 +321,47 @@ struct ReciterSurahNowPlayingView: View {
                         ProgressView()
                         Spacer()
                     } else {
-                        ScrollViewReader { proxy in
-                            ScrollView {
-                                HStack(spacing: 0) {
-                                    VStack(alignment: .leading, spacing: 0) {
-                                        istiadhBlock
-                                            .padding(.horizontal, ayahListHorizontalPadding)
-                                            .padding(.bottom, 20)
-                                            .reportScrollTopMinYForNavigationBar()
-
-                                        LazyVStack(alignment: .leading, spacing: 0) {
-                                            ForEach(ayahs) { ayah in
-                                                ReciterPlayerAyahRow(
-                                                    ayah: ayah,
-                                                    translationTexts: selectedTranslationTexts(for: ayah.numberInSurah),
-                                                    isAyahBookmarked: audioBookmarksViewModel.containsAyahBookmark(
-                                                        reciterSlug: detail.slug,
-                                                        surahNumber: surah.number,
-                                                        ayahNumber: ayah.numberInSurah
-                                                    ),
-                                                    accentColor: selectedThemeColorManager.selectedColor,
-                                                    onToggleAyahBookmark: { toggleAyahBookmark(ayah) },
-                                                    onShareAyah: { shareAyah(ayah) },
-                                                    onPlayAyah: { DummyPaywallPresenter.shared.present() },
-                                                    onShowTranslation: { presentAyahTranslationSheet(ayah) },
-                                                    onRepeatOption: { DummyPaywallPresenter.shared.present() }
-                                                )
-                                                .id(ayah.numberInSurah)
-                                            }
-                                        }
+                        ScrollView {
+                            HStack(spacing: 0) {
+                                VStack(alignment: .leading, spacing: 0) {
+                                    istiadhBlock
                                         .padding(.horizontal, ayahListHorizontalPadding)
+                                        .padding(.bottom, 20)
+                                        .reportScrollTopMinYForNavigationBar()
+
+                                    LazyVStack(alignment: .leading, spacing: 0) {
+                                        ForEach(ayahs) { ayah in
+                                            ReciterPlayerAyahRow(
+                                                ayah: ayah,
+                                                translationTexts: selectedTranslationTexts(for: ayah.numberInSurah),
+                                                isAyahBookmarked: audioBookmarksViewModel.containsAyahBookmark(
+                                                    reciterSlug: detail.slug,
+                                                    surahNumber: surah.number,
+                                                    ayahNumber: ayah.numberInSurah
+                                                ),
+                                                accentColor: selectedThemeColorManager.selectedColor,
+                                                onToggleAyahBookmark: { toggleAyahBookmark(ayah) },
+                                                onShareAyah: { shareAyah(ayah) },
+                                                onPlayAyah: { DummyPaywallPresenter.shared.present() },
+                                                onShowTranslation: { presentAyahTranslationSheet(ayah) },
+                                                onRepeatOption: { DummyPaywallPresenter.shared.present() }
+                                            )
+                                            .id(ayah.numberInSurah)
+                                        }
                                     }
-                                    .frame(maxWidth: ayahContentMaxWidth, alignment: .leading)
+                                    .padding(.horizontal, ayahListHorizontalPadding)
                                 }
-                                .padding(.bottom, 220)
-                                .frame(maxWidth: .infinity)
-//                                .background(Color(uiColor: .secondarySystemGroupedBackground))
+                                .frame(maxWidth: ayahContentMaxWidth, alignment: .leading)
                             }
-                            .coordinateSpace(name: ReciterNowPlayingScrollSpace.name)
-                            .simultaneousGesture(
-                                TapGesture().onEnded {
-                                    toggleChromeVisibility()
-                                }
-                            )
-                            .modifier(ReciterScrollUserInteractionPauseModifier(pauseUntil: $pauseAutoAyahScrollUntil))
-                            .onChange(of: player.currentTime) { _ in
-                                smoothScrollFollowPlaybackIfAllowed(proxy: proxy)
-                            }
-                            .onChange(of: player.isPlaying) { isPlaying in
-                                guard isPlaying else { return }
-                                smoothScrollFollowPlaybackIfAllowed(proxy: proxy)
-                            }
-                            .onChange(of: reciterAyahScrollSpeed) { _ in
-                                guard player.isPlaying else { return }
-                                smoothScrollFollowPlaybackIfAllowed(proxy: proxy)
-                            }
-                            .onChange(of: ayahs.count) { count in
-                                guard count > 0 else { return }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                                    smoothScrollFollowPlaybackIfAllowed(proxy: proxy)
-                                }
-                            }
+                            .padding(.bottom, 220)
+                            .frame(maxWidth: .infinity)
                         }
+                        .coordinateSpace(name: ReciterNowPlayingScrollSpace.name)
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                toggleChromeVisibility()
+                            }
+                        )
                     }
                 }
                 .overlay(alignment: .bottom) {
@@ -441,8 +416,6 @@ struct ReciterSurahNowPlayingView: View {
                 suppressScrollUpdatesUntil = .distantPast
                 pendingScrollDirection = 0
                 pendingScrollTravel = 0
-                pauseAutoAyahScrollUntil = .distantPast
-                isTimelineScrubbing = false
                 quranDetailOptionsSheetTab = nil
             }
             .task(id: surah.number) {
@@ -594,20 +567,6 @@ struct ReciterSurahNowPlayingView: View {
         pendingScrollTravel = 0
     }
 
-    /// Follows `currentTime` with a moving `scrollTo` anchor so motion stays continuous (not only on ayah index changes).
-    private func smoothScrollFollowPlaybackIfAllowed(proxy: ScrollViewProxy) {
-        guard reciterAyahScrollSpeed > 0 else { return }
-        guard player.isPlaying else { return }
-        guard !isTimelineScrubbing else { return }
-        guard Date() > pauseAutoAyahScrollUntil else { return }
-        guard let target = player.smoothFollowScrollTarget(ayahCount: ayahCountForMapping) else { return }
-        let base = UserDefaultsManager.ayahScrollAnimationDuration(forStoredSpeed: reciterAyahScrollSpeed)
-        let frameDur = max(0.028, min(0.22, base * 0.09))
-        withAnimation(.linear(duration: frameDur)) {
-            proxy.scrollTo(target.ayah, anchor: UnitPoint(x: 0.5, y: target.anchorY))
-        }
-    }
-
     private var istiadhBlock: some View {
         Text(Self.istiadhArabic)
             .font(.custom("A Thuluth", size: 22))
@@ -708,15 +667,7 @@ struct ReciterSurahNowPlayingView: View {
                         get: { player.currentTime },
                         set: { player.seek(to: $0) }
                     ),
-                    range: 0 ... max(player.duration, 0.1),
-                    onScrubbingChanged: { scrubbing in
-                        isTimelineScrubbing = scrubbing
-                        if scrubbing {
-                            pauseAutoAyahScrollUntil = Date().addingTimeInterval(2.0)
-                        } else {
-                            pauseAutoAyahScrollUntil = Date().addingTimeInterval(0.6)
-                        }
-                    }
+                    range: 0 ... max(player.duration, 0.1)
                 )
                 .frame(height: 28)
 
@@ -872,38 +823,6 @@ struct ReciterSurahNowPlayingView: View {
         await MainActor.run {
             selectedTranslationIds = bundle.selectedTranslationIds
             translationByAyah = bundle.translationByAyah
-        }
-    }
-}
-
-/// Pauses follow-scroll during user-driven scrolling. Uses scroll phases on iOS 18+ (no conflict with `scrollTo`); earlier OS uses a drag end hint only.
-private struct ReciterScrollUserInteractionPauseModifier: ViewModifier {
-    @Binding var pauseUntil: Date
-
-    func body(content: Content) -> some View {
-        Group {
-            if #available(iOS 18.0, *) {
-                content.onScrollPhaseChange { _, newPhase in
-                    switch newPhase {
-                    case .idle:
-                        pauseUntil = Date().addingTimeInterval(0.28)
-                    case .interacting, .tracking, .decelerating:
-                        pauseUntil = Date().addingTimeInterval(2.5)
-                    case .animating:
-                        break
-                    @unknown default:
-                        break
-                    }
-                }
-            } else {
-                content
-                    .simultaneousGesture(
-                        DragGesture(minimumDistance: 30)
-                            .onEnded { _ in
-                                pauseUntil = Date().addingTimeInterval(0.9)
-                            }
-                    )
-            }
         }
     }
 }
